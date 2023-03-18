@@ -1,0 +1,157 @@
+\section{Literature Review}~\label{sec:literature}
+
+% 1. Academic references - explain / summarise them\\
+% 2. Develop a meta-model of their fundamental argument, challenges, deficiencies, and strengths\\
+% 3. Compare their differences, similarities, and whether or not they agree. (If they all agree, more sources should be found); how they interrelate.\\
+% 4. Next, the exposition of the problem space (radar signal analysis) should be written, being lean enough so as to only explain the content of the referenced academic sources. I.e., the challenges faced should be fully developed.\\
+% 5. Following which, a more precise formulation of problems should be undertaken.
+
+%-------- Objectives of Honours
+\subsection{Course Objectives}
+
+%-------- Scope
+\subsection{Scope}
+
+Depending on the speed of progress throughout the honours project, the scope of the project will change. The extent of exploration into these concepts is wholly dependent on the available time. The scope should therefore not be defined fixed in time, but rather prioritised by level of desirability. At each level of scope, a definition of done must have been both defined and then met before proceeding to the next.
+
+\begin{enumerate}
+    \item 
+\end{enumerate}
+
+%-------- Use Cases / context
+\subsection{Use Cases of Radar / contexts}
+
+\begin{itemize}
+    \item 3-5 Functional categories and uses of Radar: \cite{}
+    \begin{itemize}
+        \item Aerospace - weather, navigation, approach, altitude, identification
+        \item Maritime - navigation, collision avoidance,  
+        \item Ground Penetrating - archaeology, mining, oceanographic sounding
+        \item Space - craft and celestial
+        \item Automotive - civilian and law enforcement
+        \item Industrial - fluid sensing, speed measurement
+        \item Medical - tomography etc
+        \item Atmospheric / Weather
+        \item Defence / Electronic Warfare
+   \end{itemize}
+\end{itemize}
+%
+%-------- Objectives
+\subsection{Objectives of Radar}
+
+The original object of radar lay in the name itself: a portmanteau of \textit{Radio Detection and Ranging}. \cite{policy_radar_1945}
+
+Today, the desired outputs of Radar systems are:
+
+\begin{itemize}
+    \item range
+    \item velocity
+    \item DOA (az/el)
+    \item TOA
+\end{itemize}
+
+In addition to radar signature / scattering cancellation:
+% TODO: figure out how to cite stuff. Following list derived from p4 of https://faculty.nps.edu/jenn/seminars/radarfundamentals.pdf
+\begin{itemize}
+    \item target size - return amplitude
+    \item target shape - from discrete scan returns
+    \item target material composition
+    \item moving parts (modulation of the return)
+\end{itemize}
+
+% Also these functions
+% \begin{itemize}
+%     \item Detection
+%     \item tracking
+%     \item Identification
+%     \item Range
+%     \item Direction
+%     \item Speed
+%     \item Imaging
+%     \item Navigation
+% \end{itemize}
+
+%-------- Shall a history be applicable here? i.e., a chronological development of the technology of radar
+
+%-------- Principle of Operation
+\subsection{Radar: Principles of Operation}
+
+\subsubsection{Option 1}
+
+The primary interest of this option is in passive radar, i.e., radars which generally do not transmit energy and listen to a return.
+
+One functional mode of radar is a search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations.
+
+In the processing functional block, the problems for radar are, in sequential order:
+
+\begin{itemize}
+    \item How to distinguish between the different categories of signals: communications, interference, radar, and noise.
+    \item Then, after having understood what signals are radar intercepts, identifying which belong to the same originating receiver. 
+    \item Once, a radar signal has been de-interleaved, how to identify the originating emitter, given some a priori understanding of the operational environment.
+\end{itemize}
+
+In each of these phases, there are two other activities which may take place:
+
+\begin{itemize}
+    \item Display for use by an operator
+    \item Tracking – identifying the Direction of Arrival (DOA) and rate of change of DOA, to track a target. Tracking may be undertaken at the same time as the search mode – named search-and-track.
+    \item In search-and-track modes, there exists a problem in how to allocate dwell time to each target track, versus in searching some area.
+\end{itemize}
+
+\subsubsection{Option 2}
+
+The primary interest of this option is in active radar, i.e., radars which emit energy and listen to a return.
+
+One category of radar is pulsed-Doppler which emits energy in high-frequency pulses. The characteristics of the pulses impact the range resolution, with shorter pulses allowing for higher resolution because the receive signal is too shorter. However, the trade-off is that a shorter pulse means less time for the emission to illuminate the target, and therefore less return amplitude and shorter maximum range. One way to counter this issue is to use a technique named ‘pulse compression’. In principle, the technique bypasses this limitation by transmitting infinitely short pulses. How? By means of frequency modulation; by ramping the transmission frequency linearly up or down. The difficulty is: how to receive a single pulse over these many frequencies. The solution is in using an analogue filter with a non-linear phase response which causes lower frequencies to be ‘delayed’ or phase-shifted, more than higher frequencies, In effect it ‘compresses’ the returned pulse into a higher power pulse, thereby increasing both range resolution, and maximum range. This, however, is not enough. Higher range and resolution are desired – and that means more power! A single pulse is alone insufficient in solving the problem; the solution lays in multiple pulses. By sending more than one pulse, one increases the average transmitted power on the target (and thus returns). With multiple pulses, the chances of a return being intercepted are increased. These pulses must be transmitted consecutively therefore, at some Pulse Repetition Frequency (PRF). However effective upon first thought, a limitation always arises – range ambiguity. If a pulse is transmitted and, before the its return received, another pulse arrives,  \cite{parker_chapter_2010}
+
+
+%-------- Signal characteristics
+\subsection{Characteristics of Radar Signals}
+
+Domains: 
+\begin{itemize}
+    \item pulse params
+    \item frequency
+    \item PRF / PRI
+    \item scan
+    \item Modulation (and associated params)
+    \item power
+    \item polarisation
+    \item PRF jitter / patterned PRF
+    \item coherence
+\end{itemize}
+
+Pulse Descriptor words
+
+%-------- Challenges
+
+\subsection{Challenges in Radar signal analysis}
+
+Here, note the areas in which overcoming challenges using classical computing is difficult or impractical.
+
+\begin{itemize}
+    \item Identification
+    \item De-interleaving
+    \item Imaging
+    \item Clutter rejection
+    \item LPI detection
+    \item Noise reduction	
+    \item Ambiguity analysis
+    \item Parameter extraction
+    \item Resource allocation
+    \item Tracking
+    \item Interference reduction
+    \item Beamforming
+\end{itemize}
+
+%-------- Methods in achieveing challenges
+\subsection{Methods}
+
+%-------- Current challenges in those methods
+\subsection{Open issues}
+
+% Research question
+\subsection{Research question}
+
+Ideally, select 2-3 potential small, and well defined problems from which one may be selected for future formulation of a subsequent research inquiry.
+

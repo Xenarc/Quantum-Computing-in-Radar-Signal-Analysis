@@ -1,0 +1,383 @@
+% LaTeX template for SIT723/SIT724 dissertation/exegesis for Deakin Honours and Masters students
+% Authors:
+% Dr. Chetan Arora, Academic Director (Coursework Research)
+% Hon. A/Prof. Jacob L. Cybulski
+
+\documentclass[oneside,12pt]{article}
+\pagestyle{plain}
+
+%%%-----PACKAGES------------------
+%\usepackage[english,activeacute]{babel}
+\usepackage[british,UKenglish,USenglish,american]{babel}
+%\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage[leqno]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsopn}
+\usepackage{amstext}
+\usepackage{amsthm}
+\usepackage[textsize=small]{todonotes}
+%\usepackage[disable]{todonotes}
+\setuptodonotes{color=blue!30}
+\usepackage{enumitem}
+\usepackage{xy}
+
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
+\usepackage{verbatim}
+\usepackage[colorlinks, backref, citecolor=blue]{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage{makeidx}
+
+\newcommand{\define}[2]{{\em #1}\index{#2}}
+
+
+% Packages for special symbols and ornaments:
+\usepackage{calrsfs}
+\usepackage{fourier-orns}
+%\usepackage{hieroglf} \newcommand{\hiero}{\textpmhg}
+\usepackage{clock} %\ClockFrametrue\ClockStyle2
+\usepackage[alpine, weather]{ifsym}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage{blindtext}
+\usepackage{soul}
+\usepackage{physics}
+\usepackage{qcircuit}
+\usepackage{subcaption} 
+\usepackage{framed} 
+\usepackage{authblk}
+
+% Resolve rho and varrho symbols
+\usepackage{mathptmx}
+\DeclareSymbolFont{newfont}{OML}{cmm}{m}{it}% Computer Modern math font
+\DeclareMathSymbol{\Epsilon}{3}{newfont}{15}% Symbol 15
+\DeclareMathSymbol{\Rho}{\mathalpha}{operators}{"50}
+
+% Formatting page
+\usepackage{setspace}
+
+% Notes in margins and switching them on and off (if needed)
+\newcommand{\almarginpar}[1]{\leavevmode\marginpar[\raggedleft\small\textit{#1}]{}}
+%\newcommand{\almarginpar}[1]{}
+
+\providecommand{\ar}{\arrow}
+\newcommand{\Em}{\mathbb M}
+
+
+\frenchspacing
+
+\providecommand{\cal}{\mathcal}
+\renewcommand{\Bbb}{\mathbb}
+\renewcommand{\frak}{\mathfrak}
+\newenvironment{pf}{\begin{proof}}{\end{proof}}
+
+%%%%%%%%%%%%%%%%%%%%
+% Standard commands
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% Calligraphic and bold letters. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Aa}{{\Bbb{A}}}
+\newcommand{\Aaa}{{\cal{A}}}
+\newcommand{\Bee}{{\cal{B}}}
+\newcommand{\Cee}{{\cal{C}}}
+\newcommand{\Dee}{{\cal{D}}}
+\newcommand{\Ef}{{\cal{F}}}
+\newcommand{\Gee}{{\cal{G}}}
+\newcommand{\Haa}{{\cal{H}}}
+\newcommand{\Ai}{\cal{I}}
+\newcommand{\Kay}{{\cal{K}}}
+\newcommand{\El}{{\cal{L}}}
+\newcommand{\Pee}{{\cal{P}}}
+\newcommand{\See}{{\cal{S}}}
+\newcommand{\Tau}{{\cal{T}}}
+\newcommand{\Yu}{{\cal{U}}}
+\newcommand{\Vee}{{\cal{V}}}
+\newcommand{\Wu}{{\cal{W}}}
+\newcommand{\Zee}{{\Bbb{Z}}}
+\newcommand{\Emm}{{\frak{M}}}
+\newcommand{\Be}{{\Bbb{B}}}
+\newcommand{\Nat}{{\Bbb{N}}}
+\newcommand{\Z}{{\mathbb Z}} % The integers
+\newcommand{\Qyu}{{\Bbb{Q}}}
+\newcommand{\Err}{{\Bbb{R}}}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Shortcuts for some Greek letters. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\lam}{{\lambda}}
+\newcommand{\al}{\alpha}
+\newcommand{\Gam}{\Gamma}
+\newcommand{\alG}{\al\in\Gamma}
+\newcommand{\sig}{\sigma}
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\rho}{\varrho}
+
+%%%%%%%%%%%%%%%%%%%%
+% Basic commands. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\rest}{\restriction}
+\newcommand{\unii}{\mathbb I}
+\newcommand{\ntr}{{n\in\omega}}
+\newcommand{\Ntr}{n\in{\Bbb{N}}}
+\newcommand{\loe}{\leq}
+\newcommand{\goe}{\geq}
+\newcommand{\notloe}{\nleq}
+\newcommand{\notgoe}{\ngeq}
+\newcommand{\subs}{\subseteq}
+\newcommand{\sups}{\supseteq}
+\newcommand{\nnempty}{\ne\emptyset}
+\newcommand{\argum}{\:\cdot\:}
+\newcommand{\ovr}{\overline}
+\renewcommand{\iff}{\Longleftrightarrow}
+
+%%%%%%%%%%%%%%%%%%%%
+% Topology. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Cl}[1]{\overline{#1}}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\Int}{\operatorname{int}}
+\newcommand{\w}{\operatorname{w}}
+\newcommand{\dens}{\operatorname{dens}}
+\newcommand{\eXp}{\operatorname{exp}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\nbd}{\operatorname{nbd}}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Convexity. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\co}{\operatorname{co}}
+\newcommand{\clco}{\operatorname{clco}}
+\newcommand{\m}{\operatorname{m}}
+\newcommand{\med}{\operatorname{med}}
+
+\newcommand{\G}{{\mathbb G}}
+
+%%%%%%%%%%%%%%%%%%%%
+% Miscellaneous. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\id}[1]{{\operatorname{i\!d}_{#1}}} % identity morphism
+\newcommand{\cf}{\operatorname{cf}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\cod}{\operatorname{cod}}
+\newcommand{\Dom}{\operatorname{Dom}}
+\newcommand{\rng}{\operatorname{rng}}
+\newcommand{\suppt}{\operatorname{suppt}}
+\newcommand{\defi}{\stackrel{\rm df}=}
+\newcommand{\pr}{\operatorname{pr}}
+\newcommand{\liminv}{\varprojlim}
+
+\newcommand{\symd}{\div} % <--- Symmetrical difference
+
+\newcommand{\oraz}{\qquad\text{and}\qquad}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+\newcommand\subsubsubsection{\@startsection{paragraph}{4}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
+\newcommand\subsubsubsubsection{\@startsection{subparagraph}{5}{\z@}{-2.5ex\@plus -1ex \@minus -.25ex}{1.25ex \@plus .25ex}{\normalfont\normalsize\bfseries}}
+
+%%%%%%%%%%%%%%%%%%%%
+% Some forcing commands. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\proves}{\vdash}
+\newcommand{\forces}{\Vdash}
+\newcommand{\Con}{\operatorname{Con}}
+\newcommand{\Card}{{\frak{Card}}}
+\newcommand{\Func}{\operatorname{Func}}
+\newcommand{\poset}{{\Bbb{P}}}
+\newcommand{\Forall}{\forall\;}
+\newcommand{\Exists}{\exists\;}
+\newcommand{\h}{\widehat}
+\newcommand{\val}{\operatorname{val}}
+\newcommand{\comp}{\parallel}
+\newcommand{\incomp}{\perp}
+\newcommand{\Es}{{\cal{S}}}
+\newcommand{\meet}{\wedge}
+\newcommand{\Meet}{\prod}
+\newcommand{\join}{\vee}
+\renewcommand{\Join}{\sum}
+\newcommand{\Land}{\;\&\;}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Trees. 
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Lev}{\operatorname{Lev}}
+\newcommand{\lev}[2]{{\ell_{#1}#2}}
+\newcommand{\Ht}{\operatorname{ht}}
+\newcommand{\length}{\operatorname{length}}
+\newcommand{\bd}{\partial}
+
+\newcommand{\concat}{{}^\smallfrown}
+\newcommand{\Reg}{{\frak{Reg}}}
+\newcommand{\Ord}{{\frak{Ord}}}
+\newcommand{\by}[1]{/_{#1}}
+\newcommand{\club}{\operatorname{club}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\otp}{\operatorname{otp}}
+\newcommand{\Fin}{\operatorname{fin}}
+
+%%%%%%%%%%%%%%%%%%%%
+% Theorems and Propositions. 
+%%%%%%%%%%%%%%%%%%%%
+\newtheorem{tw}{Theorem}[section]
+\newtheorem{wn}[tw]{Corollary}
+\newtheorem{lm}[tw]{Lemma}
+\newtheorem{prop}[tw]{Proposition}
+\newtheorem{claim}[tw]{Claim}
+\theoremstyle{definition}
+\newtheorem{df}[tw]{Definition}
+\newtheorem{ex}[tw]{Example}
+\newtheorem{pyt}[tw]{Question}
+\newtheorem{question}[tw]{Question}
+\theoremstyle{remark}
+\newtheorem{uwgi}{Remark}
+\renewcommand{\theuwgi}{}
+
+%%%%%%%%%%%%%%
+% Create notes
+%%%%%%%%%%%%%%
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+% Cantor's stuff:
+\newcommand{\Cantor}{2^\omega}
+
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,        % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,     % color of file links
+	urlcolor=blue         
+}
+
+%%%-----ORIGINALLY SUGGESTED PACKAGES------------------
+\usepackage{graphicx}
+\usepackage{fontspec}
+% \usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, inner=50mm, outer=20mm, left=48mm,  top=22mm, bottom=22mm, right=22mm, marginwidth=40mm} %, showframe}
+\usepackage{setspace}
+\usepackage[document]{ragged2e}
+% \usepackage{times,fullpage} 
+% \usepackage{hyperref}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{fancyhdr}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\renewcommand{\familydefault}{\sfdefault}
+\hyphenpenalty=10000
+\tolerance=10000
+\graphicspath{ {Figures/}} %% Path to your Figure folder
+
+%%% IF you need headers and footers
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyhead[L]{\rightmark}
+% \rfoot{\thepage}
+% \renewcommand{\headrulewidth}{0pt}
+
+%-------------DOCUMENT BEGIN-------------------
+\begin{document}
+\onehalfspacing
+%========= Title Page
+\thispagestyle{empty} 
+\begin{titlepage}
+    \includegraphics[width=0.25\textwidth]{Deakin_Logo.jpeg}
+    \begin{center}
+       \vspace*{4cm}
+       {\LARGE Quantum Computing in Radar Signal Analysis}
+       \vspace{3cm}
+    \begin{large}   
+    
+        {\bf Submitted as Research Report / Honours / Master Dissertation in SIT723}
+       \vspace{1cm}
+        
+        {\bf SUBMISSION DATE} \\
+        T1-2022
+        
+       \vspace{3cm}
+       \textbf{Mark Blashki}\\
+       STUDENT ID 220228182 \\
+       COURSE - Bachelor of Computer Science (Honours)
+       \vfill
+
+       {\bf \normalsize Supervised by: Hon. A/Prof. Jacob L. Cybulski }\\
+       
+    \end{large}  
+   \end{center}
+\end{titlepage}
+
+%PAGE SETUP
+% \textheight=22cm
+% \textwidth=15cm
+% %\hoffset=-1cm
+% \hoffset=2.5cm
+% \voffset=-2cm
+% %\parindent=16pt
+\setlength{\marginparwidth}{4cm}
+\reversemarginpar
+
+%-----------Abstract----------
+\newpage 
+\thispagestyle{plain} 
+\pagenumbering{roman}
+\input{01_abstract}
+
+%---------Table of Content, Figures and Tables--------
+\newpage
+\begin{singlespacing}
+\tableofcontents
+\end{singlespacing}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{2.0}
+
+\newpage
+\listoffigures
+\listoftables
+
+% Main body of Thesis
+%========= Start of Thesis 
+\newpage 
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\onehalfspacing
+
+%%-------SECTIONS
+%%------ Include files for each section
+\input{01_introduction}
+\input{02_literature_review}
+\input{03_design}
+\input{04_approach}
+\input{05_evaluation}
+\input{06_discussion}
+\input{07_threats}
+\input{08_conclusion}
+
+%-------- Bibliography
+\newpage
+\singlespacing
+% \bibliography{references} %%All bibtex references are in references.bib file
+% \bibliographystyle{siam}
+\bibliographystyle{jcabbrv} % Sorted and "note" fields removed
+\bibliography{references.bib}
+\end{document}
+%-------------DOCUMENT END-------------------
