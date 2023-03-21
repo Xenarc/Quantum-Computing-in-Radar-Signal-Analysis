@@ -7,7 +7,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: marcomicera/xelatex-action@v0.6
         with:
           root_file: 00_main.tex
       - name: Upload a build artifact
