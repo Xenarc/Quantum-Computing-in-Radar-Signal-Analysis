@@ -3,6 +3,9 @@ on: [push]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
