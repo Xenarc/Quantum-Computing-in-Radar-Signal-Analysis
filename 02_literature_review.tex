@@ -9,20 +9,87 @@
 %-------- Objectives of Honours
 \subsection{Course Objectives}
 
+\begin{itemize}
+    \item To further understand the principles of operation of passive radar systems, including their ability to detect and identify emitters in complex electromagnetic environments.
+    \item To critically evaluate existing literature on radar systems and quantum computing to effecively communicate existing the academic knowledge, and to show a capability to conduct independent future research.
+    \item To identify the possibilities of using Quantum Computing in Radar signal analysis; to also identify three candidate avenues; to explore one in enough depth to evaluate potential feasability though the creation of a technical solution
+    \item To prioritize research topics based on their level of desirability and feasibility, and to develop a plan for executing research projects within a defined timeline and scope.
+    \item To communicate research findings effectively to a technical audience.
+\end{itemize}
+
+\textbf{For each idea:}
+Evaluate the effectiveness of the technical solution in order to determine feasiblity (Yes/No). Compare objectively the performance / accuracy / capability compared to classical methods
+
+Definition of done: highly subjective and wholly determined by allotted time.
+
+Verification: to occur at each stage of demonstrable functionality
+
+Validation: Consultation with colleagues a few weeks before unit finalisation.
+
 %-------- Scope
 \subsection{Scope}
 
 Depending on the speed of progress throughout the honours project, the scope of the project will change. The extent of exploration into these concepts is wholly dependent on the available time. The scope should therefore not be defined fixed in time, but rather prioritised by level of desirability. At each level of scope, a definition of done must have been both defined and then met before proceeding to the next.
 
+Potential Avenues of exploration: (in order of desirability / difficulty). (think Detect; locate; identify)
 \begin{enumerate}
-    \item 
+    \item Encode IQ signals into quantum form (potentially explore different forms)
+    
+    Measure of success: Successfully evaluate the feasibility of encoding IQ signals into a quantum format, if not develop the solution which can do that using Quantum Algorithms.
+    
+    \item Fuzzy Parameter extraction - similar to the above; instead of descretising signals into definite PDW's, the Quantum system maintains all possibilities of potential PDW's and allows for association to either existing radar modes, or to additional signals. This approach would investigate whether we can use quantum computers to make observed radar modes a continuous thing which we can associate known modes to.
+    
+    Measure of success: Develop a quantum system that maintains all possibilities of potential PDWs for radar signals and associate them with either existing radar modes or additional signals. 
+    
+    \item Signal extraction / recognition: Following on from the above - detect when signals occur and reoccur as well as their properties. (potentially for different signal types, like Doppler, LPI in pulse dense environments, frequency-agile signals; and for different noise types / types of interference).
+
+    Measure of success: Successfully associate reocurring signals (with a quantitative accuracy at given noise as measure of success) 
+    
+    \item Signal clustering / de-interleaving : either after having done descretised a signal into PDW's, or for more unrefined signals where an amorphous 'similarity' between continuous times and domains is drawn <- this feels pretty interesting)
+
+    Measure of success: Successfully cluster or de-interleave a signal into PDWs (objective is accuracy); or for more unrefined signals / encoded IQ, a Boolean feasibility of whether a continuous measure of 'similarity' between signals can be drawn.
+    
+    \item Tracking - acquiring and following a signal in the time domain.
+
+    Measure of success: Successfully acquire a signal; successfully follow a signal in the time domain. Use a quantitative measure of track duration at given noise.
+    
+    \item Resource allocation
+    
+    \item Noise reduction / Interference reduction / Clutter rejection / active filtering
 \end{enumerate}
+Interesting but out of scope:
+\begin{enumerate}
+  \setcounter{enumi}{7}
+    \item Ambiguity analysis
+    \item Antenna Beamforming
+    \item Imaging
+\end{enumerate}
+
+This is a good categorisation from \cite{wiley_elint_2006}, of the various challenges in ELINT:
+
+\begin{itemize}
+    \item De-interleaving
+    \item Pulse Repetition Interval Analysis
+    \item Intra-pulse analysis
+\end{itemize}
+
+\subsubsection{Out of Scope}
+
+\begin{itemize}
+    \item Hardware
+    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, correlation analysis, etc.)
+    \item Synthetic Aperture Radar (SAR) and antenna-specific computation (i.e., bistatic/multistatic antenna setups)
+    \item Imaging
+    \item Forecasting
+    \item Active emission.
+    \item intensive simulation
+\end{itemize}
 
 %-------- Use Cases / context
 \subsection{Use Cases of Radar / contexts}
 
 \begin{itemize}
-    \item 3-5 Functional categories and uses of Radar: \cite{}
+    \item 3-5 Functional categories and uses of Radar: \cite{noauthor_radar_nodate, desai_how_2022}
     \begin{itemize}
         \item Aerospace - weather, navigation, approach, altitude, identification
         \item Maritime - navigation, collision avoidance,  
@@ -35,13 +102,13 @@ Depending on the speed of progress throughout the honours project, the scope of 
         \item Defence / Electronic Warfare
    \end{itemize}
 \end{itemize}
-%
+
 %-------- Objectives
 \subsection{Objectives of Radar}
 
 The original object of radar lay in the name itself: a portmanteau of \textit{Radio Detection and Ranging}. \cite{policy_radar_1945}
 
-Today, the desired outputs of Radar systems are:
+Today, the desired outputs of Radar systems are: \cite{stimson_introduction_1998}\todo{Reconfirm these}
 
 \begin{itemize}
     \item range
@@ -50,8 +117,7 @@ Today, the desired outputs of Radar systems are:
     \item TOA
 \end{itemize}
 
-In addition to radar signature / scattering cancellation:
-% TODO: figure out how to cite stuff. Following list derived from p4 of https://faculty.nps.edu/jenn/seminars/radarfundamentals.pdf
+In addition to radar signature / scattering cancellation:\cite{jenn_radar_2007}
 \begin{itemize}
     \item target size - return amplitude
     \item target shape - from discrete scan returns
@@ -59,29 +125,29 @@ In addition to radar signature / scattering cancellation:
     \item moving parts (modulation of the return)
 \end{itemize}
 
-% Also these functions
-% \begin{itemize}
-%     \item Detection
-%     \item tracking
-%     \item Identification
-%     \item Range
-%     \item Direction
-%     \item Speed
-%     \item Imaging
-%     \item Navigation
-% \end{itemize}
+\todo{Consolidate these functions}
+Also these functions 
+\begin{itemize}
+    \item Detection
+    \item tracking
+    \item Identification
+    \item Range
+    \item Direction
+    \item Speed
+    \item Imaging
+    \item Navigation
+\end{itemize}
 
 %-------- Shall a history be applicable here? i.e., a chronological development of the technology of radar
 
 %-------- Principle of Operation
 \subsection{Radar: Principles of Operation}
 
-\subsubsection{Option 1}
+The primary interest of this option is in passive radar, i.e., radars which generally do not transmit energy and listen to a return. An example is a Radar Warning Reciever (RWR) which is a passive electronic warfare support system \cite{avionics_department_electronic_2013}
 
-The primary interest of this option is in passive radar, i.e., radars which generally do not transmit energy and listen to a return.
+One functional mode of radar is a search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations. \todo{disambiguate} \todo{citation needed - most likely intro to airborne radar}
 
-One functional mode of radar is a search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations.
-
+% Not a big fan of this section - refactor. Need to add section on EW
 In the processing functional block, the problems for radar are, in sequential order:
 
 \begin{itemize}
@@ -92,15 +158,12 @@ In the processing functional block, the problems for radar are, in sequential or
 
 In each of these phases, there are two other activities which may take place:
 
-\begin{itemize}
-    \item Display for use by an operator
-    \item Tracking – identifying the Direction of Arrival (DOA) and rate of change of DOA, to track a target. Tracking may be undertaken at the same time as the search mode – named search-and-track.
-    \item In search-and-track modes, there exists a problem in how to allocate dwell time to each target track, versus in searching some area.
-\end{itemize}
-
-\subsubsection{Option 2}
-
-The primary interest of this option is in active radar, i.e., radars which emit energy and listen to a return.
+\todo{Get the various displays and operational modes}
+% \begin{itemize}
+%     \item Display for use by an operator
+%     \item Tracking – identifying the Direction of Arrival (DOA) and rate of change of DOA, to track a target. Tracking may be undertaken at the same time as the search mode – named search-and-track.
+%     \item In search-and-track modes, there exists a problem in how to allocate dwell time to each target track, versus in searching some area.
+% \end{itemize}
 
 One category of radar is pulsed-Doppler which emits energy in high-frequency pulses. The characteristics of the pulses impact the range resolution, with shorter pulses allowing for higher resolution because the receive signal is too shorter. However, the trade-off is that a shorter pulse means less time for the emission to illuminate the target, and therefore less return amplitude and shorter maximum range. One way to counter this issue is to use a technique named ‘pulse compression’. In principle, the technique bypasses this limitation by transmitting infinitely short pulses. How? By means of frequency modulation; by ramping the transmission frequency linearly up or down. The difficulty is: how to receive a single pulse over these many frequencies. The solution is in using an analogue filter with a non-linear phase response which causes lower frequencies to be ‘delayed’ or phase-shifted, more than higher frequencies, In effect it ‘compresses’ the returned pulse into a higher power pulse, thereby increasing both range resolution, and maximum range. This, however, is not enough. Higher range and resolution are desired – and that means more power! A single pulse is alone insufficient in solving the problem; the solution lays in multiple pulses. By sending more than one pulse, one increases the average transmitted power on the target (and thus returns). With multiple pulses, the chances of a return being intercepted are increased. These pulses must be transmitted consecutively therefore, at some Pulse Repetition Frequency (PRF). However effective upon first thought, a limitation always arises – range ambiguity. If a pulse is transmitted and, before the its return received, another pulse arrives,  \cite{parker_chapter_2010}
 
@@ -110,39 +173,28 @@ One category of radar is pulsed-Doppler which emits energy in high-frequency pul
 
 Domains: 
 \begin{itemize}
-    \item pulse params
-    \item frequency
-    \item PRF / PRI
-    \item scan
+% \cite{avionics_department_electronic_2013} 5-8.1
+% 1. Radio Frequency (RF)
+% 2. Amplitude (power)
+% 3. Direction of Arrival (DOA) - also called Angle of Arrival (AOA)
+% 4. Time of Arrival (TOA)
+% 5. Pulse Repetition Interval (PRI)            - PRF
+% 6. PRI type
+% 7. Pulse Width (PW)
+% 8. Scan type and rate
+% 9. Lobe duration (beam width)     - dewll
+    % \item coherence / phase
     \item Modulation (and associated params)
-    \item power
     \item polarisation
-    \item PRF jitter / patterned PRF
-    \item coherence
 \end{itemize}
 
-Pulse Descriptor words
+Pulse Descriptor words \cite{kg_pulse_nodate}
 
 %-------- Challenges
 
 \subsection{Challenges in Radar signal analysis}
 
 Here, note the areas in which overcoming challenges using classical computing is difficult or impractical.
-
-\begin{itemize}
-    \item Identification
-    \item De-interleaving
-    \item Imaging
-    \item Clutter rejection
-    \item LPI detection
-    \item Noise reduction	
-    \item Ambiguity analysis
-    \item Parameter extraction
-    \item Resource allocation
-    \item Tracking
-    \item Interference reduction
-    \item Beamforming
-\end{itemize}
 
 %-------- Methods in achieveing challenges
 \subsection{Methods}
