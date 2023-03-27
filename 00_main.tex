@@ -18,6 +18,9 @@
 \usepackage{amstext}
 \usepackage{amsthm}
 \usepackage[textsize=small]{todonotes}
+\newcommand{\smalltodo}[2][]
+    {\todo[caption={#2}, #1]
+    {\begin{spacing}{0.5}#2\end{spacing}}}
 %\usepackage[disable]{todonotes}
 \setuptodonotes{color=blue!30}
 \usepackage{enumitem}
@@ -294,6 +297,7 @@
 % \fancyhead[L]{\rightmark}
 % \rfoot{\thepage}
 % \renewcommand{\headrulewidth}{0pt}
+\reversemarginpar
 
 %-------------DOCUMENT BEGIN-------------------
 \begin{document}
@@ -308,7 +312,7 @@
        \vspace{3cm}
     \begin{large}   
     
-        {\bf Submitted as Research Report / Honours / Master Dissertation in SIT723}\todo{What would be the correct wording here?}
+        {\bf Submitted as Research Report in SIT723}
        \vspace{1cm}
         
         {\bf SUBMISSION DATE} \\
@@ -319,8 +323,8 @@
        STUDENT ID 220228182 \\
        COURSE - Bachelor of Information Technology (Honours)
        \vfill
-
-       {\bf \normalsize Supervised by: Hon. A/Prof. Jacob L. Cybulski }\\ \todo{Jacob - please confirm name and title}
+       
+       {\bf \normalsize Supervised by: Hon. A/Prof. Jacob L. Cybulski }\\
        
     \end{large}  
    \end{center}
@@ -334,7 +338,6 @@
 % \voffset=-2cm
 % %\parindent=16pt
 \setlength{\marginparwidth}{4cm}
-\reversemarginpar
 
 %-----------Abstract----------
 \newpage 

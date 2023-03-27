@@ -1,209 +1,62 @@
 \section{Literature Review}~\label{sec:literature}
 
+"Object Recognition and Identification Using ESM Data" \cite{taghavi_object_2016} presents a survey of techniques in ESM and kinematic measurement and a novel approach to the fusion of the two. The ultimate goal of their research was recognition and identification of targets. The authors present a novel architecture for combining both data-sets, suggesting that traditional approaches or silo-ed analyses are limited. In the paper, they stress the importance of using orthogonal source data; that is, the inputs of the system must represent non-overlapping phenomena. 
+
+While their problem solving methodology was novel, the execution was somewhat limited in the respects that they restricted their simulation to the maritime domain, and with simulated data. If their methods were to be applied practically, the limitation imposed by the maritime domain implicitly reduces the possibility for multi-path ambiguities. The small amount of real-world data also show a systemic challenge in radar signal analysis research. Furthermore, while their survey presented several classical approaches for the estimation of source parameters (both ESM and kinematic), the methods were only analytical. There was no mention of machine learning-based recognition and identification frameworks. The analytical methods presented were generally applicable and relevant for a baseline of ESM techniques. For example: Bayesian framework, belief functions, fuzzy set theory. The data-fusion framework presented in the paper does provide an applicable architecture for multi-domain analysis which may prove useful in future research. % Maybe I should make this more relevant to the problem at hand? Like drawing parralels to the challenges and approaches suggested for our research. % On second thought, each such analytical method should be explained 
+
+In "Deep-Learning for Radar: A Survey", Geng et. al. \cite{mason_deep_2017} provides a broad outlook on the current state of affairs in the use of deep learning in radar signal processing. The authors analysed a large body of research over several areas of radar signal processing and for a multitude of deep learning techniques. The paper identifies numerous applicable approaches with varying degrees of effectiveness. Deep learning techniques discussed were:
+\begin{itemize}
+    \item CNN: Convolutional neural network
+    \item DBN: Deep belief network
+    \item DRL: Deep reinforcement learning
+    \item DRES: Deep residual neural network
+    \item FNN: Feed-forward neural network
+    \item GAN: Generative adversarial network
+    \item RNN: ecurrent neural network, including long-short term memory
+    \item SAE: Stacked auto-encoder
+\end{itemize}
+
+The methods analysed in the paper, while comprehensive overall, still failed to attack the problem of parameter estimation. 
+
+Several limitations were also identified, some being systemic to the field, others specific to deep learning techniques. Some challenges identified were their subjectivity to Electronic Attack (EA), where, depending on the level of intelligence about the Deep Neural Networks (DNN) techniques employed, various exploitations may be executed. Of course, EA is not specific to DNN's, however, it's noted that because they exist as an heuristic model, they neccisarily have gaps in their model of the problem space. Therefore, it's noted that DNN's may be more suseptable to EA because of its inherent non-analytical method. Similar to Taghavi et. al. the lack of training data is a serious challenge in the testing and validation of any radar analysis model. This proves a large problem in any future effor for open-source development of DNN's for radar analysis, as noted by the authors that DNN's require large amounts of training data. The paper concludes with an evaluation of particularly effective methods, some reaching > 97\% accuracy, however as described - with small training sample sizes.
+
+The primary interest of this option is in passive radar, i.e., radars which generally do not transmit energy and listen to a return. An example is a Radar Warning Receiver (RWR) which is a passive electronic warfare support system \cite{avionics_department_electronic_2013}
+
+One functional mode of RWR's is the search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations. \cite{stimson_introduction_1998}\todo{This last one needs to be refined and specified to more constraints / trade-offs of radar I think.}
+
+"Encoding patterns for quantum algorithms" - Weigold et.al. \cite{weigold_encoding_2021} details several applicable approaches to encoding data for quantum algorithms. The problem presented in the paper is that quantum computing may have (in some cases) exponential speed-up when compared to classical methods, however data loading is often inefficient. Starting with a description of the quantum format itself, (qubits), the paper implicitly shows how quantum methods differ from classical formats. The substance of the article focuses on a comparison of practical means of transforming data, specifically:
+\begin{itemize}
+    \item Basis encoding
+    \item Angle encoding
+    \item QuAM encoding 
+    \item QRAM encoding
+    \item Amplitude encoding
+\end{itemize}
+
+The paper comprehensively details each approach, their applications, methods, and variants. Interestingly, the authors also present four novel methods on quantum state preparation, such that once data are loaded from their classical sources, that they may be prepared for quantum operations. The approaches were covered:
+
+\begin{itemize}
+    \item Schmidt decomposition
+    \item Matrix encoding
+    \item Quantum Phase Estimation
+    \item Post-selective measurement
+\end{itemize}
+
+Finally, an example solution to the well known quantum algorithm for linear systems of equations - the HHL algorithm - using several of the mentioned approaches were compared.
+
+Overall, the paper makes a comprehensive survey of encoding approaches with strong analytical grounding. The approaches mentioned, while soundly applicable to many forms of atomic classical data, somewhat neglect the complexity of real-world data. A specific example would be high-dimensional timeseries (as is used for radar signal processing), which neither classical computing nor quantum computing have yet to represent faithfully. Such a limitation may be simply a result of the technologies used, rather than the methods presented in this article. The paper effectively describes and identifies the benefits and limitations of each method in terms of efficiency and entropy conversion losses.
+
+% I don't think I've hit the mark here...
+% There needs to be more synthetic analysis here. Comparisons between each approach and the subject of this report need to be drawn.
+% I think these reviews should be shorter, more relevant, and more numerous.
+% I'm also not so sure about how detailed the review should be? Should I be describing the methods used in each, or just a broad overview as what I have done here?
+% To what degree do the papers have to be 'current' seeing that most research is exploring current paradigms using more specific techniques, whereas the subject of this report is more 'from first principles'
+% On a similar note, to what extent is this explanation versus critical analysis? 
+
+
+% NOTES FROM MEETING 1
 % 1. Academic references - explain / summarise them\\
 % 2. Develop a meta-model of their fundamental argument, challenges, deficiencies, and strengths\\
 % 3. Compare their differences, similarities, and whether or not they agree. (If they all agree, more sources should be found); how they interrelate.\\
 % 4. Next, the exposition of the problem space (radar signal analysis) should be written, being lean enough so as to only explain the content of the referenced academic sources. I.e., the challenges faced should be fully developed.\\
 % 5. Following which, a more precise formulation of problems should be undertaken.
-
-%-------- Objectives of Honours
-\subsection{Course Objectives}
-
-\begin{itemize}
-    \item To further understand the principles of operation of passive radar systems, including their ability to detect and identify emitters in complex electromagnetic environments.
-    \item To critically evaluate existing literature on radar systems and quantum computing to effecively communicate existing the academic knowledge, and to show a capability to conduct independent future research.
-    \item To identify the possibilities of using Quantum Computing in Radar signal analysis; to also identify three candidate avenues; to explore one in enough depth to evaluate potential feasability though the creation of a technical solution
-    \item To prioritize research topics based on their level of desirability and feasibility, and to develop a plan for executing research projects within a defined timeline and scope.
-    \item To communicate research findings effectively to a technical audience.
-\end{itemize}
-
-\textbf{For each idea:}
-Evaluate the effectiveness of the technical solution in order to determine feasiblity (Yes/No). Compare objectively the performance / accuracy / capability compared to classical methods
-
-Definition of done: highly subjective and wholly determined by allotted time.
-
-Verification: to occur at each stage of demonstrable functionality
-
-Validation: Consultation with colleagues a few weeks before unit finalisation.
-
-%-------- Scope
-\subsection{Scope}
-
-Depending on the speed of progress throughout the honours project, the scope of the project will change. The extent of exploration into these concepts is wholly dependent on the available time. The scope should therefore not be defined fixed in time, but rather prioritised by level of desirability. At each level of scope, a definition of done must have been both defined and then met before proceeding to the next.
-
-Potential Avenues of exploration: (in order of desirability / difficulty). (think Detect; locate; identify)
-\begin{enumerate}
-    \item Encode IQ signals into quantum form (potentially explore different forms)
-    
-    Measure of success: Successfully evaluate the feasibility of encoding IQ signals into a quantum format, if not develop the solution which can do that using Quantum Algorithms.
-    
-    \item Fuzzy Parameter extraction - similar to the above; instead of descretising signals into definite PDW's, the Quantum system maintains all possibilities of potential PDW's and allows for association to either existing radar modes, or to additional signals. This approach would investigate whether we can use quantum computers to make observed radar modes a continuous thing which we can associate known modes to.
-    
-    Measure of success: Develop a quantum system that maintains all possibilities of potential PDWs for radar signals and associate them with either existing radar modes or additional signals. 
-    
-    \item Signal extraction / recognition: Following on from the above - detect when signals occur and reoccur as well as their properties. (potentially for different signal types, like Doppler, LPI in pulse dense environments, frequency-agile signals; and for different noise types / types of interference).
-
-    Measure of success: Successfully associate reocurring signals (with a quantitative accuracy at given noise as measure of success) 
-    
-    \item Signal clustering / de-interleaving : either after having done descretised a signal into PDW's, or for more unrefined signals where an amorphous 'similarity' between continuous times and domains is drawn <- this feels pretty interesting)
-
-    Measure of success: Successfully cluster or de-interleave a signal into PDWs (objective is accuracy); or for more unrefined signals / encoded IQ, a Boolean feasibility of whether a continuous measure of 'similarity' between signals can be drawn.
-    
-    \item Tracking - acquiring and following a signal in the time domain.
-
-    Measure of success: Successfully acquire a signal; successfully follow a signal in the time domain. Use a quantitative measure of track duration at given noise.
-    
-    \item Resource allocation
-    
-    \item Noise reduction / Interference reduction / Clutter rejection / active filtering
-\end{enumerate}
-Interesting but out of scope:
-\begin{enumerate}
-  \setcounter{enumi}{7}
-    \item Ambiguity analysis
-    \item Antenna Beamforming
-    \item Imaging
-\end{enumerate}
-
-This is a good categorisation from \cite{wiley_elint_2006}, of the various challenges in ELINT:
-
-\begin{itemize}
-    \item De-interleaving
-    \item Pulse Repetition Interval Analysis
-    \item Intra-pulse analysis
-\end{itemize}
-
-\subsubsection{Out of Scope}
-
-\begin{itemize}
-    \item Hardware
-    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, correlation analysis, etc.)
-    \item Synthetic Aperture Radar (SAR) and antenna-specific computation (i.e., bistatic/multistatic antenna setups)
-    \item Imaging
-    \item Forecasting
-    \item Active emission.
-    \item intensive simulation
-\end{itemize}
-
-%-------- Use Cases / context
-\subsection{Use Cases of Radar / contexts}
-
-\begin{itemize}
-    \item 3-5 Functional categories and uses of Radar: \cite{noauthor_radar_nodate, desai_how_2022}
-    \begin{itemize}
-        \item Aerospace - weather, navigation, approach, altitude, identification
-        \item Maritime - navigation, collision avoidance,  
-        \item Ground Penetrating - archaeology, mining, oceanographic sounding
-        \item Space - craft and celestial
-        \item Automotive - civilian and law enforcement
-        \item Industrial - fluid sensing, speed measurement
-        \item Medical - tomography etc
-        \item Atmospheric / Weather
-        \item Defence / Electronic Warfare
-   \end{itemize}
-\end{itemize}
-
-%-------- Objectives
-\subsection{Objectives of Radar}
-
-The original object of radar lay in the name itself: a portmanteau of \textit{Radio Detection and Ranging}. \cite{policy_radar_1945}
-
-Today, the desired outputs of Radar systems are: \cite{stimson_introduction_1998}\todo{Reconfirm these}
-
-\begin{itemize}
-    \item range
-    \item velocity
-    \item DOA (az/el)
-    \item TOA
-\end{itemize}
-
-In addition to radar signature / scattering cancellation:\cite{jenn_radar_2007}
-\begin{itemize}
-    \item target size - return amplitude
-    \item target shape - from discrete scan returns
-    \item target material composition
-    \item moving parts (modulation of the return)
-\end{itemize}
-
-\todo{Consolidate these functions}
-Also these functions 
-\begin{itemize}
-    \item Detection
-    \item tracking
-    \item Identification
-    \item Range
-    \item Direction
-    \item Speed
-    \item Imaging
-    \item Navigation
-\end{itemize}
-
-%-------- Shall a history be applicable here? i.e., a chronological development of the technology of radar
-
-%-------- Principle of Operation
-\subsection{Radar: Principles of Operation}
-
-The primary interest of this option is in passive radar, i.e., radars which generally do not transmit energy and listen to a return. An example is a Radar Warning Reciever (RWR) which is a passive electronic warfare support system \cite{avionics_department_electronic_2013}
-
-One functional mode of radar is a search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations. \todo{disambiguate} \todo{citation needed - most likely intro to airborne radar}
-
-% Not a big fan of this section - refactor. Need to add section on EW
-In the processing functional block, the problems for radar are, in sequential order:
-
-\begin{itemize}
-    \item How to distinguish between the different categories of signals: communications, interference, radar, and noise.
-    \item Then, after having understood what signals are radar intercepts, identifying which belong to the same originating receiver. 
-    \item Once, a radar signal has been de-interleaved, how to identify the originating emitter, given some a priori understanding of the operational environment.
-\end{itemize}
-
-In each of these phases, there are two other activities which may take place:
-
-\todo{Get the various displays and operational modes}
-% \begin{itemize}
-%     \item Display for use by an operator
-%     \item Tracking – identifying the Direction of Arrival (DOA) and rate of change of DOA, to track a target. Tracking may be undertaken at the same time as the search mode – named search-and-track.
-%     \item In search-and-track modes, there exists a problem in how to allocate dwell time to each target track, versus in searching some area.
-% \end{itemize}
-
-One category of radar is pulsed-Doppler which emits energy in high-frequency pulses. The characteristics of the pulses impact the range resolution, with shorter pulses allowing for higher resolution because the receive signal is too shorter. However, the trade-off is that a shorter pulse means less time for the emission to illuminate the target, and therefore less return amplitude and shorter maximum range. One way to counter this issue is to use a technique named ‘pulse compression’. In principle, the technique bypasses this limitation by transmitting infinitely short pulses. How? By means of frequency modulation; by ramping the transmission frequency linearly up or down. The difficulty is: how to receive a single pulse over these many frequencies. The solution is in using an analogue filter with a non-linear phase response which causes lower frequencies to be ‘delayed’ or phase-shifted, more than higher frequencies, In effect it ‘compresses’ the returned pulse into a higher power pulse, thereby increasing both range resolution, and maximum range. This, however, is not enough. Higher range and resolution are desired – and that means more power! A single pulse is alone insufficient in solving the problem; the solution lays in multiple pulses. By sending more than one pulse, one increases the average transmitted power on the target (and thus returns). With multiple pulses, the chances of a return being intercepted are increased. These pulses must be transmitted consecutively therefore, at some Pulse Repetition Frequency (PRF). However effective upon first thought, a limitation always arises – range ambiguity. If a pulse is transmitted and, before the its return received, another pulse arrives,  \cite{parker_chapter_2010}
-
-
-%-------- Signal characteristics
-\subsection{Characteristics of Radar Signals}
-
-Domains: 
-\begin{itemize}
-% \cite{avionics_department_electronic_2013} 5-8.1
-% 1. Radio Frequency (RF)
-% 2. Amplitude (power)
-% 3. Direction of Arrival (DOA) - also called Angle of Arrival (AOA)
-% 4. Time of Arrival (TOA)
-% 5. Pulse Repetition Interval (PRI)            - PRF
-% 6. PRI type
-% 7. Pulse Width (PW)
-% 8. Scan type and rate
-% 9. Lobe duration (beam width)     - dewll
-    % \item coherence / phase
-    \item Modulation (and associated params)
-    \item polarisation
-\end{itemize}
-
-Pulse Descriptor words \cite{kg_pulse_nodate}
-
-%-------- Challenges
-
-\subsection{Challenges in Radar signal analysis}
-
-Here, note the areas in which overcoming challenges using classical computing is difficult or impractical.
-
-%-------- Methods in achieveing challenges
-\subsection{Methods}
-
-%-------- Current challenges in those methods
-\subsection{Open issues}
-
-% Research question
-\subsection{Research question}
-
-Ideally, select 2-3 potential small, and well defined problems from which one may be selected for future formulation of a subsequent research inquiry.
-
