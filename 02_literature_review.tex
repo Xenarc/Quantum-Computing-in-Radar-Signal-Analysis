@@ -24,7 +24,7 @@ The primary interest of this option is in passive radar, i.e., radars which gene
 
 One functional mode of RWR's is the search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations. \cite{stimson_introduction_1998}\todo{This last one needs to be refined and specified to more constraints / trade-offs of radar I think.}
 
-"Encoding patterns for quantum algorithms" - Weigold et.al. \cite{weigold_encoding_2021} details several applicable approaches to encoding data for quantum algorithms. The problem presented in the paper is that quantum computing may have (in some cases) exponential speed-up when compared to classical methods, however data loading is often inefficient. Starting with a description of the quantum format itself, (qubits), the paper implicitly shows how quantum methods differ from classical formats. The substance of the article focuses on a comparison of practical means of transforming data, specifically:
+"Encoding patterns for quantum algorithms" - Weigold et.al. \cite{weigold_encoding_2021} details several applicable approaches to encoding data for quantum algorithms. The problem presented in the paper is that quantum computing may have (in some cases) exponential speed-up when compared to classical methods, however data loading is often inefficient. Starting with a description of the quantum format itself, (qubits), the paper implicitly shows how quantum methods differ from classical formats through an explanation of the former. The substance of the article then goes on to focuses on a comparison of practical means of transforming data, specifically:
 \begin{itemize}
     \item Basis encoding
     \item Angle encoding
@@ -44,15 +44,14 @@ The paper comprehensively details each approach, their applications, methods, an
 
 Finally, an example solution to the well known quantum algorithm for linear systems of equations - the HHL algorithm - using several of the mentioned approaches were compared.
 
-Overall, the paper makes a comprehensive survey of encoding approaches with strong analytical grounding. The approaches mentioned, while soundly applicable to many forms of atomic classical data, somewhat neglect the complexity of real-world data. A specific example would be high-dimensional timeseries (as is used for radar signal processing), which neither classical computing nor quantum computing have yet to represent faithfully. Such a limitation may be simply a result of the technologies used, rather than the methods presented in this article. The paper effectively describes and identifies the benefits and limitations of each method in terms of efficiency and entropy conversion losses.
+Overall, the paper makes a comprehensive survey of encoding approaches with strong analytical grounding. The approaches mentioned, while soundly applicable to many forms of atomic classical data, somewhat neglect the complexity of real-world data. A specific example would be high-dimensional timeseries (as is used for radar signal processing), which neither classical computing nor quantum computing have yet to represent faithfully. Such a limitation may be simply a result of the technologies used, rather than the methods presented in this article. The paper effectively describes and identifies the benefits and limitations of each method in terms of efficiency and entropy conversion trade-offs.
 
 % I don't think I've hit the mark here...
 % There needs to be more synthetic analysis here. Comparisons between each approach and the subject of this report need to be drawn.
-% I think these reviews should be shorter, more relevant, and more numerous.
+% I think these reviews should be shorter, more relevant, and more numerous. A bit like the background, but I don't want to step on my own toes by repeating that information.
 % I'm also not so sure about how detailed the review should be? Should I be describing the methods used in each, or just a broad overview as what I have done here?
 % To what degree do the papers have to be 'current' seeing that most research is exploring current paradigms using more specific techniques, whereas the subject of this report is more 'from first principles'
 % On a similar note, to what extent is this explanation versus critical analysis? 
-
 
 % NOTES FROM MEETING 1
 % 1. Academic references - explain / summarise them\\
@@ -60,3 +59,15 @@ Overall, the paper makes a comprehensive survey of encoding approaches with stro
 % 3. Compare their differences, similarities, and whether or not they agree. (If they all agree, more sources should be found); how they interrelate.\\
 % 4. Next, the exposition of the problem space (radar signal analysis) should be written, being lean enough so as to only explain the content of the referenced academic sources. I.e., the challenges faced should be fully developed.\\
 % 5. Following which, a more precise formulation of problems should be undertaken.
+
+% Here are some ones I would like to properly analyse in more depth (not yet added to Zetaro)
+% - https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/iet-rsn.2017.0516
+% - https://ietresearch.onlinelibrary.wiley.com/doi/pdf/10.1049/iet-rsn.2017.0563
+% - Improvements on deinterleaving of radar pulses in dynamically varying signal environments: Kenan Gençol, Ali Kara, Nuray At (2017)
+% - Estimating the Instantaneous Frequency of Linear and Nonlinear Frequency Modulated Radar Signals — A Comparative Study Hubert Milczarek, Czesław Le´snik, Igor Djurovi, and Adam Kawalec
+
+% Perhaps a more thematic structure would suit:
+% I. Comparison of classical processing and quantum processing, the foundations of each, their challenges, and broad evaluation 
+% II. Survey of the causation / principles of existing methods of radar signal processing.
+% III. Survey of the of quantum methods of processing, (perhaps an explanation of them?)
+% IV. Emerging / novel approaches - specifically link to future research (such as this)

@@ -1,2 +1,39 @@
 \section{Research Design \& Methodology}~\label{sec:design}
 \textit{Research designs are plans and the procedures for research that span the decisions from broad assumptions to detailed methods of data collection and analysis}.
+
+\subsection{Experiment 1: Encoding}
+The aim is to encode data which is useful for further analysis. Following this, such  analyses would be to extract a multitude of possible pulse characteristics and boundaries.
+Given the problem of encoding data into a quantum form is isolated to quantum computing, the methods accordingly don't aim to conduct normative comparison of classical and quantum methods. The candidate method is instead comparative between different quantum methods, so as to capture the exploratory nature of the problem at hand.
+As was identified in the literature review, there exist multiple approaches to encoding. In the first experiment, a selection of approaches may be trialed, however, an additional phase of exploration into new methods of quantum encoding of signals is suggested.
+
+A candidate method for achieving this is to develop / apply different quantum encoding methods for IQ signals.
+Qualitatively evaluate how well they would be suited to consequent analyses.
+Quantitatively / analytically evaluate how well each method encodes source data
+
+It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
+
+\subsection{Experiment 2: Parameter estimation}
+
+Depending on the extent to which experiment 1 yields adequate input data for quantum methods to be used for parameter estimation, the second experiment aims to extract frequency, amplitude, and pulse parameters from encoded quantum radar signals. Because the complexity of 'radar signals' can be made infinitely complex, a sequence of experimental 'gates' are proposed, to allow for an implementation to be tested with a suitably complex input space.
+\begin{enumerate}
+    \item Constant signal, no noise
+    \item Constant signal, noise
+    \item one pulse, noise
+    \item one pulse, no noise
+    \item several pulses, no noise
+    \item several pulses, noise
+\end{enumerate}
+
+The stages in the of development the artefact are:
+\begin{quote}
+    \textit{
+        \begin{enumerate}
+            \item Encode the input data into the state of a set of qubits.
+            \item Bring the qubits into superposition over many states (i.e., use quantum superposition).
+            \item Apply an algorithm (or oracle) simultaneously to all the states (i.e., use quantum entanglement amongst the qubits); at the end of this step, one of these states holds the correct answer.
+            \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
+            \item Measure one or more qubits.
+        \end{enumerate}
+        - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
+    }
+\end{quote}

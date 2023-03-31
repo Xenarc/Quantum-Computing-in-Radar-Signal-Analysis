@@ -1,24 +1,26 @@
 %========= Introduction
 \section{Introduction}
 \label{sec:introduction}
-One more paragraph?
+% Exordium: Start by introducing the topic and capturing the reader's interest. Explain the importance of radar ESM signal analysis and the potential benefits of quantum computing in this field. Begin as to generate interest in the subject by posing an interesting question, by suggesting that our subject is interesting or controversial
 
-\subsection{Aim \& Objectives}~\label{subsec:aims}
+In the complex and ever-evolving world of electronic warfare (EW), quantum computing could provide the ability to understand signals in novel ways never before seen in the field. It is widely recognised in the discipline of electronic warfare that traditional signal analysis techniques are still bounded by computational constraints, so in order to maintain strategic advantage, new techniques are continuously needed in order to keep pace with emerging threats. Quantum computing may hold promise a paradigmatic shift in extracting actionable insights from massive and complex EW datasets. 
 
-\subsubsection{Aim / research question}
-\almarginpar{Should "radar signals" be qualified with "in-phase and quadrature signals"?}\textbf{Research Question: To what extent can quantum computing methods be used to detect, characterise, and identify radar signals?}
+Recent research has demonstrated a great potential for quantum computing 
+ to answer the questions of modern signal processing challenges\cite{}, however little work has been devoted to its applications in EW. In this report, a preliminary exploration into how this new technology may be applied to such a complex question. At first, a survey of the current state of research will be depicted for radar signal analysis and quantum signal processing. Then, an empirical inquiry into the subject will be presented, aiming to determine how quantum methods can be used to encode, characterise, and de-interleave signals. Finally, a discussion of results, examination of limitations, and consideration for future work will be provided. 
+ 
+Despite quantum computing holding much promise, its potential in this field remains largely unexplored. This report will present a background and preliminary investigation into how quantum computing can be utilised in the dynamic landscape of electronic warfare. 
 
-\subsubsection{Objectives / subquestions}
+\subsection{}~\label{subsec:aims}
+\subsubsection{Thesis}
+\textbf{Research Question: How can quantum computing methods be used to understand radar signals?}
+
+\subsubsection{Objectives}
 \begin{itemize}
     
     \item \almarginpar{Objectives are some milestones to achieve, so I'd phrase them as "To determine/ identify/ implement/ compare/ evaluate/...", also better questions are "How..." (requiring complex answers) rather than "Can..." (implying answers Yes or No)}
-    Can radar in-phase and quadrature signals be encoded into a quantum form, and to what extent?
-    \item Using quantum methods, can signal parameters be extracted from encoded signals, and to what extent?
-    \item Can discrete radar signals be extracted into radar modes using quantum methods?
-    \item Is it possible, and to what extent are quantum methods effective in de-interleaving and signal clustering?
-    \item Can quantum computing effectively track a radar signal intercept, and how well?
-    \item \almarginpar{Would the last two-four be in too hard basket for the time frame? May be better to leave those for the motivation section - if we could do the previous then we'd be able to do the following?}
-    In the radar context, can, and how well are quantum computing methods disposed to help in reducing noise, interference, and clutter?
+    To determine and implement a method or methods, of encoding in-phase and quadrature radar signals into a quantum form.
+    \item To evaluate the effectiveness of this method
+    \item To determine how quantum methods may be used to extract signal parameters from encoded timeseries signals (i.e., pulses).
 \end{itemize}
 
 
@@ -46,7 +48,7 @@ Depending on the speed of progress throughout the honours project, the scope of 
 
 Potential Avenues of exploration: (in order of desirability / difficulty). (think Detect; locate; identify)
 \begin{enumerate}
-    \item Encode IQ signals into quantum form (potentially explore different forms)
+    \item Encode IQ/Frequency-domain signals into quantum form (potentially explore different forms)
     
     Measure of success: Successfully evaluate the feasibility of encoding IQ signals into a quantum format, if not develop the solution which can do that using Quantum Algorithms.
     
@@ -89,13 +91,13 @@ This is a good categorisation from \cite{wiley_elint_2006}, of the various chall
 
 \begin{itemize}
     \item Hardware
-    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, correlation analysis, etc.)
+    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, data fusion, etc.)
     \item Synthetic Aperture Radar (SAR) and antenna-specific computation (i.e., bistatic/multistatic antenna setups)
     \item Imaging
     \item Forecasting
     \item Active emission.
     \item Simulation / emulation
-    \item Radio signals only; sub-millimetre-wave technology is not considered.1
+    \item Radio signals only; sub-millimetre-wave technology is not considered.
 \end{itemize}
 
 \subsection{Background}
@@ -125,9 +127,17 @@ A typical radar system is made up of at least one of each: radio transmitter, ra
 % Link back to: Electronic Support Measures, Electronic Countermeasures, and Electronic Counter-Counter-Measures. Here, consider providing a precise definition of ESM.
 % Somewhere here, a mention of ELINT should be made
 
+% \begin{itemize}
+%     \item Identify a candidate method, or methods for converting continuously varying parameterised radar signals into into discrete radar modes using quantum methods?
+%     \item Is it possible, and to what extent are quantum methods effective in de-interleaving and signal clustering?
+%     \item Can quantum computing effectively track a radar signal intercept, and how well?
+%     \item %\almarginpar{Would the last two-four be in too hard basket for the time frame? May be better to leave those for the motivation section - if we could do the previous then we'd be able to do the following?}
+%     In the radar context, can, and how well are quantum computing methods disposed to help in reducing noise, interference, and clutter?
+% \end{itemize}
+
 For the radar to achieve its objectives, it must be able to convert observed data into actionable information, thereby requiring some degree of information processing. Herein lies the general challenges in ESM - the detection, location, and identification of targets, which will now be explored. % Cite 'detection, location and identification' - I think the precise term is 'analysis'.
 
-First, however, a conceptual schematisation of this system must be made in in terms of its inputs, process, and outputs. In ESM, inputs consist of EM fluctuations that vary over time. They are almost always received by an antenna (or antennas) which may be subsequently manipulated in the analogue and digital domains. These fluctuations, henceforth \textit{signals} (not to be confused with communications signals), are the essential information carriers in the signal processing operation. There also exist inputs derived from the nature of the radar system configuration itself. These may include the antenna configuration and receiver architecture which will not here be considered, but is noted by the author as a significant contributor to 
+First, however, a conceptual schematisation of this system must be made in in terms of its inputs, process, and outputs. In ESM, inputs consist of EM fluctuations that vary over time. They are almost always received by an antenna (or antennas) which may be subsequently manipulated in the analogue and digital domains. These fluctuations, henceforth \textit{signals} (not to be confused with communications signals), are the essential information carriers in the signal processing operation. There also exist inputs derived from the nature of the radar system configuration itself. These may include the antenna configuration and receiver architecture which will not here be considered, but is noted by the author as being of significant relevance to kinematic measurement and 
 
 
 
@@ -159,9 +169,11 @@ The outputs of ESM are
 
 % Provide a brief outline of the genus of classical processing approaches.\
 % Introduce quantum computing, and provide an abstracted overview of its potential application to this field.
+% Conclude the case for quantum computing in ESM. Providce an implicit definition of the research question
+% Identify the challenges with quantum computing.
 
 %-------- Objectives
-\subsection{Objectives of Radar}
+\subsection{Objectives of Radar / ESM}
 
 Today, the desired outputs of Radar systems are: \cite{stimson_introduction_1998}\todo{Reconfirm these}
 
@@ -191,17 +203,6 @@ In :\cite{jenn_radar_2007}
 %     \item Imaging
 %     \item Navigation
 % \end{itemize}
-
-
-
-% %-------- Methods in achieveing challenges
-% \subsection{Methods}
-
-% %-------- Current challenges in those methods
-% \subsection{Open issues}
-
-% Ideally, select 2-3 potential small, and well defined problems from which one may be selected for future formulation of a subsequent research inquiry.
-
 
 
 
