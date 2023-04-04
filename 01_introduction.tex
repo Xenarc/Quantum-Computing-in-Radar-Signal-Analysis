@@ -1,109 +1,32 @@
 %========= Introduction
 \section{Introduction}
 \label{sec:introduction}
-% Exordium: Start by introducing the topic and capturing the reader's interest. Explain the importance of radar ESM signal analysis and the potential benefits of quantum computing in this field. Begin as to generate interest in the subject by posing an interesting question, by suggesting that our subject is interesting or controversial
 
-In the complex and ever-evolving world of electronic warfare (EW), quantum computing could provide the ability to understand signals in novel ways never before seen in the field. It is widely recognised in the discipline of electronic warfare that traditional signal analysis techniques are still bounded by computational constraints, so in order to maintain strategic advantage, new techniques are continuously needed in order to keep pace with emerging threats. Quantum computing may hold promise a paradigmatic shift in extracting actionable insights from massive and complex EW datasets. 
+\todojc{good to start broad with "EW" but further narrow it down to "radar signals for EW"}In the complex and ever-evolving world of electronic warfare (EW), quantum computing could provide the ability to understand electromagnetic signals in novel ways, never before seen in this field. 
+It is widely recognised in the discipline of electronic warfare that traditional signal analysis techniques are still bounded by computational constraints, so in order to maintain strategic advantage, new techniques are continuously needed in order to keep pace with emerging threats. 
+Quantum computing may hold 
+\todojc{promise \textbf{of} a}\textbf{promise a} paradigmatic shift 
+in extracting actionable insights from massive and complex EW datasets. 
 
-Recent research has demonstrated a great potential for quantum computing 
- to answer the questions of modern signal processing challenges\cite{}, however little work has been devoted to its applications in EW. In this report, a preliminary exploration into how this new technology may be applied to such a complex question. At first, a survey of the current state of research will be depicted for radar signal analysis and quantum signal processing. Then, an empirical inquiry into the subject will be presented, aiming to determine how quantum methods can be used to encode, characterise, and de-interleave signals. Finally, a discussion of results, examination of limitations, and consideration for future work will be provided. 
+Recent research has demonstrated a great potential for quantum computing to 
+%answer the questions of modern signal processing challenges
+\todojc{rewrote "answer..."}\textbf{address the challenges of modern signal processing}
+\todojc{missing citation}\textbf{\cite{}}, 
+\todojc{EW too broad, instead of "in EW"}however little work has been devoted to its applications \textbf{to signal processing in EW, and radar signal processing more specifically}. 
+%In this report, a preliminary exploration into how quantum technology may be applied 
+\todojc{rewritten "In this..."}\textbf{Therefore, this report explores the question of how quantum technology may be applied} 
+\todojc{instead of "to such a complex question"}\textbf{to radar signal processing in EW}. 
+At first, a survey of the current state of research will be \todojc{instead of "depicted"?}\textbf{conducted} for radar signal analysis and quantum signal processing. 
+Then, an empirical inquiry into the subject will be presented, aiming to determine 
+how quantum methods can be used to encode, characterise, and de-interleave \todojc{instead of "signals"}\textbf{radar signals}. 
+Finally, a discussion of results, examination of limitations, and consideration for future work will be provided. 
  
 Despite quantum computing holding much promise, its potential in this field remains largely unexplored. This report will present a background and preliminary investigation into how quantum computing can be utilised in the dynamic landscape of electronic warfare. 
 
-\subsection{}~\label{subsec:aims}
-\subsubsection{Thesis}
-\textbf{Research Question: How can quantum computing methods be used to understand radar signals?}
-
-\subsubsection{Objectives}
-\begin{itemize}
-    
-    \item \almarginpar{Objectives are some milestones to achieve, so I'd phrase them as "To determine/ identify/ implement/ compare/ evaluate/...", also better questions are "How..." (requiring complex answers) rather than "Can..." (implying answers Yes or No)}
-    To determine and implement a method or methods, of encoding in-phase and quadrature radar signals into a quantum form.
-    \item To evaluate the effectiveness of this method
-    \item To determine how quantum methods may be used to extract signal parameters from encoded timeseries signals (i.e., pulses).
-\end{itemize}
-
-
-% \begin{itemize}
-%     \item To further understand the principles of operation of passive radar systems, including their ability to detect and identify emitters in complex electromagnetic environments.
-%     \item To critically evaluate existing literature on radar systems and quantum computing to effecively communicate existing the academic knowledge, and to show a capability to conduct independent future research.
-%     \item To identify the possibilities of using Quantum Computing in Radar signal analysis; to also identify three candidate avenues; to explore one in enough depth to evaluate potential feasability though the creation of a technical solution
-%     \item To prioritize research topics based on their level of desirability and feasibility, and to develop a plan for executing research projects within a defined timeline and scope.
-%     \item To communicate research findings effectively to a technical audience.
-% \end{itemize}
-
-\textbf{For each idea:}
-Evaluate the effectiveness of the technical solution in order to determine feasiblity (Yes/No). Compare objectively the performance / accuracy / capability compared to classical methods
-
-Definition of done: highly subjective and wholly determined by allotted time.
-
-Verification: to occur at each stage of demonstrable functionality
-
-Validation: Consultation with colleagues a few weeks before unit finalisation.
-
-%-------- Scope
-\subsection{Scope}
-
-Depending on the speed of progress throughout the honours project, the scope of the project will change. The extent of exploration into these concepts is wholly dependent on the available time. The scope should therefore not be defined fixed in time, but rather prioritised by level of desirability. At each level of scope, a definition of done must have been both defined and then met before proceeding to the next.
-
-Potential Avenues of exploration: (in order of desirability / difficulty). (think Detect; locate; identify)
-\begin{enumerate}
-    \item Encode IQ/Frequency-domain signals into quantum form (potentially explore different forms)
-    
-    Measure of success: Successfully evaluate the feasibility of encoding IQ signals into a quantum format, if not develop the solution which can do that using Quantum Algorithms.
-    
-    \item Fuzzy Parameter extraction - similar to the above; instead of descretising signals into definite PDW's, the Quantum system maintains all possibilities of potential PDW's and allows for association to either existing radar modes, or to additional signals. This approach would investigate whether we can use quantum computers to make observed radar modes a continuous thing which we can associate known modes to.
-    
-    Measure of success: Develop a quantum system that maintains all possibilities of potential PDWs for radar signals and associate them with either existing radar modes or additional signals. 
-    
-    \item Signal extraction / recognition: Following on from the above - detect when signals occur and reoccur as well as their properties. (potentially for different signal types, like Doppler, LPI in pulse dense environments, frequency-agile signals; and for different noise types / types of interference).
-
-    Measure of success: Successfully associate reocurring signals (with a quantitative accuracy at given noise as measure of success) 
-    
-    \item Signal clustering / de-interleaving : either after having done descretised a signal into PDW's, or for more unrefined signals where an amorphous 'similarity' between continuous times and domains is drawn <- this feels pretty interesting)
-
-    Measure of success: Successfully cluster or de-interleave a signal into PDWs (objective is accuracy); or for more unrefined signals / encoded IQ, a Boolean feasibility of whether a continuous measure of 'similarity' between signals can be drawn.
-    
-    \item Tracking - acquiring and following a signal in the time domain.
-
-    Measure of success: Successfully acquire a signal; successfully follow a signal in the time domain. Use a quantitative measure of track duration at given noise.
-    
-    \item Noise reduction / Interference reduction / Clutter rejection / active filtering
-\end{enumerate}
-Interesting but out of scope:
-\begin{enumerate}
-  \setcounter{enumi}{6}
-    \item Resource allocation
-    \item Ambiguity analysis
-    \item Antenna Beamforming
-    \item Imaging
-\end{enumerate}
-
-This is a good categorisation from \cite{wiley_elint_2006}, of the various challenges in ELINT:
-
-\begin{itemize}
-    \item De-interleaving
-    \item Pulse Repetition Interval Analysis
-    \item Intra-pulse analysis
-\end{itemize}
-
-\subsubsection{Out of Scope}
-
-\begin{itemize}
-    \item Hardware
-    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, data fusion, etc.)
-    \item Synthetic Aperture Radar (SAR) and antenna-specific computation (i.e., bistatic/multistatic antenna setups)
-    \item Imaging
-    \item Forecasting
-    \item Active emission.
-    \item Simulation / emulation
-    \item Radio signals only; sub-millimetre-wave technology is not considered.
-\end{itemize}
-
-\subsection{Background}
+\subsection{Background}~\label{subsec:background}
 
 Radar is "an electrical system that transmits radiofrequency (RF) electromagnetic (EM) waves toward a region of interest and receives and detects these EM waves when reflected
-from objects in that region."\cite{richards_principles_2010}. The name radar originates from a portmanteau of \textit{Radio Detection and Ranging}\cite{the_joint_board_on_scientific_information_policy_radar_1945}, hinting at it's founding objectives in the defence context. In the modern day, radar is used in many civilian and military applications: \cite{merrill_i_skolnik_radar_nodate, desai_how_2022}
+from objects in that region."\cite{richards_principles_2010}. The name radar originates from a portmanteau of \textit{Radio Detection and Ranging}\cite{the_joint_board_on_scientific_information_policy_radar_1945}, hinting at it's founding objectives in the defence context. In the modern day, radar is used in many civilian and military applications \cite{merrill_i_skolnik_radar_nodate, desai_how_2022}:
 \begin{itemize}
     \item Aerospace - weather, navigation, approach, altitude, identification
     \item Maritime - navigation, collision avoidance,  
@@ -116,55 +39,146 @@ from objects in that region."\cite{richards_principles_2010}. The name radar ori
     \item Electronic Warfare
 \end{itemize}
 
-Given this expansive field of potential exploration, the focus here is narrowed specifically to \textit{Electronic Support Measures} (ESM), a sub-field of the discipline \textit{electronic warfare} (EW). EW, as defined by David Adamy in EW101 as "the art and science of preserving the use of the electromagnetic spectrum for friendly use while denying its use to the enemy", and ESM as "the receiving part of EW"\cite{adamy_13_2001}, of which radar is the principal element".
+Since radar systems were invented in 1935\todojc{You have many empty citations, please correct}\cite{}, their usage has become increasingly widespread. As a result, the electromagnetic environment has become densely populated, with a multitude of different emitters posing a challenge of unintentional interference with operating radars \cite{}. However, their widespread adoption - particularly in the defence context - yields the potential to identify the location and type of emitters in the area of operation.\todo{Passive; ESM}
+This subject has been encompassed in the broader discipline of \textit{Electronic Warfare} (EW). EW is defined by David Adamy \todo{Instead of "in EW101" give a proper citation} as "the art and science of preserving the use of the electromagnetic spectrum for friendly use while denying its use to the enemy"\todo{I think a different definition would be best here, or perhaps referencing ELINT...}.
 
-% Describe the importance of radar ESM here. Who cares and why? 
+\textit{Electronic Support Measures} (ESM), a sub-field of the EW, where ESM as "the receiving part of EW"\cite{adamy_13_2001}, of which radar is the principal element".
 
-Principles of radar:
+\todo{Describe the importance of radar ESM here. Who cares and why? }
+
+
+\todo{Principles of radar}
 
 A typical radar system is made up of at least one of each: radio transmitter, radio receiver, antenna, and display\cite{stimson_introduction_1998}. % There was a more precise definition somewhere with a 'signal processor' element.
 
-% Link back to: Electronic Support Measures, Electronic Countermeasures, and Electronic Counter-Counter-Measures. Here, consider providing a precise definition of ESM.
-% Somewhere here, a mention of ELINT should be made
+% The ESM pipeline
+% IQ Data -> Pulse Detection -> Pulse Compression -> Doppler Processing -> Constant False Alarm Rate (CFAR) Detection -> Target Association -> Tracking -> Classification -> Decision
 
-% \begin{itemize}
-%     \item Identify a candidate method, or methods for converting continuously varying parameterised radar signals into into discrete radar modes using quantum methods?
-%     \item Is it possible, and to what extent are quantum methods effective in de-interleaving and signal clustering?
-%     \item Can quantum computing effectively track a radar signal intercept, and how well?
-%     \item %\almarginpar{Would the last two-four be in too hard basket for the time frame? May be better to leave those for the motivation section - if we could do the previous then we'd be able to do the following?}
-%     In the radar context, can, and how well are quantum computing methods disposed to help in reducing noise, interference, and clutter?
-% \end{itemize}
+% ------------
+% BELOW IS A GENERAL OUTLINE. It highlights the sequence of radar processing.
+% ------------
+% Pulse Detection:
+% - Matched filtering or other pulse detection algorithm to identify radar pulses
+% - Thresholding to remove noise and false detections
+
+% Pulse Compression:
+% - Matched filtering or other pulse compression algorithm to enhance SNR of pulses
+% - Windowing to reduce sidelobes and improve spectral properties
+
+% Doppler Processing:
+% - Fourier transform or other Doppler processing algorithm to estimate target velocity
+% - Doppler filtering to reject clutter and interference
+
+% CFAR Detection:
+% - CFAR algorithm to detect targets in the presence of noise and clutter
+% - Adaptive thresholding to adjust detection threshold based on local noise level
+
+% Target Association:
+% - Clustering or other target association algorithm to group detections into tracks
+% - Filtering or smoothing to reduce track jitter and improve accuracy
+
+% Tracking:
+% - Kalman filter or other tracking algorithm to predict target state and estimate measurement errors
+% - Maneuver detection and tracking to handle agile targets
+
+% Classification:
+% - Feature extraction and classification algorithm to identify target type
+% - Machine learning or rule-based classification
+
+% Decision:
+% - Target prioritization and threat assessment
+% - Decision making based on mission objectives and rules of engagement
+% - Display and dissemination of results
+% ------------------------------
+
+\todo{Link back to: Electronic Support Measures, Electronic Countermeasures, and Electronic Counter-Counter-Measures. Here, consider providing a precise definition of ESM. Also, somewhere here, a mention of ELINT should be made}
+
 
 For the radar to achieve its objectives, it must be able to convert observed data into actionable information, thereby requiring some degree of information processing. Herein lies the general challenges in ESM - the detection, location, and identification of targets, which will now be explored. % Cite 'detection, location and identification' - I think the precise term is 'analysis'.
 
-First, however, a conceptual schematisation of this system must be made in in terms of its inputs, process, and outputs. In ESM, inputs consist of EM fluctuations that vary over time. They are almost always received by an antenna (or antennas) which may be subsequently manipulated in the analogue and digital domains. These fluctuations, henceforth \textit{signals} (not to be confused with communications signals), are the essential information carriers in the signal processing operation. There also exist inputs derived from the nature of the radar system configuration itself. These may include the antenna configuration and receiver architecture which will not here be considered, but is noted by the author as being of significant relevance to kinematic measurement and 
-
+First, however, a conceptual schematisation of this system must be made in in terms of its inputs, process, and outputs. In ESM, inputs consist of EM fluctuations that vary over time. They are almost always received by an antenna (or antennas) which may be subsequently manipulated in the analogue and digital domains. These fluctuations, henceforth \textit{signals} (not to be confused with communications signals), are the essential information carriers in the signal processing operation. There also exist inputs derived from the nature of the radar system configuration itself. These may include the antenna configuration and receiver architecture which will not here be considered, but is noted by the author as being of significant relevance to kinematic measurement and capability constraints.
 
 
 Since the signals of interest are those emitted by radar systems, the received signals exhibit phenomenal qualities corresponding to those of the originating radar, namely: \cite{avionics_department_electronic_2013} 5-8.1
 \begin{itemize}
-    \item Frequency (RF)% Intra: freq, modulation (and associated params), Inter:  coherence, phase
+    \item Frequency (RF): Intrapulse frequency, modulation (and associated modulation parameters); Interpulse: phase coherence.
     \item Amplitude (power)
     \item Direction of Arrival (DOA) - also called Angle of Arrival (AOA)
     \item Time of Arrival (TOA)
-    \item Pulse Repetition Interval (PRI)% PRF
+    \item Pulse Repetition Interval (PRI), or pulse repitition frequency (PRF)
     \item PRI type
     \item Pulse Width (PW)
     \item Scan type and rate
-    \item Lobe duration (beam width)% dewll
-    %\item polarisation - this is an antenna property.
+    \item Lobe duration (beam width or dwell)
 \end{itemize}
 
 The role of the processing step, is to convert the 'raw' signal into these parameters. Optimally, the parameters equal those nominally transmitted by the target radar.
-These are generally extracted from the incident EM signals and may be treated independently as outputs themselves. Typically, however, further analysis may be may conducted to yield granular information such as .
-The outputs of ESM are 
+These are generally extracted from the incident EM signals and may be treated independently as outputs themselves. Typically, however, further analysis may be may conducted to yield very granular information. Information that ESM seeks to understand addresses many facets:
+\begin{itemize}
+    \item Detection
+    \item Target characteristics \cite{jenn_radar_2007}
+    \begin{itemize}
+        \item target size - return amplitude
+        \item target shape - from discrete scan returns
+        \item target material composition
+        \item moving parts (modulation of the return)
+    \end{itemize}
+    \item Target identification
+    \item Kinematic parameters and tracking(range, direction, speed, angle of arrival)
+\end{itemize}
 
-% Introduce multi-radar concept. 
-% Illustrate a senario to make the problem more evident.
+\todo{Introduce multi-radar concept. }
+\todo{Illustrate a scenario to make the problem more evident.}
 
-\begin{quote}
-    \textit{"The increased pulse density created by the deployment of pulse doppler radar, both enemy and friendly, has created demand for systems with a high signal processing capability"} \cite{pettersson_illustrated_1992} p. 42
-\end{quote}
+\subsubsection{Research Question}
+\todojc{I've renamed "Thesis" to "Research Question"}\textbf{To what extent can quantum computing methods can quantum computing be used to understand radar
+signals?}
+
+\subsubsection{Research Objectives}
+\begin{itemize}
+    \item Gather source data for testing and verification of the quantum implementation.
+    \item Determine a suitable method of encoding time domain radar signals \todojc{something missing here?}\textbf{under into} quantum form. The signals being, sampled in-phase and quadrature data, exhibiting various degrees of signal quality and environmental situations.
+    \item Determine a suitable quantum method for pulse detection.
+    \item Determine a suitable quantum method to extract signal parameters from detected pulses. Those signal parameters being :
+    \begin{itemize}
+        \item Frequency (and modulation and / or bandwidth, if possible)
+        \item Amplitude
+        \item Pulse width
+        \item Time of Arrival
+        \item Signal-to-noise ratio
+    \end{itemize}
+    % \item Gauge possible quantum methods for de-interleaving radar signals.
+\end{itemize}
+
+\subsection{Scope}
+
+Depending on the speed of progress throughout the honours project, the scope of the project will change. The extent of exploration into these concepts is wholly dependent on the available time. The scope should therefore not be defined fixed in time, but rather prioritised by level of desirability. At each level of scope, a definition of done must have been both defined and then met before proceeding to the next.
+
+% This is a good categorisation from \cite{wiley_elint_2006}, of the various challenges in ELINT:
+
+% \begin{itemize}
+%     \item De-interleaving
+%     \item Pulse Repetition Interval Analysis
+%     \item Intra-pulse analysis
+% \end{itemize}
+
+\subsubsection{Out of Scope}
+
+\todojc{This section may need some initial statement and each bullet point some brief explanation}\begin{itemize}
+    \item Hardware
+    \item Anything down-stream of identification of radar signals. (e.g., display, databasing, data fusion, etc.)
+    \item Synthetic Aperture Radar (SAR) and antenna-specific computation (i.e., bistatic/multistatic antenna setups)
+    \item Imaging
+    \item Kinetic estimation (range, velocity, angle of arrival, etc.)
+    \item Forecasting
+    \item Active emission.
+    \item Simulation / emulation
+    \item Radio signals only; sub-millimetre-wave technology is not considered.
+    \item Resource allocation
+    \item Ambiguity analysis
+    \item Tracking
+\end{itemize}
+
 % Identify the challenge with multi-radar environments.
 
 % Provide a brief outline of the genus of classical processing approaches.\
@@ -172,72 +186,36 @@ The outputs of ESM are
 % Conclude the case for quantum computing in ESM. Providce an implicit definition of the research question
 % Identify the challenges with quantum computing.
 
-%-------- Objectives
-\subsection{Objectives of Radar / ESM}
+\begin{quote}
+    \textit{"The increased pulse density created by the deployment of pulse Doppler radar, both enemy and friendly, has created demand for systems with a high signal processing capability"} \cite{pettersson_illustrated_1992} p. 42
+\end{quote}
 
-Today, the desired outputs of Radar systems are: \cite{stimson_introduction_1998}\todo{Reconfirm these}
 
-\begin{itemize}
-    \item range / position
-    \item velocity
-    \item And rate of. \^\^
-\end{itemize}
+% ---------------
+% OLD EXPLANATION
+% ---------------
+% One category of radar is pulsed-Doppler which emits energy in high-frequency pulses. The characteristics of the pulses impact the range resolution, with shorter pulses allowing for higher resolution because the receive signal is too shorter. However, the trade-off is that a shorter pulse means less time for the emission to illuminate the target, and therefore less return amplitude and shorter maximum range. One way to counter this issue is to use a technique named ‘pulse compression’. In principle, the technique bypasses this limitation by transmitting infinitely short pulses. How? By means of frequency modulation; by ramping the transmission frequency linearly up or down. The difficulty is: how to receive a single pulse over these many frequencies. The solution is in using an analogue filter with a non-linear phase response which causes lower frequencies to be ‘delayed’ or phase-shifted, more than higher frequencies, In effect it ‘compresses’ the returned pulse into a higher power pulse, thereby increasing both range resolution, and maximum range. This, however, is not enough. Higher range and resolution are desired – and that means more power! A single pulse is alone insufficient in solving the problem; the solution lays in multiple pulses. By sending more than one pulse, one increases the average transmitted power on the target (and thus returns). With multiple pulses, the chances of a return being intercepted are increased. These pulses must be transmitted consecutively therefore, at some Pulse Repetition Frequency (PRF). However effective upon first thought, a limitation always arises – range ambiguity. If a pulse is transmitted and, before the its return received, another pulse arrives,  \cite{parker_chapter_2010}
 
-In :\cite{jenn_radar_2007}
-\begin{itemize}
-    \item target size - return amplitude
-    \item target shape - from discrete scan returns
-    \item target material composition
-    \item moving parts (modulation of the return)
-\end{itemize}
-
-% \todo{Consolidate these functions}
-% Also these functions 
+% --------------
+% OLD OBJECTIVES
+% --------------
+% In the processing functional block, the problems for radar are, in sequential order:
 % \begin{itemize}
-%     \item Detection
-%     \item tracking
-%     \item Identification
-%     \item Range
-%     \item Direction
-%     \item Speed
-%     \item Imaging
-%     \item Navigation
+%     \item How to distinguish between the different categories of signals: communications, interference, radar, and noise.
+%     \item Then, after having understood what signals are radar intercepts, identifying which belong to the same originating receiver. 
+%     \item Once, a radar signal has been de-interleaved, how to identify the originating emitter, given some a priori understanding of the operational environment.
 % \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-%-------- Principles of Operation
-\subsection{Radar: Principles of Operation}
-
-
-
-% Not a big fan of this section - refactor. Need to add section on EW
-In the processing functional block, the problems for radar are, in sequential order:
-
-\begin{itemize}
-    \item How to distinguish between the different categories of signals: communications, interference, radar, and noise.
-    \item Then, after having understood what signals are radar intercepts, identifying which belong to the same originating receiver. 
-    \item Once, a radar signal has been de-interleaved, how to identify the originating emitter, given some a priori understanding of the operational environment.
-\end{itemize}
-
-In each of these phases, there are two other activities which may take place:
-
-\todo{Get the various displays and operational modes}
 % \begin{itemize}
-%     \item Display for use by an operator
-%     \item Tracking – identifying the Direction of Arrival (DOA) and rate of change of DOA, to track a target. Tracking may be undertaken at the same time as the search mode – named search-and-track.
-%     \item In search-and-track modes, there exists a problem in how to allocate dwell time to each target track, versus in searching some area.
+%     \item To further understand the principles of operation of passive radar systems, including their ability to detect and identify emitters in complex electromagnetic environments.
+%     \item To critically evaluate existing literature on radar systems and quantum computing to effecively communicate existing the academic knowledge, and to show a capability to conduct independent future research.
+%     \item To identify the possibilities of using Quantum Computing in Radar signal analysis; to also identify three candidate avenues; to explore one in enough depth to evaluate potential feasability though the creation of a technical solution
+%     \item To prioritize research topics based on their level of desirability and feasibility, and to develop a plan for executing research projects within a defined timeline and scope.
+%     \item To communicate research findings effectively to a technical audience.
 % \end{itemize}
-
-One category of radar is pulsed-Doppler which emits energy in high-frequency pulses. The characteristics of the pulses impact the range resolution, with shorter pulses allowing for higher resolution because the receive signal is too shorter. However, the trade-off is that a shorter pulse means less time for the emission to illuminate the target, and therefore less return amplitude and shorter maximum range. One way to counter this issue is to use a technique named ‘pulse compression’. In principle, the technique bypasses this limitation by transmitting infinitely short pulses. How? By means of frequency modulation; by ramping the transmission frequency linearly up or down. The difficulty is: how to receive a single pulse over these many frequencies. The solution is in using an analogue filter with a non-linear phase response which causes lower frequencies to be ‘delayed’ or phase-shifted, more than higher frequencies, In effect it ‘compresses’ the returned pulse into a higher power pulse, thereby increasing both range resolution, and maximum range. This, however, is not enough. Higher range and resolution are desired – and that means more power! A single pulse is alone insufficient in solving the problem; the solution lays in multiple pulses. By sending more than one pulse, one increases the average transmitted power on the target (and thus returns). With multiple pulses, the chances of a return being intercepted are increased. These pulses must be transmitted consecutively therefore, at some Pulse Repetition Frequency (PRF). However effective upon first thought, a limitation always arises – range ambiguity. If a pulse is transmitted and, before the its return received, another pulse arrives,  \cite{parker_chapter_2010}
-
-
-
+% \begin{itemize}
+%     \item Identify a candidate method, or methods for converting continuously varying parameterised radar signals into into discrete radar modes using quantum methods?
+%     \item Is it possible, and to what extent are quantum methods effective in de-interleaving and signal clustering?
+%     \item Can quantum computing effectively track a radar signal intercept, and how well?
+%     \item %\almarginpar{Would the last two-four be in too hard basket for the time frame? May be better to leave those for the motivation section - if we could do the previous then we'd be able to do the following?}
+%     In the radar context, can, and how well are quantum computing methods disposed to help in reducing noise, interference, and clutter?
+% \end{itemize}

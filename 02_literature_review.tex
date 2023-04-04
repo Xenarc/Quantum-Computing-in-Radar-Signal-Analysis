@@ -1,10 +1,13 @@
 \section{Literature Review}~\label{sec:literature}
 
-"Object Recognition and Identification Using ESM Data" \cite{taghavi_object_2016} presents a survey of techniques in ESM and kinematic measurement and a novel approach to the fusion of the two. The ultimate goal of their research was recognition and identification of targets. The authors present a novel architecture for combining both data-sets, suggesting that traditional approaches or silo-ed analyses are limited. In the paper, they stress the importance of using orthogonal source data; that is, the inputs of the system must represent non-overlapping phenomena. 
+\todojc{Instead of saying "Object Recognition and Identification Using ESM Data", use ref to the authors}Taghavi et al. \cite{taghavi_object_2016} present a survey of techniques in ESM and kinematic measurement, \todojc{rephrasing "and"}\textbf{as well as} a novel approach to the fusion of the two. 
+The ultimate goal of their research was recognition and identification of \todojc{You may need to say what are "targets", e.g. "identification of objects of interests in radar signals, to be later used for military targets", or whatever is appropriate}\textbf{targets}. 
+The authors present a novel architecture for combining both \todojc{"approaches"?}\textbf{data-sets}, suggesting that traditional approaches or silo-ed analyses are limited. 
+In the paper, they stress the importance of using orthogonal source data; that is, the inputs of the system must represent non-overlapping phenomena. 
 
-While their problem solving methodology was novel, the execution was somewhat limited in the respects that they restricted their simulation to the maritime domain, and with simulated data. If their methods were to be applied practically, the limitation imposed by the maritime domain implicitly reduces the possibility for multi-path ambiguities. The small amount of real-world data also show a systemic challenge in radar signal analysis research. Furthermore, while their survey presented several classical approaches for the estimation of source parameters (both ESM and kinematic), the methods were only analytical. There was no mention of machine learning-based recognition and identification frameworks. The analytical methods presented were generally applicable and relevant for a baseline of ESM techniques. For example: Bayesian framework, belief functions, fuzzy set theory. The data-fusion framework presented in the paper does provide an applicable architecture for multi-domain analysis which may prove useful in future research. % Maybe I should make this more relevant to the problem at hand? Like drawing parralels to the challenges and approaches suggested for our research. % On second thought, each such analytical method should be explained 
+While their \todojc{You've never mentioned "problem solving"}\textbf{problem solving} methodology was novel, \todojc{What "execution"? I thought you said it was a survey? You may need to say they have also provided algorithms for different tasks? Or that the survey was limited to maritime applications}\textbf{the execution} was somewhat limited in the respects that they restricted their simulation to the maritime domain, and with simulated data. If their methods were to be applied practically, the limitation imposed by the maritime domain implicitly reduces the possibility for multi-path ambiguities. The small amount of real-world data also show a systemic challenge in radar signal analysis research. Furthermore, while their survey presented several classical approaches for the estimation of source parameters (both ESM and kinematic), the methods were only analytical. There was no mention of machine learning-based recognition and identification frameworks. The analytical methods presented were generally applicable and relevant for a baseline of ESM techniques. For example: Bayesian framework, belief functions, fuzzy set theory. The data-fusion framework presented in the paper does provide an applicable architecture for multi-domain analysis which may prove useful in future research. % Maybe I should make this more relevant to the problem at hand? Like drawing parralels to the challenges and approaches suggested for our research. % On second thought, each such analytical method should be explained 
 
-In "Deep-Learning for Radar: A Survey", Geng et. al. \cite{mason_deep_2017} provides a broad outlook on the current state of affairs in the use of deep learning in radar signal processing. The authors analysed a large body of research over several areas of radar signal processing and for a multitude of deep learning techniques. The paper identifies numerous applicable approaches with varying degrees of effectiveness. Deep learning techniques discussed were:
+\todojc{You do not need to provide the titles, e.g. "Deep-Learning for Radar: A Survey", also note that we say "et al." as it is abbreviation from "et alia", and the following is plural}Geng \textbf{et al.} \cite{mason_deep_2017} \textbf{provide} a broad outlook on the current state of affairs in the use of deep learning in radar signal processing. The authors analysed a large body of research over several areas of radar signal processing and for a multitude of deep learning techniques. The paper identifies numerous applicable approaches with varying degrees of effectiveness. Deep learning techniques discussed were:
 \begin{itemize}
     \item CNN: Convolutional neural network
     \item DBN: Deep belief network
@@ -12,7 +15,7 @@ In "Deep-Learning for Radar: A Survey", Geng et. al. \cite{mason_deep_2017} prov
     \item DRES: Deep residual neural network
     \item FNN: Feed-forward neural network
     \item GAN: Generative adversarial network
-    \item RNN: ecurrent neural network, including long-short term memory
+    \item RNN: Recurrent neural network, including long-short term memory
     \item SAE: Stacked auto-encoder
 \end{itemize}
 
@@ -45,6 +48,7 @@ The paper comprehensively details each approach, their applications, methods, an
 Finally, an example solution to the well known quantum algorithm for linear systems of equations - the HHL algorithm - using several of the mentioned approaches were compared.
 
 Overall, the paper makes a comprehensive survey of encoding approaches with strong analytical grounding. The approaches mentioned, while soundly applicable to many forms of atomic classical data, somewhat neglect the complexity of real-world data. A specific example would be high-dimensional timeseries (as is used for radar signal processing), which neither classical computing nor quantum computing have yet to represent faithfully. Such a limitation may be simply a result of the technologies used, rather than the methods presented in this article. The paper effectively describes and identifies the benefits and limitations of each method in terms of efficiency and entropy conversion trade-offs.
+\todojc{I agree with your hidden notes on the need for more synthetic lit review}
 
 % I don't think I've hit the mark here...
 % There needs to be more synthetic analysis here. Comparisons between each approach and the subject of this report need to be drawn.
@@ -71,3 +75,4 @@ Overall, the paper makes a comprehensive survey of encoding approaches with stro
 % II. Survey of the causation / principles of existing methods of radar signal processing.
 % III. Survey of the of quantum methods of processing, (perhaps an explanation of them?)
 % IV. Emerging / novel approaches - specifically link to future research (such as this)
+

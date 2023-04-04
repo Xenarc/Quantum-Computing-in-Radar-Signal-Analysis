@@ -1,1 +1,25 @@
 \section{Artefact Development Approach}~\label{sec:approach}
+
+\subsection{signal encoding}
+
+It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
+
+% Quantum analysis algorithms:
+
+The stages in the of development the artefact are:
+\begin{quote}
+    \textit{
+        \begin{enumerate}
+            \item Encode the input data into the state of a set of qubits.
+            \item Bring the qubits into superposition over many states (i.e., use quantum superposition).
+            \item Apply an algorithm (or oracle) simultaneously to all the states (i.e., use quantum entanglement amongst the qubits); at the end of this step, one of these states holds the correct answer.
+            \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
+            \item Measure one or more qubits.
+        \end{enumerate}
+        - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
+    }
+\end{quote}
+
+\subsection{Parameter extraction}
+
+instead of descretising signals into definite PDW's, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once. Further processing such as pulse detection and de-interleaving may be able to be conducted at once. This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.

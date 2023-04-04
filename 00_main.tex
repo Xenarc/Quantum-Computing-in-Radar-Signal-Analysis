@@ -17,10 +17,13 @@
 \usepackage{amsopn}
 \usepackage{amstext}
 \usepackage{amsthm}
-\usepackage[textsize=small]{todonotes}
+\usepackage{xargs}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcommand{\smalltodo}[2][]
     {\todo[caption={#2}, #1]
     {\begin{spacing}{0.5}#2\end{spacing}}}
+\newcommandx{\todojc}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 %\usepackage[disable]{todonotes}
 \setuptodonotes{color=blue!30}
 \usepackage{enumitem}
@@ -284,7 +287,6 @@
 \usepackage{wrapfig}
 \usepackage{fancyhdr}
 \usepackage{colortbl}
-\usepackage{xcolor}
 \renewcommand{\familydefault}{\sfdefault}
 \hyphenpenalty=10000
 \tolerance=10000

@@ -1,39 +1,38 @@
 \section{Research Design \& Methodology}~\label{sec:design}
-\textit{Research designs are plans and the procedures for research that span the decisions from broad assumptions to detailed methods of data collection and analysis}.
 
-\subsection{Experiment 1: Encoding}
-The aim is to encode data which is useful for further analysis. Following this, such  analyses would be to extract a multitude of possible pulse characteristics and boundaries.
-Given the problem of encoding data into a quantum form is isolated to quantum computing, the methods accordingly don't aim to conduct normative comparison of classical and quantum methods. The candidate method is instead comparative between different quantum methods, so as to capture the exploratory nature of the problem at hand.
-As was identified in the literature review, there exist multiple approaches to encoding. In the first experiment, a selection of approaches may be trialed, however, an additional phase of exploration into new methods of quantum encoding of signals is suggested.
+\subsection{Research Methodology}
 
-A candidate method for achieving this is to develop / apply different quantum encoding methods for IQ signals.
-Qualitatively evaluate how well they would be suited to consequent analyses.
-Quantitatively / analytically evaluate how well each method encodes source data
+To achieve the objective of \textbf{acquiring radar signal test data}, \todojc{Free and open access emulator / generator perhaps, is your preference not the necessity, may be skip "free and open access" your solution could secure such a device. 
+Also another approach still is to acquire some data set, which you may need to acknowledge here.}\textbf{a free and open-access signal emulator} will need to be acquired and validated. 
+It should have capability of  generating a set of radar signals exhibiting various degrees of signal quality and \todojc{You may need to explain what are "env situations"}\textbf{environmental situations}. 
+The variable signal quality refers to a signal-to-noise ratio, and environmental conditions refer to number of radars, pulse density, and pulse frequency.
 
-It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
+\todojc{Note: it is easier to manage and review latex texts when paragraphs sentences are written on separate lines}To achieve the second objective: "To determine a suitable method of encoding time-domain radar signals into quantum form." an experimental study will be conducted. 
+The independent variable being the type of quantum encoding algorithm used to input the radar signals. 
+The dependent variable will be the precision, computational efficiency, and qualitative applicability of the quantum method for use in subsequent experimentation. 
+One approach shall be selected as a baseline for the next steps. 
+Specifically, this will involve designing and implementing various quantum algorithms for encoding time-series signals, testing them on a set of radar signals, under various degrees of signal quality and environmental situations, and collecting data on their suitability. 
+The results should be tabulated by method versus suitability under each condition (defined above).
 
-\subsection{Experiment 2: Parameter estimation}
+To determine a suitable quantum method for pulse detection, an exploratory approach will be adopted. Suitable, in this context being a method which is quantitatively measurable in its pulse detection performance. 
+A comparison of actual and computed pulse boundaries should be made. 
+If no performance can be measured, an analysis of why should follow. 
+Since no known quantum algorithms exist for pulse detection, the concrete method will be to develop a pulse-detection algorithm and document the process of iteration. 
+Such documentation on each iteration may be the quantitative performance, a qualitative performance evaluation. 
+The \todojc{Rephrase}\textbf{definition of done} is whether or not a reasonable quantitative measure of performance \todojc{Can be achieved?}\textbf{can be taken}. Input data may be varied to better understand the suitability of the method.
 
-Depending on the extent to which experiment 1 yields adequate input data for quantum methods to be used for parameter estimation, the second experiment aims to extract frequency, amplitude, and pulse parameters from encoded quantum radar signals. Because the complexity of 'radar signals' can be made infinitely complex, a sequence of experimental 'gates' are proposed, to allow for an implementation to be tested with a suitably complex input space.
-\begin{enumerate}
-    \item Constant signal, no noise
-    \item Constant signal, noise
-    \item one pulse, noise
-    \item one pulse, no noise
-    \item several pulses, no noise
-    \item several pulses, noise
-\end{enumerate}
+Thirdly, extracting signal parameters may be undertaken in a similar exploratory procedure as the prior - to document the iteration of the algorithms, and present a quantitative measure of performance. Such measures being the accuracy, precision, and computational efficiency of the quantum method. Input data may be chosen as either pre-prepared pulse-only data, raw signal data, or a combination thereof, under those signal quality and environmental conditions previously noted. A similar process of iterative documentation is to be made, with quantitative performance or qualitative performance evaluations for each iteration.
+\todojc{I understand this is all preliminary, however, you need to be more precise and indicate that an experimental methodology is to be adopted (why and ref), what kind of experiments are to be conducted (how and ref), provide some details of such experiments (you have done this informally), what kind of data is going to be collected (how and in what format), and then how the collected data is going to be analysed (and presented).}
+\todojc{And yes, you will need to reference some paper / book chapters on the adopted methodology, which may also guide you in research design}
+% Objective 4: To determine possible quantum methods for de-interleaving radar signals.
+% Signal clustering / de-interleaving : either after having done descretised a signal into PDW's, or for more unrefined signals where an amorphous 'similarity' between continuous times and domains is drawn. The measure of success would be: Successfully cluster or de-interleave a signal into PDWs (objective is accuracy); or for more unrefined signals / encoded IQ, a Boolean feasibility of whether a continuous measure of 'similarity' between signals can be drawn.
 
-The stages in the of development the artefact are:
-\begin{quote}
-    \textit{
-        \begin{enumerate}
-            \item Encode the input data into the state of a set of qubits.
-            \item Bring the qubits into superposition over many states (i.e., use quantum superposition).
-            \item Apply an algorithm (or oracle) simultaneously to all the states (i.e., use quantum entanglement amongst the qubits); at the end of this step, one of these states holds the correct answer.
-            \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
-            \item Measure one or more qubits.
-        \end{enumerate}
-        - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
-    }
-\end{quote}
+% Experimental Design:
+
+
+
+
+
+
+
+
