@@ -73,7 +73,7 @@
 \newcommand{\Em}{\mathbb M}
 
 
-\frenchspacing
+\nonfrenchspacing
 
 \providecommand{\cal}{\mathcal}
 \renewcommand{\Bbb}{\mathbb}
@@ -301,6 +301,9 @@
 % \renewcommand{\headrulewidth}{0pt}
 \reversemarginpar
 
+%%% CUSTOM PACKAGES
+\usepackage[printonlyused]{acronym}
+
 %-------------DOCUMENT BEGIN-------------------
 \begin{document}
 \onehalfspacing
@@ -340,6 +343,31 @@
 % \voffset=-2cm
 % %\parindent=16pt
 \setlength{\marginparwidth}{4cm}
+
+%------------- ACRONYMS -------------------
+\acrodef{EW}{Electronic Warfare}
+\acrodef{RF}{Radio-Frequency}
+\acrodef{EM}{Electromagnetic}
+\acrodef{ESM}{Electronic Support Measures}
+\acrodef{ECM}{Electronic Counter-Measures}
+\acrodef{ECCM}{Electronic Counter-Counter-Measures}
+\acrodef{EA}{Electronic Attack}
+\acrodef{PRF}{Pulse Repetition Frequency}
+\acrodef{PRI}{Pulse Repetition Interval}
+\acrodef{ELINT}{Electronic Intelligence}
+\acrodef{DOA}{Direction of Arrival}
+\acrodef{AOA}{Angle of Arrival}
+\acrodef{TOA}{Time of Arrival}
+\acrodef{PW}{Pulse Width}
+\acrodef{BW}{Bandwidth}
+\acrodef{CW}{Continuous Wave}
+\acrodef{SAR}{Synthetic Aperture Radar}
+\acrodef{ESA}{Electronically Steered Array}
+\acrodef{AESA}{Active Electronically Steered Array}
+\acrodef{FMCW}{Frequency-Modulated, Continuous Wave}
+\acrodef{FIR}{Finite Impulse Response}
+\acrodef{LPF}{Low Pass Filter}
+\acrodef{RMSE}{Root-mean-square Error}
 
 %-----------Abstract----------
 \newpage 
@@ -390,3 +418,4 @@
 % \bibliography{references.bib}
 \end{document}
 %-------------DOCUMENT END-------------------
+
