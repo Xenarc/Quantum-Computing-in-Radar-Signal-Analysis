@@ -1,25 +1,198 @@
 \section{Artefact Development Approach}~\label{sec:approach}
 
-\subsection{signal encoding}
+% ---------------- EXPERIMENT 1 ---------------- %
 
-It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
+\subsection{Experiment 1: Data encoding}
+\todo{I can't figure out how to just number these paragraphs as experiment 1, 1.1, etc. I've put them like this for now...}
+% How encoding influences the next experiments.
+\todo{need to make clear that the experiments are independent, but influenced by the learnings of the previous. Discussion will cover exactly \textbf{what} was taken / influenced (Flexible research design)}
+Firstly, before any quantum signal processing may be conducted, signals must be encoded into qubits from the classical source data.
+Encoding is a necessary prerequisite for any subsequent quantum processing to be conducted, and therefore will be the object of the first experiment.
 
-% Quantum analysis algorithms:
+%%% Design
+Using a combination of classical signal processing techniques to prepare data, and known quantum methods, the first experiment aims to encode classical signals into qubits.
+% Statement of the problem
 
-The stages in the of development the artefact are:
-\begin{quote}
-    \textit{
-        \begin{enumerate}
-            \item Encode the input data into the state of a set of qubits.
-            \item Bring the qubits into superposition over many states (i.e., use quantum superposition).
-            \item Apply an algorithm (or oracle) simultaneously to all the states (i.e., use quantum entanglement amongst the qubits); at the end of this step, one of these states holds the correct answer.
-            \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
-            \item Measure one or more qubits.
-        \end{enumerate}
-        - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
+The incident signal prior to sampling is a continuous complex-valued function
+$x : \mathbb{R} \rightarrow \mathbb{C}, t \mapsto x(t)$,
+where $x(t)$ represents the complex amplitude of the signal at any given time, $t \in \mathbb{R} > 0$.
+
+After being sampled, the signal is discrete.
+$x : \mathbb{N} \rightarrow \mathbb{C}, t \mapsto x[t]$,
+where $x[n] = x(n T_s)$, the $n^{th}$ sample of the signal, $n$ is an integer representing the sample index, and $T_s$ is the sampling period (i.e., $T_s = 1/f_s$).
+
+Let $\mathbf{x}$ be the buffer of samples $x_n=x[n]$.
+
+The goal of this encoding is to prepare the sample buffer for quantum processing.
+Several methods will be implemented and evaluated.
+
+\textbf{Basis encoding}
+
+\todo{Still revising the particulars here... (also a WIP as I'm missing some encoding methods)}
+
+The simplest of all non-trivial quantum encoding methods, basis encoding, maps a binary string $x \in {\{0,1\}}^n$ as coefficients of basis states.
+
+Let $\vert b_n \rangle$ be the $n^{th}$ orthonormal basis for a $N$-dimensional quantum system.
+Then any state of the system can be written as a linear combination of the basis states:
+\begin{equation}
+    \displaystyle{
+        \phi: \mathbb{R}^n \rightarrow | \mathbf{x} \rangle =
+        \sum_{i=0}^{N}
+            c_i | b_i \rangle
     }
-\end{quote}
+\end{equation}
+Where $c_i$ are complex coefficients of the basis states which satisfy the normalisation condition
+\begin{equation}
+    \displaystyle{\sum_{i=1}^n |c_i|^2 = 1}
+\end{equation}
 
-\subsection{Frequency estimation}
+For example, encoding $\mathbf{x} = (1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})$
 
-instead of descretising signals into definite PDW's, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once. Further processing such as pulse detection and de-interleaving may be able to be conducted at once. This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.
+The normalisation condition must be be upheld. 
+One way to ensure this is to divide each element of the vector by the Euclidean norm.
+\begin{equation}
+    \displaystyle{\mathbf{x} = \frac{1}{\sqrt{6}}(1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})}
+\end{equation}
+Encoding this into a 2-qubit system implies multiplying each element by the basis states: $|00\rangle, |01\rangle, |10\rangle, |11\rangle$.
+Therefore, 
+\begin{equation}
+    \displaystyle{
+        | \mathbf{x} \rangle =
+        \frac{1}{\sqrt{6}}
+        (
+            |00\rangle +
+            (-1 + i\sqrt{3}) |01\rangle +
+            |10\rangle +
+            (1 + i\sqrt{3}) |11\rangle
+        )
+    }
+\end{equation}
+
+
+\textbf{Amplitude encoding}
+
+Quantum amplitude encoding represents classical information as amplitudes of quantum states.
+For $n$ qubits, encoding a classical vector $x \in \mathbb{C}^{n}$ into a quantum state $\vert x \rangle$ is described by:
+
+$|x\rangle = \frac{1}{\sqrt{N}} \sum{_n^N}  x_n \vert y \rangle$
+
+
+% The operation of encoding is one which maps to a Hilbert space, $\mathcal{H}$.
+We can define a map $\phi: \mathbb{R}^n \rightarrow \mathcal{H}$ that takes a vector of length $n$ (i.e., the length of the buffer) and maps it to a vector in the Hilbert space, $\mathcal{H}$.
+% The goal of any quantum encoder is to satisfy:
+One common choice for $\phi$ is to use the Fourier transform to map the buffer into a frequency representation, and then use the resulting frequency coefficients as the coordinates in $\mathcal{H}$. This can be expressed mathematically as:
+\begin{equation}
+\phi(x) = \sum_{k=0}^{n-1} x_k e^{i2\pi k t / n}
+\end{equation}
+This represents the summation of the product of each sample $x_k$ with a complex exponential term $e^{i2\pi k t / n}$, where $t$ ranges from 0 to $n-1$ and $k$ ranges from 0 to $n-1$.
+
+
+% Criticality of data vs data format.
+It should be noted that the specific input parameters of the encoding dataset are not critical, rather it is the format that is a controlled variable.
+Given the data themselves have the same qualities of a complex value varying over time, their specific implementation is of lesser importance.
+% Types of input data.
+In this respect, one \todo{define in literature review}\todo{create appendix with block diagrams of these radars}\textbf{pulse radar} and one \textbf{pulsed-Doppler radar} will be employed as test inputs, as they depict a minimally representative sample of a multi-radar environment. 
+
+%%% Criteria
+Specifically, the independent variable is the type of quantum algorithm for encoding time-series signals, and measured will be the sampling capacity, bandwidth, computational efficiency, and expressivity.
+%%% Measures
+\begin{itemize}
+    \item Sampling capacity, defined as the number of samples which can be encoded simultaneously, will be measured the number of samples that can be practically encoded as qubits.
+    \item Bandwidth will be measured by the span of frequencies that can be encoded.
+    \item Computational efficiency will be recorded as the number of \todo{define in literature review}\textbf{logical qubits and ancillary qubits} required to encode the data.
+    \item Expressivity, is "a circuit’s ability to generate (pure) states that are well representative of the Hilbert space" \cite{sim_expressibility_2019} \todo{I'm not sure whether to include this metric...}
+    \todo{I don't think these are particularly validated measures. But, I'm not sure if they exist... to confirm...}
+\end{itemize}
+Since encoding methods produce quantum data that differ in construction, it is important that the structure of quantum data is compatible with the analysis.
+The encoded form is more critical than performance and is considered when choosing the encoding method for the following experiments.
+
+% ---------------- EXPERIMENT 2 ---------------- %
+
+\subsection{Experiment 2: Signal detection}
+
+\todo{Diagram of signal with pulse boundary markings. Should have overlapping signals}
+% Motivation
+After sample data are encoded into qubits, the next challenge is to detect pulse boundaries. This is termed \textit{pulse detection}.
+Pulse detection is required in order to understand where pulses exist in time, so as to enable further characterisation of the nature of the transmitted signal.
+This technique is only applicable to pulsed radars as they exhibit pulse boundaries; \ac{CW} radar and others of similar nature do not.
+It is for this reason, that only pulsed radars will be trialed, with the number independently varying from $1$ to $10$, each with \ac{PW} controlled at $10 \mu s$.
+Both pulsed-Doppler and pulsed radar types will be trialed, being a secondary independent variable.
+The centre frequency of each radar is to be randomly spread uniformly over the frequency spectrum.
+For the pulsed-Doppler trial, the frequency deviation will be controlled at $1MHz$
+
+The technique ultimately developed is not limited to a specific encoding technique, nor is it wholly required that processing be completed in the quantum domain - minimal pre- and post-processing may be applied.
+The dependent variable will be a continuous determination of pulse boundaries.
+A measured pulse boundary here is defined as the quantitative probability of a pulse rising or falling at any given time.\todo{this is equivilent to TOA/TOE. Possibly re-phrase for clarity}
+It should be the result of quantum measurement.
+
+From these raw measurements, the analysis of accuracy may follow, utilising:
+\begin{itemize}
+    \item precision metric:
+- \todo{Continuous version of??} P/(TP+TN)
+    \item Recall metric:
+- \todo{Continuous version of??} P(TP/FN)
+    \item F1 score:
+- \todo{Continuous version of??} 2*(precision+recall) / (precision*recall)
+\end{itemize}
+
+% ---------------- EXPERIMENT 3 ---------------- %
+
+\subsection{Experiment 3: Frequency Estimation}
+
+%%% Design
+% Description
+Finally is the experiment testing the performance of a quantum frequency estimation algorithm.
+% Purpose / criteria
+The algorithm's goal is to output a frequency indication given some encoded signal input.
+% Types of input data.
+Not included in the scope of this experiment is dealing with non-constant signal envelopes; that is, continuous waves are only to be examined.
+Consequently, only a single \ac{FMCW} or \ac{CW} radar types will be simulated in independent trials.
+Also varied will be the independent variable \ac{SNR} ranging from $0dBC$ (no noise), to $70dBC$.
+% Nature of solution
+Again there is no prescriptive specific encoding technique, nor is it limited to solely quantum
+methods.
+\todo{define the frequency modulation rate and type.}
+The quantum method should output a most probable frequency indication for each quantised sample.
+%%% Measures
+The measure of accuracy will be a \ac{RMSE} frequency error, aggregated over all samples. \todo{I'm not sure how this stacks up with many samples. Does \ac{RMSE} accumulate?}
+
+% --------------
+%%% Qualitative stuff / post hoc evals
+% For although subsequent experimental trials and post hoc evaluation of the encoding methods remain as important means of assessing its suitability to the broader question, each experiment is designed to be independent of the results of the previous.
+% In other words, while the success of the subsequent analyses hinges only somewhat on the quantitative comparison of encoding methods, it is the understanding of <...>. 
+% Is is empirical trial and post hoc evaluation that measure this. 
+
+% The method consists of creating a GNU-Radio block that permits the input of complex-valued samples into a buffer. The processing of samples is then done in Python and Qiskit within that block, and finally, outputted to a buffer where it is recorded.
+-----------------------
+
+To achieve the objective of \textbf{acquiring radar signal test data}, \todojc{Free and open access emulator / generator perhaps, is your preference not the necessity, may be skip "free and open access" your solution could secure such a device. 
+Also another approach still is to acquire some data set, which you may need to acknowledge here.}\textbf{a free and open-access signal emulator} will need to be acquired and validated. 
+It should have capability of  generating a set of radar signals exhibiting various degrees of signal quality and environmental situations. 
+The variable signal quality refers to a signal-to-noise ratio, and environmental conditions refer to number of radars, pulse density, and pulse frequency.
+
+
+
+
+
+
+% It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
+
+% % Quantum analysis algorithms:
+
+% The stages in the of development the artefact are:
+% \begin{quote}
+%     \textit{
+%         \begin{enumerate}
+%             \item Encode the input data into the state of a set of qubits.
+%             \item Bring the qubits into superposition over many states (i.e., use quantum superposition).
+%             \item Apply an algorithm (or oracle) simultaneously to all the states (i.e., use quantum entanglement amongst the qubits); at the end of this step, one of these states holds the correct answer.
+%             \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
+%             \item Measure one or more qubits.
+%         \end{enumerate}
+%         - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
+%     }
+% \end{quote}
+
+% \subsection{Frequency estimation}
+
+% instead of descretising signals into definite PDW's, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once. Further processing such as pulse detection and de-interleaving may be able to be conducted at once. This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.

@@ -6,12 +6,12 @@
 
 %%% The methodological framework
 % Motivation
-Addressing the research question fully, necessitates a rigorous and validated empirical research framework \cite{basili_experimentation_1986}.
+\todojc{Probably not worth stating the obvious}Addressing the research question fully, necessitates a rigorous and validated empirical research framework \cite{basili_experimentation_1985}.
 % State the methodological framework
-The methodological framework adopted will be exploratory in nature and will manifest as a set of experiments to be conducted in sequence.
+\todojc{You need to argue your case from the research question and its objectives, so say "as ..., therefore the methodological framework needs to be ...", then explain why "exploratory" and what it means, and why not "confirmatory"}The methodological framework adopted will be exploratory in nature and will manifest as a set of experiments to be conducted in sequence.
 %%% Explain the methodological framework
 % Explain experimental
-Each experiment will involve manipulating independent variables, which represent the inputs to the quantum approach, to investigate the effects on the dependent variable, representing the output of the quantum method.
+\todojc{All these are too generic, just state what experiments should aim for in concrete, how many and how}Each experiment will involve manipulating independent variables, which represent the inputs to the quantum approach, to investigate the effects on the dependent variable, representing the output of the quantum method.
 % Explain flexible artefact
 The approaches themselves will not be pre-determined, and instead will be discovered through the course of experiment.
 % Explain controlled variables
@@ -21,18 +21,18 @@ In the absence of an \`{a} priori hypotheses, this exploratory research is inten
 
 %%% Justify this framework:
 % Experimental
-An experimental methodology was chosen to provide a rigorous evaluation of the processing approaches under varying input conditions, allowing a high level of control over the variables in question.
+An \todojc{Ref, we know that we need experiments but what exactly is "experimental methodology" and what it means for the project, specifically!}\textbf{experimental methodology} was chosen to provide a rigorous evaluation of the processing approaches under varying input conditions, allowing a high level of control over the variables in question.
 In this respect, an experimental approach more truthfully validates the performance and consequent suitability of these new methods, thereby increasing the reliability and generalisability of the results.
 % Exploratory / flexible artefact
 As previously noted, little research has been conducted into quantum radar signal processing, it therefore was chosen that a somewhat flexible research methodology \cite{anastas_research_1999} be adopted, where the the objects of study (quantum processing approaches) are not fixed at the time of experimental design.
-This approach effectively shortens the feedback loop in developing the quantum methods, ultimately enhancing the value and impact of the results. \cite{karahasanovic_collecting_2005}.
+\textbf{This approach} effectively shortens the feedback loop in developing the quantum methods, ultimately enhancing the value and impact of the results. \cite{karahasanovic_collecting_2005}.\todojc{Very convoluted and I do not understand what it means - we need to discuss}
 
 % Controlled and simulated
 A choice of simulated conditions arose by necessity, since acquiring sample radar systems is impractical, cost prohibitive, and more importantly - out of scope.
 It was therefore pertinent that a radar signal simulator be acquired.
-Determining that simulated quantum hardware be used over \todo{define in literature review}\textbf{noisy quantum machines} was more challenging. 
+\todojc{Why simulated hardware? Why not real, we may get access to? IS it important at this stage to know?}Determining that \textbf{simulated quantum hardware} be used over \todo{define in literature review}\textbf{noisy quantum machines} was more challenging. 
 Because any quantum solution is naturally bounded by the constraints of the quantum machine, the suitability of these methods is also thus constrained.
-It was for this reason, that simulated hardware was chosen.
+\todojc{Not the best argument, as we know that for problems of certain complexity classical methods, and this include quantum simulation, cannot compute the solutions - let's discuss}\textbf{It was for this reason, that simulated hardware was chosen.}
 For, given the fact that simulated machines are generally lower in noise and higher in precision, it was deemed they demonstrate a more true and analytic representation of the future potential of these methods.
 It is, however, noted as a limitation of this experimental design. If these methods were practically implemented on noisy quantum machines, the results would differ. 
 
@@ -43,8 +43,7 @@ In each case, the method's performance will be evaluated using quantitative meas
 As a whole, this research is to understand \textit{how} these methods may be used, but not \textit{how well}.
 It is therefore more an enquiry into method, rather than a normative study of performance; not, for example, a comparison with classical methods.
 
-%%% Sample nature and collection .
-%-- However, all experiments have the same method of source data preparation.
+%%% Sample nature and collection 
 % Describe the nature sample (source data)
 Each of the approaches perform different functions and therefore require different input data, but in general, the inputs are point source radar signals \cite{chakravorty_what_2018}.
 Assumed to have been measured from the operating environment, these signals are simulated and sampled as input to each experiment.
@@ -87,101 +86,8 @@ Given that only trivial models are chosen, this risk is small, but not completel
 \todo{probably want a bit more here...}
 
 % Describe the nature of the approach implementations
-For the quantum methods to be implemented on simulated quantum hardware, an instruction set and simulator need be obtained.
-While several software packages fulfil this purpose, the Python-based quantum library \textit{Qiskit} \cite{qiskit_contributors_qiskit_2023} was chosen due to it being free, open-source, and generally familiar to the author broader research community\cite{garhwal_quantum_2021}. Furthermore, if it is desired that in future these methods be reproduced on real quantum machines, Qiskit has facilities for doing so.
+For the quantum methods to be implemented on simulated quantum hardware, an instruction set and simulator need be obtained. 
+While several software packages fulfil this purpose, the Python-based quantum library \textit{Qiskit} \cite{qiskit_contributors_qiskit_2023} was chosen due to it being free, open-source, and generally familiar to the author and broader research community\cite{garhwal_quantum_2021}.
+Furthermore, if it is desired that in future these methods be reproduced on real quantum machines, Qiskit has facilities for doing so.
 
 Now that the empirical research framework has been established and the experimental objects, criteria, and materials have been described, each experimental method will be formulated.
-
-% ---------------- EXPERIMENT 1 ---------------- %
-
-\subsection{Experiment 1: Data encoding}
-\todo{I can't figure out how to just number these paragraphs as experiment 1, 1.1, etc. I've put them like this for now...}
-% How encoding influences the next experiments.
-\todo{need to make clear that the experiments are independent, but influenced by the learnings of the previous. Discussion will cover exactly \textbf{what} was taken / influenced (Flexible research design)}
-Firstly, before any quantum signal processing may be conducted, signals must be encoded into qubits from the classical source data.
-Encoding is a necessary prerequisite for any subsequent quantum processing to be conducted, and therefore will be the object of the first experiment.
-
-%%% Design
-Using a combination of classical signal processing techniques to prepare data, and known quantum methods, the first experiment aims to encode classical signals into qubits.
-% Criticality of data vs data format.
-It should be noted that the specific input parameters of the encoding dataset are not critical, rather it is the format that is a controlled variable.
-Given the data themselves have the same qualities of a complex value varying over time, their specific implementation is of lesser importance.
-% Types of input data.
-In this respect, one \todo{define in literature review}\todo{create appendix with block diagrams of these radars}\textbf{pulse radar} and one \textbf{pulsed-Doppler radar} will be employed as test inputs, as they depict a minimally representative sample of a multi-radar environment. 
-
-%%% Criteria
-Specifically, the independent variable is the type of quantum algorithm for encoding time-series signals, and measured will be the sampling capacity, bandwidth, computational efficiency, and expressivity.
-%%% Measures
-\begin{itemize}
-    \item Sampling capacity, defined as the number of samples which can be encoded simultaneously, will be measured the number of samples that can be practically encoded as qubits.
-    \item Bandwidth will be measured by the span of frequencies that can be encoded.
-    \item Computational efficiency will be recorded as the number of \todo{define in literature review}\textbf{logical qubits and ancillary qubits} required to encode the data.
-    \item Expressivity, is "a circuit’s ability to generate (pure) states that are well representative of the Hilbert space" \cite{sim_expressibility_2019} \todo{I'm not sure whether to include this metric...}
-    \todo{I don't think these are particularly validated measures. But, I'm not sure if they exist... to confirm...}
-\end{itemize}
-Since encoding methods produce quantum data that differ in construction, it is of great importance that the structure of quantum data is compatible with the analysis.
-Thus, in this respect performance is not as critical as the encoded form.
-This fact is taken into account when an encoding is chosen in the following experiments.
-
-% ---------------- EXPERIMENT 2 ---------------- %
-
-\subsection{Experiment 2: Signal detection}
-
-\todo{Diagram of signal with pulse boundary markings. Should have overlapping signals}
-% Motivation
-After sample data are encoded into qubits, the next challenge is to detect pulse boundaries. This is termed \textit{pulse detection}.
-Pulse detection is required in order to understand where pulses exist in time, so as to enable further characterisation of the nature of the transmitted signal.
-This technique is only applicable to pulsed radars as they exhibit pulse boundaries; \ac{CW} radar and others of similar nature do not.
-It is for this reason, that only pulsed radars will be trialed, with the number independently varying from \(1\) to \(10\), each with \ac{PW} controlled at \(10 \mu s\).
-Both pulsed-Doppler and pulsed radar types will be trialed, being a secondary independent variable.
-The centre frequency of each radar is to be randomly spread uniformly over the frequency spectrum.
-For the pulsed-Doppler trial, the frequency deviation will be controlled at \(1MHz\)
-
-The technique ultimately developed is not limited to a specific encoding technique, nor is it wholly required that processing be completed in the quantum domain - minimal pre- and post-processing may be applied.
-The dependent variable will be a continuous determination of pulse boundaries.
-A measured pulse boundary here is defined as the quantitative probability of a pulse rising or falling at any given time.\todo{this is equivilent to TOA/TOE. Possibly re-phrase for clarity}
-It should be the result of quantum measurement.
-
-From these raw measurements, the analysis of accuracy may follow, utilising:
-\begin{itemize}
-    \item precision metric:
-- \todo{Continuous version of??} P/(TP+TN)
-    \item Recall metric:
-- \todo{Continuous version of??} P(TP/FN)
-    \item F1 score:
-- \todo{Continuous version of??} 2*(precision+recall) / (precision*recall)
-\end{itemize}
-
-% ---------------- EXPERIMENT 3 ---------------- %
-
-\subsection{Experiment 3: Frequency Estimation}
-
-%%% Design
-% Description
-Finally is the experiment testing the performance of a quantum frequency estimation algorithm.
-% Purpose / criteria
-The algorithm's goal is to output a frequency indication given some encoded signal input.
-% Types of input data.
-Not included in the scope of this experiment is dealing with non-constant signal envelopes; that is, continuous waves are only to be examined.
-Consequently, only a single \ac{FMCW} or \ac{CW} radar types will be simulated in independent trials.
-% Nature of solution
-Again there is no prescriptive specific encoding technique, nor is it limited to solely quantum
-methods.
-\todo{define the frequency modulation rate and type.}
-The quantum method should output a most probable frequency indication for each quantised sample.
-%%% Measures
-The measure of accuracy will be a \ac{RMSE} frequency error, aggregated over all samples. \todo{I'm not sure how this stacks up with many samples. Does \ac{RMSE} accumulate?}
-
-% --------------
-%%% Qualitative stuff / post hoc evals
-% For although subsequent experimental trials and post hoc evaluation of the encoding methods remain as important means of assessing its suitability to the broader question, each experiment is designed to be independent of the results of the previous.
-% In other words, while the success of the subsequent analyses hinges only somewhat on the quantitative comparison of encoding methods, it is the understanding of <...>. 
-% Is is such that empirical trial and post hoc evaluation measure just this. 
-
-% The method consists of creating a GNU-Radio block that permits the input of complex-valued samples into a buffer. The processing of samples is then done in Python and Qiskit within that block, and finally, outputted to a buffer where it is recorded.
------------------------
-
-To achieve the objective of \textbf{acquiring radar signal test data}, \todojc{Free and open access emulator / generator perhaps, is your preference not the necessity, may be skip "free and open access" your solution could secure such a device. 
-Also another approach still is to acquire some data set, which you may need to acknowledge here.}\textbf{a free and open-access signal emulator} will need to be acquired and validated. 
-It should have capability of  generating a set of radar signals exhibiting various degrees of signal quality and environmental situations. 
-The variable signal quality refers to a signal-to-noise ratio, and environmental conditions refer to number of radars, pulse density, and pulse frequency.
