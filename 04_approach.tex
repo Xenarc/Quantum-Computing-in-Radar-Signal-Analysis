@@ -1,11 +1,12 @@
 \section{Artefact Development Approach}~\label{sec:approach}
 
 % ---------------- EXPERIMENT 1 ---------------- %
-
+\todojc{We need some paragraph describing what is the aim of the subsections and what we are going to find in them.}
+\todojc{Also this chapter is to include some details of the "development artefact", which are the details of your development environment, some description of your program design, some code decisions, etc.}
 \subsection{Experiment 1: Data encoding}
-\todo{I can't figure out how to just number these paragraphs as experiment 1, 1.1, etc. I've put them like this for now...}
 % How encoding influences the next experiments.
 \todo{need to make clear that the experiments are independent, but influenced by the learnings of the previous. Discussion will cover exactly \textbf{what} was taken / influenced (Flexible research design)}
+\todojc{It would b e best to base these encoding techniques on some good reference, e.g. the book by \href{https://www.amazon.com.au/Machine-Learning-Quantum-Computers-Schuld/dp/3030831000}{Maria Schuld}, also there is a really good medium article on coding techniques by \href{https://medium.datadriveninvestor.com/all-about-data-encoding-for-quantum-machine-learning-2a7344b1dfef}{Baijayanta Roy}}
 Firstly, before any quantum signal processing may be conducted, signals must be encoded into qubits from the classical source data.
 Encoding is a necessary prerequisite for any subsequent quantum processing to be conducted, and therefore will be the object of the first experiment.
 
@@ -28,9 +29,11 @@ Several methods will be implemented and evaluated.
 
 \textbf{Basis encoding}
 
-\todo{Still revising the particulars here... (also a WIP as I'm missing some encoding methods)}
+\textbf{Amplitude encoding}
 
-The simplest of all non-trivial quantum encoding methods, basis encoding, maps a binary string $x \in {\{0,1\}}^n$ as coefficients of basis states.
+\todo{Still revising the particulars here... (also a WIP as I'm missing some encoding methods)}
+\todojc{This looks like "amplitude encoding"}
+\todojc{Note that "basis encoding" is to encode a value as a series of qubit states (good for a single value represented as its bits, e.g. initialising q0=|0>, q1=|1>, q2=|1> encodes number 6), or multiple values as groups of qubits, we can also use superposition to encode multiple values}The simplest of all non-trivial quantum encoding methods, basis encoding, maps a binary string $x \in {\{0,1\}}^n$ as coefficients of basis states.
 
 Let $\vert b_n \rangle$ be the $n^{th}$ orthonormal basis for a $N$-dimensional quantum system.
 Then any state of the system can be written as a linear combination of the basis states:
@@ -46,15 +49,15 @@ Where $c_i$ are complex coefficients of the basis states which satisfy the norma
     \displaystyle{\sum_{i=1}^n |c_i|^2 = 1}
 \end{equation}
 
-For example, encoding $\mathbf{x} = (1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})$
+\todojc{All those examples would be improved if they could be related to your problem of signal processing, e.g. you could include a small fragment of your generated radar signal (even if it is 4 values) and say that this is the case}For example, encoding $\mathbf{x} = (1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})$
 
-The normalisation condition must be be upheld. 
+The normalisation condition must be be upheld.
 One way to ensure this is to divide each element of the vector by the Euclidean norm.
 \begin{equation}
     \displaystyle{\mathbf{x} = \frac{1}{\sqrt{6}}(1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})}
 \end{equation}
 Encoding this into a 2-qubit system implies multiplying each element by the basis states: $|00\rangle, |01\rangle, |10\rangle, |11\rangle$.
-Therefore, 
+\todojc{And since each basis state's amplitude defines a value therefore this is called "amplitude encoding"}Therefore, 
 \begin{equation}
     \displaystyle{
         | \mathbf{x} \rangle =
@@ -67,26 +70,27 @@ Therefore,
         )
     }
 \end{equation}
+\todojc{What would the circuit look like?}
+\todojc{What would its measurement look like?}
 
+\textbf{Angle encoding}
 
-\textbf{Amplitude encoding}
-
-Quantum amplitude encoding represents classical information as amplitudes of quantum states.
+\todojc{BTW, in Qiskit "initialize" instruction and "StatePreparation" class (to create a gate) can assist in amplitude encoding}Quantum amplitude encoding represents classical information as amplitudes of quantum states.
 For $n$ qubits, encoding a classical vector $x \in \mathbb{C}^{n}$ into a quantum state $\vert x \rangle$ is described by:
 
 $|x\rangle = \frac{1}{\sqrt{N}} \sum{_n^N}  x_n \vert y \rangle$
 
 
 % The operation of encoding is one which maps to a Hilbert space, $\mathcal{H}$.
-We can define a map $\phi: \mathbb{R}^n \rightarrow \mathcal{H}$ that takes a vector of length $n$ (i.e., the length of the buffer) and maps it to a vector in the Hilbert space, $\mathcal{H}$.
+We can define a map $\phi: \mathbb{R}^n \rightarrow \mathcal{H}$ that takes a vector of length $n$ (i.e., the length of the \todojc{What is a "buffer"?}\textbf{buffer}) and maps it to a vector in the Hilbert space, $\mathcal{H}$.
 % The goal of any quantum encoder is to satisfy:
-One common choice for $\phi$ is to use the Fourier transform to map the buffer into a frequency representation, and then use the resulting frequency coefficients as the coordinates in $\mathcal{H}$. This can be expressed mathematically as:
+One common choice for $\phi$ is to use the Fourier transform to map the buffer into a frequency representation, and then use the resulting frequency coefficients as the coordinates in $\mathcal{H}$. \todojc{I think we have some mix up here, the following seem to be rotations, so perhaps rotation encoding? You may need to clarify it, as long as the amplitudes of possible states (e.g. |00>, |01>, |10>, |00>) of the entire circuit represent the intended values - here frequencies - then this indeed is an amplitude encoding}This can be expressed mathematically as:
 \begin{equation}
 \phi(x) = \sum_{k=0}^{n-1} x_k e^{i2\pi k t / n}
 \end{equation}
 This represents the summation of the product of each sample $x_k$ with a complex exponential term $e^{i2\pi k t / n}$, where $t$ ranges from 0 to $n-1$ and $k$ ranges from 0 to $n-1$.
 
-
+\todojc{What would the circuit look like}
 % Criticality of data vs data format.
 It should be noted that the specific input parameters of the encoding dataset are not critical, rather it is the format that is a controlled variable.
 Given the data themselves have the same qualities of a complex value varying over time, their specific implementation is of lesser importance.
@@ -103,6 +107,8 @@ Specifically, the independent variable is the type of quantum algorithm for enco
     \item Expressivity, is "a circuit’s ability to generate (pure) states that are well representative of the Hilbert space" \cite{sim_expressibility_2019} \todo{I'm not sure whether to include this metric...}
     \todo{I don't think these are particularly validated measures. But, I'm not sure if they exist... to confirm...}
 \end{itemize}
+\todojc{It would also be great to add encoding with QRAM as it is very efficient and with feature maps as these are standard for QNNs and Q kernel methods}
+\todojc{And definitely add images of circuits for examples of different approaches}
 Since encoding methods produce quantum data that differ in construction, it is important that the structure of quantum data is compatible with the analysis.
 The encoded form is more critical than performance and is considered when choosing the encoding method for the following experiments.
 
@@ -112,7 +118,7 @@ The encoded form is more critical than performance and is considered when choosi
 
 \todo{Diagram of signal with pulse boundary markings. Should have overlapping signals}
 % Motivation
-After sample data are encoded into qubits, the next challenge is to detect pulse boundaries. This is termed \textit{pulse detection}.
+\todojc{How about a quantum technique to be included here?}After sample data are encoded into qubits, the next challenge is to detect pulse boundaries. This is termed \textit{pulse detection}.
 Pulse detection is required in order to understand where pulses exist in time, so as to enable further characterisation of the nature of the transmitted signal.
 This technique is only applicable to pulsed radars as they exhibit pulse boundaries; \ac{CW} radar and others of similar nature do not.
 It is for this reason, that only pulsed radars will be trialed, with the number independently varying from $1$ to $10$, each with \ac{PW} controlled at $10 \mu s$.
@@ -141,7 +147,7 @@ From these raw measurements, the analysis of accuracy may follow, utilising:
 
 %%% Design
 % Description
-Finally is the experiment testing the performance of a quantum frequency estimation algorithm.
+\todojc{We need some details, perhaps someone has already done this so describe their work}Finally is the experiment testing the performance of a quantum frequency estimation algorithm.
 % Purpose / criteria
 The algorithm's goal is to output a frequency indication given some encoded signal input.
 % Types of input data.

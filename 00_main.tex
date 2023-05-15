@@ -19,12 +19,14 @@
 \usepackage{amsthm}
 \usepackage{xargs}
 \usepackage[dvipsnames]{xcolor}
+
+% ----------- To hide all "todo" notes, comment the first line and uncomment the next
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+%\usepackage[disable]{todonotes}
 \newcommand{\smalltodo}[2][]
     {\todo[caption={#2}, #1]
     {\begin{spacing}{0.5}#2\end{spacing}}}
 \newcommandx{\todojc}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
-%\usepackage[disable]{todonotes}
 \setuptodonotes{color=blue!30}
 \usepackage{enumitem}
 \usepackage{xy}
@@ -33,7 +35,7 @@
 \usetikzlibrary{cd}
 
 \usepackage{verbatim}
-\usepackage[colorlinks, backref, citecolor=blue]{hyperref}
+\usepackage{hyperref}
 \usepackage[numbers]{natbib}
 \usepackage{makeidx}
 
@@ -267,9 +269,10 @@
 
 \hypersetup{
 	colorlinks=true,       % false: boxed links; true: colored links
-	linkcolor=blue,        % color of internal links
+	linkcolor=black,        % color of internal links
 	citecolor=blue,        % color of links to bibliography
 	filecolor=magenta,     % color of file links
+	backref = true,
 	urlcolor=blue         
 }
 
@@ -303,6 +306,7 @@
 
 %%% CUSTOM PACKAGES
 \usepackage[printonlyused]{acronym}
+\usepackage{enumitem}
 
 %-------------DOCUMENT BEGIN-------------------
 \begin{document}
@@ -344,34 +348,6 @@
 % %\parindent=16pt
 \setlength{\marginparwidth}{4cm}
 
-%------------- ACRONYMS -------------------
-\acrodef{EW}{Electronic Warfare}
-\acrodef{RF}{Radio-Frequency}
-\acrodef{EM}{Electromagnetic}
-\acrodef{ESM}{Electronic Support Measures}
-\acrodef{ECM}{Electronic Counter-Measures}
-\acrodef{ECCM}{Electronic Counter-Counter-Measures}
-\acrodef{EA}{Electronic Attack}
-\acrodef{PRF}{Pulse Repetition Frequency}
-\acrodef{PRI}{Pulse Repetition Interval}
-\acrodef{ELINT}{Electronic Intelligence}
-\acrodef{DOA}{Direction of Arrival}
-\acrodef{AOA}{Angle of Arrival}
-\acrodef{TOA}{Time of Arrival}
-\acrodef{PW}{Pulse Width}
-\acrodef{BW}{Bandwidth}
-\acrodef{CW}{Continuous Wave}
-\acrodef{SAR}{Synthetic Aperture Radar}
-\acrodef{ESA}{Electronically Steered Array}
-\acrodef{AESA}{Active Electronically Steered Array}
-\acrodef{FMCW}{Frequency-Modulated, Continuous Wave}
-\acrodef{FIR}{Finite Impulse Response}
-\acrodef{LPF}{Low Pass Filter}
-\acrodef{RMSE}{Root-mean-square Error}
-\acrodef{SNR}{Signal-to-Noise-Ratio}
-\acrodef{STAP}{Space-Time Adaptive Processing}
-\acrodef{MIMO}{Multiple-Input and Multiple-Output}
-
 %-----------Abstract----------
 \newpage 
 \thispagestyle{plain} 
@@ -389,7 +365,53 @@
 \newpage
 \listoffigures
 \listoftables
+%------------- ACRONYMS -------------------
 
+\section*{List of Acronyms}
+\begin{acronym}
+    \acro{ML}{Machine Learning}
+    \acro{AI}{Artificial Intelligence}
+    \acro{EW}{Electronic Warfare}
+    \acro{RF}{Radio Frequency}
+    \acro{EM}{Electromagnetic}
+    \acro{ESM}{Electronic Support Measures}
+    \acro{ECM}{Electronic Counter-Measures}
+    \acro{ECCM}{Electronic Counter-Counter-Measures}
+    \acro{EA}{Electronic Attack}
+    \acro{PDW}{Pulse Descriptor Word}
+    \acro{PRF}{Pulse Repetition Frequency}
+    \acro{PRI}{Pulse Repetition Interval}
+    \acro{ELINT}{Electronic Intelligence}
+    \acro{DOA}{Direction of Arrival}
+    \acro{AOA}{Angle of Arrival}
+    \acro{TOA}{Time of Arrival}
+    \acro{PW}{Pulse Width}
+    \acro{BW}{Bandwidth}
+    \acro{CW}{Continuous Wave}
+    \acro{SAR}{Synthetic Aperture Radar}
+    \acro{ESA}{Electronically Steered Array}
+    \acro{AESA}{Active Electronically Steered Array}
+    \acro{FMCW}{Frequency-Modulated, Continuous Wave}
+    \acro{FIR}{Finite Impulse Response}
+    \acro{LPF}{Low-Pass Filter}
+    \acro{RMSE}{Root-mean-square Error}
+    \acro{SNR}{Signal-to-Noise-Ratio}
+    \acro{STAP}{Space-Time Adaptive Processing}
+    \acro{MIMO}{Multiple-Input and Multiple-Output}
+    \acro{POMDP}{Partially Observable Markov Decision Processes}
+    \acro{MDP}{Markov Decision Process}
+    \acro{FMP}{Frequency Modulated Pulse}
+    \acro{UWB}{Ultra-Wideband}
+    \acro{MDP}{Markov Decision Processes}
+    \acro{FPGA}{Field Programmable Gate Array}
+    \acro{NISQ}{Noisy Intermediate-Scale Quantum}
+    \acro{ANN}{Artificial neural network}
+    \acro{kNN}{K-Nearest Neighbors}
+    \acro{PCA}{Principal component analysis}
+    \acro{DNN}{Deep Neural Network}
+    \acro{QNN}{Quantum Neural Network}
+    \acro{QFT}{Quantum Fourier transform}
+\end{acronym}
 % Main body of Thesis
 %========= Start of Thesis 
 \newpage 
@@ -419,6 +441,10 @@
 \bibliography{zotero.bib}
 % Manual imports
 % \bibliography{references.bib}
+
+%-------- Appendix
+\newpage
+\input{09_appendix}
+
 \end{document}
 %-------------DOCUMENT END-------------------
-

@@ -1,51 +1,125 @@
-\section{Research Design \& Methodology}~\label{sec:design}
-\subsection{Research Methodology}
 
-% C. Wohlin, P. Runeson, M. H ̈ost, M. C. Ohlsson, B. Regnell, and A. Wessl ́en. Experimentation in Software Engineering. Springer Science & Business Media. 
+% C. Wohlin, P. Runeson, M. H ̈ost, M. C. Ohlsson, B. Regnell, and A. Wessl ́en. Experimentation in Software Engineering. Springer Science & Business Media.
 % M. Oivo, P. Kuvaja, P. Pulli, and J. Simil ̈a. Software engineering research strategy: Combining experimental and explorative research (eer). pages 302–317. Springer
 
-%%% The methodological framework
-% Motivation
-\todojc{Probably not worth stating the obvious}Addressing the research question fully, necessitates a rigorous and validated empirical research framework \cite{basili_experimentation_1985}.
-% State the methodological framework
-\todojc{You need to argue your case from the research question and its objectives, so say "as ..., therefore the methodological framework needs to be ...", then explain why "exploratory" and what it means, and why not "confirmatory"}The methodological framework adopted will be exploratory in nature and will manifest as a set of experiments to be conducted in sequence.
-%%% Explain the methodological framework
-% Explain experimental
-\todojc{All these are too generic, just state what experiments should aim for in concrete, how many and how}Each experiment will involve manipulating independent variables, which represent the inputs to the quantum approach, to investigate the effects on the dependent variable, representing the output of the quantum method.
-% Explain flexible artefact
-The approaches themselves will not be pre-determined, and instead will be discovered through the course of experiment.
-% Explain controlled variables
-Controlled and simulated conditions will be maintained - for both sample data and the implementation of quantum methods - with those algorithms being run on simulated quantum hardware.
-% Explain no hypothesis / exploratory
-In the absence of an \`{a} priori hypotheses, this exploratory research is intended to understand the performance of these novel quantum techniques and identify areas for further investigation.
 
-%%% Justify this framework:
+\section{Research Design \& Methodology}~\label{sec:design}
+
+In this section will be discussed the various research methods and techniques that will be used in this study.
+First is the research methodology, wherein an examination of approaches will be made.
+Secondly, the data environment will be defined, along with the controlled variables.
+Finally the research design will be presented, followed by a discussion of the data collection methods, data analysis techniques, and methods for ensuring the validity the findings.
+
+\todojc{The chapter should include two parts, i.e. the overall research methodology with justification (from the research question and objectives) and the details of your research design (what steps are to be taken as part of your research). The latter can be visualised as a chart of what are the research phases (which may include what would happen in T1 and then in T2) with the some description and justification. Most likely this would relate to your research objectives derived from your research question.}
+\subsection{Research Methodology}
+
+%%% The methodological framework
+
+% RQ: (but different!)
+This investigation aims to determine how can quantum computing methods be used to in an \ac{ESM} function to detect the types and characteristics of radar signals in the defence context.
+% Partitio
+Three aspects of this question will be explored: quantum encoding, pulse detection, and frequency estimation algorithms.
+% Various research methodologies may be employed
+Various research methodologies may be used to answer this question, including experimental, surveys, observational, and case study approaches.
+
 % Experimental
-An \todojc{Ref, we know that we need experiments but what exactly is "experimental methodology" and what it means for the project, specifically!}\textbf{experimental methodology} was chosen to provide a rigorous evaluation of the processing approaches under varying input conditions, allowing a high level of control over the variables in question.
-In this respect, an experimental approach more truthfully validates the performance and consequent suitability of these new methods, thereby increasing the reliability and generalisability of the results.
-% Exploratory / flexible artefact
-As previously noted, little research has been conducted into quantum radar signal processing, it therefore was chosen that a somewhat flexible research methodology \cite{anastas_research_1999} be adopted, where the the objects of study (quantum processing approaches) are not fixed at the time of experimental design.
-\textbf{This approach} effectively shortens the feedback loop in developing the quantum methods, ultimately enhancing the value and impact of the results. \cite{karahasanovic_collecting_2005}.\todojc{Very convoluted and I do not understand what it means - we need to discuss}
+\todojc{YOu need some refs for support here}Experimental research appears to be the most suitable methodology as it allows for well-defined set of inputs and dependents, that ultimately result in objective and precise data that can be analyzed statistically.
+This enables a more indicative identification of the true nature of the quantum algorithms under test, thereby providing a deeper understanding of the solution itself.
+In this respect, an experimental approach more truthfully validates the performance and consequent suitability of these new methods, thus increasing the reliability and generalisability of the results.
+Furthermore, by systematically testing various scenarios, the experimental methodology attacks the problem from multiple aspects, thereby allowing for the discovery of new patterns and unexpected results - more than what could be achieved by any other of the alternative approaches. 
+
+% Rebuttal
+\todojc{I have rephrased this}As there are few attempts at using quantum methods in radar signal processing, survey methodology, while useful for accumulating existing domain expertise (in the form of attitudes, beliefs, and opinions), cannot adequately and concretely examine the feasibility of such an unexplored approach to \ac{ESM}.
+In other words, it is only by knowing a quantum algorithm that, through study, its nature can be understood.
+Similarly, the scant availability of research on the topic, as revealed by the literature review, renders observational research methodology unsuitable.
+Finally, unlike experimental approaches, a case study methodology is less generalisable and replicable.
+
+% .: Experimental
+For these reasons, the methodological framework adopted, for the three aspects of the research question, is experimental. 
+% Describe basili
+The approach adopted will be that of Basili et al. \cite{basili_experimentation_1985}.
+
+
+% No hypothesis
+\todojc{You need some refs on confirmatory vs exploratory research}Given little accessible research on the combination of quantum computing and \ac{ESM} signal analysis, this study will not present any \`{a} priori hypotheses, as there is not enough evidence to make a considered judgement.
+% .: Exploratory
+This is therefore an exploratory enquiry, intended to understand the feasibility of these quantum techniques and identify areas for further investigation, in contrast to the alternative confirmatory approach.
+It is also inductive, in the respect that the study will derive findings from data gathered during the research process rather than from an existing theoretical framework for quantum \ac{ESM} analysis.
+
+\todojc{Nice tables but the reader will not understand what they mean - you need to discuss them in text - note that tables and figures do not speak for themselves - you need to help them!}According to the experimental framework, the \textit{definition} of the experiment is defined in Table \ref{tab:exp_definition}, \textit{planning} in Table \ref{tab:exp_planning}, and \textit{operation} in Table \ref{tab:exp_operation}.
+
+\begin{table}[ht]
+\caption{Experimental definition}
+\label{tab:exp_definition}
+\begin{tabular}{p{0.16\linewidth}|p{0.28\linewidth}p{0.28\linewidth}|p{0.28\linewidth}}
+\hline
+& Experiment 1: Quantum encoding & Experiment 2: Pulse detection & Experiment 3: frequency estimation \\
+\hline
+Motivation & To assess & To understand & To understand \\
+Object & Pulsed-Doppler radar & \ac{CW} radar & \ac{FMCW} radar, pulsed \ac{CW} \\
+Purpose & so that their performance and nature may be understood & so that pulses can be associated to individual radars & so that the frequency of a pulse can be extracted and used for further   analysis \\
+Perspective & Researcher & Researcher & Researcher \\
+Domain & Quantum encoding methods for ESM signals & Quantum pulse detection algorithm & Quantum frequency algorithm \\
+Scope & Multi-project & Single project & Single project \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Experiment Planning}
+\label{tab:exp_planning}
+\begin{tabular}{p{0.16\linewidth}|p{0.28\linewidth}p{0.28\linewidth}|p{0.28\linewidth}}
+\hline
+& Experiment 1: Quantum encoding & Experiment 2: Pulse detection & Experiment 3: frequency estimation \\
+\hline
+Design & Randomised block & Completely randomised & Completely randomised \\
+Criteria & the quality and suitability of the method & An accurate  indication of pulse edge & An accurate frequency indication given some encoded signal input \\
+Measurement & circuit size, expressibility, sampling capacity, bandwidth, and   computational efficiency & precision, recall, and F1 metrics & \ac{RMSE} frequency error, aggregated over all samples. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Experiment Operation}
+\label{tab:exp_operation}
+\begin{tabular}{p{0.16\linewidth}|p{0.28\linewidth}p{0.28\linewidth}|p{0.28\linewidth}}
+\hline
+& Experiment 1: Quantum encoding & Experiment 2: Pulse detection & Experiment 3: frequency estimation \\
+\hline
+Preparation & Pilot study & Pilot study & Pilot study \\
+Execution & Collection and validation Automated by GNU radio & Collection and validation Automated by GNU radio & Collection and validation Automated by GNU radio \\
+Analysis & Plots of measure vs encoding model &
+\begin{itemize}
+    \item data-table of metrics
+    \item Histogram of measured pulse boundaries
+    \item Scatter plot of measured vs actual pulse boundaries
+\end{itemize}
+&
+\begin{itemize}
+    \item data-table of metrics
+    \item Histogram of measured results at different frequencies
+    \item Satter plot of measured vs actual frequency
+\end{itemize}\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{The data environment}
 
 % Controlled and simulated
 A choice of simulated conditions arose by necessity, since acquiring sample radar systems is impractical, cost prohibitive, and more importantly - out of scope.
 It was therefore pertinent that a radar signal simulator be acquired.
-\todojc{Why simulated hardware? Why not real, we may get access to? IS it important at this stage to know?}Determining that \textbf{simulated quantum hardware} be used over \todo{define in literature review}\textbf{noisy quantum machines} was more challenging. 
-Because any quantum solution is naturally bounded by the constraints of the quantum machine, the suitability of these methods is also thus constrained.
-\todojc{Not the best argument, as we know that for problems of certain complexity classical methods, and this include quantum simulation, cannot compute the solutions - let's discuss}\textbf{It was for this reason, that simulated hardware was chosen.}
-For, given the fact that simulated machines are generally lower in noise and higher in precision, it was deemed they demonstrate a more true and analytic representation of the future potential of these methods.
-It is, however, noted as a limitation of this experimental design. If these methods were practically implemented on noisy quantum machines, the results would differ. 
 
 %%% Experimental Partitio
 To address each aspect of the research question - encoding, detection, and frequency estimation - a unique experimental design is required that takes into account the particular characteristics of the problem.
 %%% General Criteria
 In each case, the method's performance will be evaluated using quantitative measures.
-As a whole, this research is to understand \textit{how} these methods may be used, but not \textit{how well}.
+\todojc{I think "how well" is needed and your objectives identify the need for evaluation, which is "how well"}As a whole, this research is to understand \textit{how} these methods may be used, but not \textit{how well}.
 It is therefore more an enquiry into method, rather than a normative study of performance; not, for example, a comparison with classical methods.
 
 %%% Sample nature and collection 
 % Describe the nature sample (source data)
-Each of the approaches perform different functions and therefore require different input data, but in general, the inputs are point source radar signals \cite{chakravorty_what_2018}.
+\todojc{All these seem very unorganised pieces of facts, which signal type if neeed where?}Each of the approaches perform different functions and therefore require different input data, but in general, the inputs are point source radar signals \cite{chakravorty_what_2018}.
 Assumed to have been measured from the operating environment, these signals are simulated and sampled as input to each experiment.
 Qualities of these signals are particular to the combination of source radars themselves, however in general, each sample is a complex number.
 Complex data types are often employed in classical signal processing algorithms to capture phase and magnitude information of the radar signals, which are typically characterized by a sinusoidal nature.
@@ -85,9 +159,12 @@ Simulated radar signals as described here, are reliant on the validity of the ra
 Given that only trivial models are chosen, this risk is small, but not completely eliminated.
 \todo{probably want a bit more here...}
 
+\subsubsection{The software environment}
+
+\todojc{I think we started here a new sub-section, header has been added}
 % Describe the nature of the approach implementations
 For the quantum methods to be implemented on simulated quantum hardware, an instruction set and simulator need be obtained. 
-While several software packages fulfil this purpose, the Python-based quantum library \textit{Qiskit} \cite{qiskit_contributors_qiskit_2023} was chosen due to it being free, open-source, and generally familiar to the author and broader research community\cite{garhwal_quantum_2021}.
+While several software packages fulfil this purpose, the Python-based quantum library \textit{Qiskit} \cite{qiskit_contributors_qiskit_2023} was chosen due to it being free, open-source, and generally familiar to the author and broader research community \cite{garhwal_quantum_2021}.
 Furthermore, if it is desired that in future these methods be reproduced on real quantum machines, Qiskit has facilities for doing so.
 
-Now that the empirical research framework has been established and the experimental objects, criteria, and materials have been described, each experimental method will be formulated.
+\todojc{I do not understand this statement}Now that the empirical research framework has been established and the experimental objects, criteria, and materials have been described, each experimental method will be formulated.
