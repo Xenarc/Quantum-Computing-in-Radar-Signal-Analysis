@@ -10,7 +10,7 @@ Recent research has demonstrated a great potential for quantum computing to addr
 however little work has been devoted to its applications in \ac{EW} signal processing, and more specifically radar signal processing.
 Therefore, this report explores the question of how quantum technology may be applied to radar signal processing in \ac{EW}.
 At first, a survey of the current state of research will be conducted for radar signal analysis and quantum signal processing. 
-\todojc{Perhaps this is where the last part of the "abstract" should merge with the following}Then, an empirical enquiry into the subject will be presented, aiming to determine how quantum methods can be used to encode, detect, and characterise radar signals.
+Then, an empirical enquiry into the subject will be presented, aiming to determine how quantum methods can be used to encode, detect, and characterise radar signals.
 Finally, a discussion of results, examination of limitations, and consideration for future work will be provided. 
 
 Despite quantum computing holding much promise, its potential in this field remains largely unexplored.
@@ -32,7 +32,7 @@ Radar probes the environment to detect any potential impediments or hazards, and
 
 %% History
 % Etymological
-The name radar originates from a portmanteau of \textit{Radio Detection and Ranging}\cite{the_joint_board_on_scientific_information_policy_radar_1945}, hinting at it's founding objectives in the defence context. In the modern day, \todojc{Was: radar is used in many civilian and military applications, we have repetition of "civilian and military", many are of dual nature, so I'd simplify}radar is used in many applications \cite{merrill_i_skolnik_radar_nodate, desai_how_2022}, including:
+The name radar originates from a portmanteau of \textit{Radio Detection and Ranging}\cite{the_joint_board_on_scientific_information_policy_radar_1945}, hinting at it's founding objectives in the defence context. In the modern day, radar is used in many applications \cite{merrill_i_skolnik_radar_nodate, desai_how_2022}, including:
 \begin{itemize}
     \item Aerospace - weather, navigation, approach, altitude, identification
     \item Maritime - navigation, collision avoidance,  
@@ -56,7 +56,7 @@ However, due to their widespread adoption - particularly in the defence context 
     \label{Fig:radar_signals_in_ew}
 \end{figure}
 
-\todojc{All figures and tables need proper captions, which could be cross-referenced with text (with auto-numbering, see the above as an example, also note in-text refs to such figures, as below}While a difficult (and probably impossible) objective, it is the ideal goal of any \ac{ESM} system (see Figure \ref{Fig:radar_signals_in_ew}).
+While a difficult (and probably impossible) objective, it is the ideal goal of any \ac{ESM} system (see Figure \ref{Fig:radar_signals_in_ew}).
 
 A more formal definition of this subject has been given by D. Adamy \cite{adamy_13_2001} as: \ac{EW} being "the art and science of preserving the use of the electromagnetic spectrum for friendly use while denying its use to the enemy", and \ac{ESM} being "the receiving part of EW" \cite{adamy_13_2001}, of which radar is the principal element.
 
@@ -169,6 +169,31 @@ How can quantum computing methods be used to in an \ac{ESM} function to detect t
     \item Develop a method for quantum-based estimation of a radar signal's frequency.
     \item Present a quantitative evaluation of the accuracy and signal-to-noise tolerance of the frequency estimation method, for varying signals.
 \end{enumerate}
+
+\subsection{Scope}
+
+The following list outlines the areas and topics that are outside the scope of this study:
+
+\begin{itemize}
+    \item Hardware - neither the physical implementation's of quantum nor radar will be considered.
+    \item \ac{ESM}-focused. Only digitised signals to parameter estimation will be examined. Anything down-stream of identification of radar signals, (e.g., display, databasing, data fusion, etc.) and before digitisation (receive path, antennas, etc.) will be excluded
+    \item \ac{SAR} and imaging radar functions
+    \item Kinetic and located radar systems:
+    \begin{itemize}
+        \item Multi-path effects
+        \item Located antennas - bi-static/multi-static; antenna arrays
+        \item Range, velocity, angle of arrival, etc.
+    \end{itemize}
+    \item Radar emission. Only passive, or pure \ac{ESM} scenarios will be considered
+    \item Detailed radar simulation will be excluded.
+    \item The frequency range of interest considered will fall within \(50MHz - 1GHz\) and be exclusive of non-radar signals.
+    \item Adjacent problems in radar will be granted only limited attention:
+    \begin{itemize}
+        \item Resource allocation
+        \item Ambiguity analysis
+        \item Tracking
+    \end{itemize}
+\end{itemize}
 
 % --------------
 % OLD OBJECTIVES

@@ -1,46 +1,23 @@
 \section{Literature Review}~\label{sec:literature}
 
-\todojc{You do not need to say what lit reviews are}This section aims to gain an understanding of the use of classical and quantum methods in signal processing in \ac{EW}.
+% This section aims to gain an understanding of the use of classical and quantum methods in signal processing in \ac{EW}.
 
 % Search Strategy
-\todojc{I've changed this, you need to say these uninteresting things in a simple way}The review of the relevant concepts and methods was supported with library search tools (cf. search terms in Section \ref{sec:appendix1}), Google Scholar, selected books and journals related to quantum computing and signal processing. 
+The review of the relevant concepts and methods was supported with library search tools (cf. search terms in Section \ref{sec:appendix1}), Google Scholar, selected books and journals related to quantum computing and signal processing. 
 \todo{cite: these resources}
 
 % Selection criteria
-\todojc{As I said before, the scope of your lit review is not any different from the scope of your research, so move all of these to the "Scope" section}Study selection criteria will be used to determine which studies are included or excluded from the review.
-% Scope
-The scope of review will be used to screen studies on a per-study basis based on the whether it meets a criteria for inclusion, or exclusion.
-
-\begin{itemize}
-    \item Hardware - neither the physical implementation's of quantum nor radar will be considered.
-    \item \ac{ESM}-focused. Only digitised signals to parameter estimation will be examined. Anything down-stream of identification of radar signals, (e.g., display, databasing, data fusion, etc.) and before digitisation (receive path, antennas, etc.) will be excluded
-    \item \ac{SAR} and imaging radar functions
-    \item Kinetic and located radar systems:
-    \begin{itemize}
-        \item Multi-path effects
-        \item Located antennas - bi-static/multi-static, arrays
-        \item Range, velocity, angle of arrival, etc.
-    \end{itemize}
-    \item Radar emission. Only passive, or pure \ac{ESM} scenarios will be considered
-    \item Detailed radar simulation will be excluded.
-    \item The range of frequency to be considered will fall within \(50MHz - 50GHz\) and be exclusive of communications signals.
-    \item Adjacent problems in radar will be granted limited attention:
-    \begin{itemize}
-        \item Resource allocation
-        \item Ambiguity analysis
-        \item Tracking
-    \end{itemize}
-\end{itemize}
+Study selection is governed by the scope of research, which ultimately defines which studies are included or excluded from the review.
 
 %%%%%%%%%%%%%%%%
 %% Begin narrative Meta-analysis review
 % Quality assesment checklist
-A quality assessment checklist \cite{kitchenham_can_2010} has been adopted in order to \todojc{I've removed "quantitatively", as the assessment is rather "qualitative", also the fact that they used it for SE is not relevant, so it was removed}assess the studies based on their methodological completeness(see evaluation aspects in \ref{sec:appendix2}). 
+A quality assessment checklist \cite{kitchenham_can_2010} has been adopted in order to assess the studies based on their methodological completeness (see evaluation aspects in \ref{sec:appendix2}). 
 
 % Meta-analysis
-\todojc{Has this be done? If so add such tables to the appendix and cross-ref from here}A formal meta-analysis will be conducted, and tables \todojc{Has been?}\textbf{will be} created to highlight similarities and differences among the studies.
+A formal meta-analysis has been conducted, with appendix \ref{sec:appendix3} showing a methodological evaluation of the literature.
 % Classification
-Each study is categorised by the \emph{topic} selected from the following list.
+Each study was categorised by the \emph{topic} selected from the following list.
 % Not sure if I must list them
 \begin{itemize}
     \item Signal processing
@@ -53,7 +30,7 @@ Each study is categorised by the \emph{topic} selected from the following list.
     \item Radar fundamentals
 \end{itemize}
 
-The studies are also classified by the \emph{methodology} used \cite{wohlin_empirical_2012}.
+The studies were also classified by the \emph{methodology} used \cite{wohlin_empirical_2012}.
 \begin{itemize}
     \item Survey
     \item Case study
@@ -61,29 +38,20 @@ The studies are also classified by the \emph{methodology} used \cite{wohlin_empi
     \item Quasi-experimental
 \end{itemize}
 
-\todo{I have a table, but It seems really verbose to paste it here. It's also quite large and won't fit... see attachment 'Literature Review.xlsx'. This is effectively the meta-analysis}
-\todojc{Put an improved table in the Appendix A/B/C...}
-\todo{Put some stats here}
+The evaluation scores by question are presented in Figure \ref{fig:lit_chart}.
+The average score of the papers was \(\mu=49.81\%\), a median of \(44.44\%\) and \(\sigma=0.3315\)
 
-%%%%%%%%%%%%%%%%
-%%% Begin narrative synthesis
-%% Questions to ask:
-% What is the aim of the paper?
-% What are the main contributions of the paper? What new ideas are presented?
-% How is the research contribution or claims justified?
-% What sorts of experiments were conducted and how were the experiments set up?
-% What data was obtained and how does it justify the claims made?
-% Were the experiments adequate? Did they gather enough data to support the claims?
-% Was data interpreted correctly? Or, Is there any explicit or hidden bias?
-% Was the reasoning in the paper sound?
-% What were the assumptions made in the research? Are the assumptions valid or realistic?
-% How new or significant is the research idea or contribution? What are the implications to the field of the research presented?
-% What are the novel aspects of the work?
-% What are the shortcomings of the work? What are strengths and weakness?
-% How can the work be extended or shortcomings dealt with? Does the paper encourage future work in the area?
-% Are the results generalisable or applicable to another context? Are there improvements that could be made on the work?
-% How is the paper relevant to your research, and how does it link to previous papers you’ve read?
-%%%%%%%%%%%%%%%%
+Notably, Q8 - representing the how well the authors stated their findings was skewed positive.
+Q6 and Q7 both represented poorly, indicating authors generally lacked proper discussion of limitations and experimenters bias.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/lit_chart.PNG}
+    \caption{Methodological evaluation of literature: number of papers unsatisfactory/satisfactory, by question}
+    \label{fig:lit_chart}
+\end{figure}
+
+%%%%%%%%%%%%%%%% Begin narrative synthesis
 
 \subsection{Radar Signal Processing}
 %% The problem of radar / EW
@@ -107,8 +75,10 @@ This last question being partially answered by contemporary cognitive radar tech
 
 % Summary
 Ultimately, both surveys underscore an urgent need for more robust, data-driven approaches to understanding the \ac{ESM} signal environment.
-% Relevance
-\todojc{This argument is back to front - the two cited articles do not even mention "quantum" but you write as if they did suggest this - they did not, you have not as yet motivated the need for quantum \textbf{which should be done before research question is stated} - please rephrase to make argument sound correct, e.g. something of the sort but much better: these authors recognise the complexity of the tasks ant quantum tech is good at dealing with complexity}Given the potential of quantum computing to accelerate algorithmic hypothesis testing and signal processing tasks, the authors' call for better detection and parameter estimation algorithms and signal processing frameworks presents a compelling case for exploring how quantum computing methods can be harnessed to detect and classify radar signals more effectively.
+% questio
+The authors' call for better detection and parameter estimation algorithms and signal processing frameworks exposes an open question which may be filled by a novel solution.
+% thesis
+For quantum computing to be an effective answer, a compelling case for quantum computing methods using combined detection and estimation must be presented.
 
 % Link. Why simple over hard problems; hedge
 With the complexity of problems in the well-established field of \ac{EW} and the relative novelty of quantum signal processing, a practical approach taken is to explore this early application of quantum methods to a simpler class of radar problems.
@@ -130,8 +100,13 @@ Figure \ref{fig:radar_types} shows examples of signals that a three different ty
 \end{figure}
 
 %% Cognitive radar
-% Contrast simple radar to modern stuff
-\todojc{I do not understand this here, are you talking about what was mentioned before (surely not), or do you want to refer to what you are going to say next (if so rephrase)}\textbf{Such simple and somewhat contrived examples are obviously not representative of contemporary methods}, but indeed are they necessary in undertaking such fundamental and novel research, thus in order to fully \textbf{contrast this artificiality}, we look to "cognitive radar".
+% not representative
+However, in reality, these radar types are relatively simple and are not representative of contemporary methods.
+% Contrast simple radar...
+Nonetheless, in undertaking such fundamental and novel research, simple radars provide a necessary first-step.
+%  ... to modern radar
+In order to fully contrast this artificiality, "cognitive radar" best demonstrates the current state-of-the-art.
+
 %%Cognitive Radars: A Reality?
 % A definition
 S. Haykin describes cognitive radar as one that "continuously learns about the environment through experience gained from interactions with the environment, the transmitter adjusts its illumination of the environment in an intelligent manner, the whole radar system constitutes a dynamic closed feedback loop encompassing the transmitter, environment, and receiver" \cite{haykin_cognitive_2006}.
@@ -246,10 +221,10 @@ Neural network reinforcement learning was noted by Haykin \cite{haykin_cognitive
 % Older than Haykin. Initial research by Noone; many more since.
 G.P. Noone \cite{noone_neural_1999} initially explored the concept of neural networks to detect modulation, but countless papers have since been published across many applications in \ac{ESM}:
 % Survey
-Mason et al. \cite{mason_deep_2017} provide a broad outlook on the current state of affairs in the use of deep learning in radar signal processing.
+Geng et al. \cite{geng_deep-learning_2021} provide a broad outlook on the current state of affairs in the use of deep learning in radar signal processing.
 The authors analysed a large body of research over several areas of radar signal processing and for a multitude of deep learning techniques with varying degrees of effectiveness:
 \begin{itemize}
- \item \todojc{Are they all relevant to radar signal processing? If so briefly state how}CNN: Convolutional neural network
+ \item CNN: Convolutional neural network
  \item DBN: Deep belief network
  \item DRL: Deep reinforcement learning
  \item DRES: Deep residual neural network
@@ -259,20 +234,23 @@ The authors analysed a large body of research over several areas of radar signal
  \item SAE: Stacked auto-encoder
 \end{itemize}
 
+CNN's being most widely used in \ac{SAR} applications, DRES and DRL in waveform recognition, followed by RNN's for used in many ares of \ac{EW}.
+
 Several limitations were also identified, some being systemic to the field, others specific to deep learning techniques.
-Once challenge identified was \todojc{What does it mean?} \ac{DNN}'s \textbf{subjectivity to Electronic Attack (EA)}, where, depending on the level of intelligence about the specific \ac{DNN} techniques employed, various exploitations may be executed.
-Of course, EA is not specific to DNN's, however, it's noted that because they exist as an heuristic model, they necessarily have gaps in their model of the problem space.
-Therefore, it's noted that DNN's may be more susceptible to EA because of its inherent non-analytical method.
+Once challenge identified was \ac{DNN}'s subjectivity to Electronic Attack (EA) - e.g., jamming, deception, etc.
+This is because, depending on the level of intelligence about the specific \ac{DNN} techniques employed, various tailored exploitations may be thrown at the receiver, hoping to exploiting the gaps in the ac{DNN} model.
+Of course, \ac{EA} is not specific to \ac{DNN}'s, however, it's noted that because they exist as an heuristic model, they necessarily have gaps in their model of the problem space.
+Therefore, it's noted that \ac{DNN}'s may be more susceptible to EA because of its inherent non-analytical method.
 
 Again, the lack of training data was identified as a serious limitation (especially for \ac{DNN}'s, that require large amounts of training data).
 The paper concludes with an evaluation of particularly effective methods, some reaching > 97\% accuracy, albeit with small training sample sizes.
 
-% The primary interest of \todojc{which option? DNN?}\textbf{this option} is in passive radar, i.e., radars which generally do not transmit energy and listen to a return. An example is a Radar Warning Receiver (RWR) which is a passive electronic warfare support system \cite{avionics_department_electronic_2013}
+% The primary interest of \todojc{which option? \ac{DNN}?}\textbf{this option} is in passive radar, i.e., radars which generally do not transmit energy and listen to a return. An example is a Radar Warning Receiver (RWR) which is a passive electronic warfare support system \cite{avionics_department_electronic_2013}
 
 % One functional mode of RWR's is the search mode: where the system’s objective is to interrogate the electromagnetic environment to detect and identify emitters. The only information that radars are given is the signals which it receives, and its location in space and time (as well as some prior understanding of the operational environment). Due to the nature of the operating context, modern radars may receive many incident signals in a short period of time. Within such received signals, there may exists a number of constituent parts: communications signals, radar signals, interference (whether intentional or not), and noise (being environmental, or system). For signals originating from radars, they vary in several dimensions: see radar domains. Noise is generally constant, but limits the receiver’s ability to detect a given signal’s presence. Interference is any signal which interferes with the receiver’s ability to perform its function – either fully or partially. The functional operation of the receiver is: signal input (coming from antenna), RF front-end, digitisation, and processing. In each stage, the signal may change characteristics and formats based on a variety of filtering and processing operations. \cite{stimson_introduction_1998}\todo{This last one needs to be refined and specified to more constraints / trade-offs of radar I think.}
-\todo{ DNN: }
+\todo{ \ac{DNN}: }
 \todo{    - A Complete Framework of Radar Pulse Detection and Modulation Classification for Cognitive EW}
-\todo{ DNN - recurrent}
+\todo{ \ac{DNN} - recurrent}
 \todo{    - Classification, Denoising, and Deinterleaving of Pulse Streams With Recurrent Neural Networks}
 
 \subsection{Quantum Technology for Radar Signal Processing}
@@ -402,18 +380,24 @@ Finally while the scope of this paper does not permit a complete exposition of a
 \subsection{Gap-analysis}
 
 % Summary
-In the context of radar signal processing, quantum computing has emerged as a promising option, offering the potential to overcome the limitations of the classical approaches (see Figure \ref{Fig:conceptual_model}).
+In the context of radar signal processing, quantum computing has emerged as a promising option, offering the potential to overcome the limitations of the classical approaches.
+The literature review made evident the relationships between the three primary topics: quantum computing, \ac{EW}, and signal processing.
+Each topic was found to be mutually related to one another; \ac{EW} is clearly dependent on signal processing for many of its functions, and it related to quantum computing via quantum signal processing.
+The gap identified is research that closes this loop.
 
-\todojc{Text in diagram not readable Also note that any figure needs a description in text, and so would the model}
+The conceptual model in Figure \ref{Fig:conceptual_model} details this precise interrelationship and how the intersection of the three concepts implicitly synthesises quantum radar analysis.
+Although no substantive research covering \textit{all} these topics was explicitly identified, it does not preclude the existence all together, especially given the sensitive and advanced nature of this topic and the value it holds for actors within the \ac{EW} context.
+From literature the conceptual model was discovered, but more than this, the tightness of the connections between each concept shows a compelling case for investigating quantum \ac{ESM} analysis.
+
 \begin{figure}
     \centering
-    \includegraphics[width=1\textwidth]{Figures/Literature review - mind map.png}
+    \includegraphics[width=1\textwidth]{Figures/mind_map.png}
     \caption{The conceptual model for the study}
     \label{Fig:conceptual_model}
 \end{figure}
 
 % Quantum
-\todojc{As you talk about the "gap" refer to and discuss what is in the "conceptual model"}A large body of research has been conducted into quantum computing, with many papers focusing on quantum problem solving methods and encoding.
+A large body of research has been conducted into quantum computing, with many papers focusing on quantum problem solving methods and encoding.
 Furthermore, the realm between that, and of signal processing have been explored to a lesser degree.
 However, the niche of encoding time-series sampled data (as what will be required in this research) has only been explored in more limited respect.
 From the perspective of method, many studies in quantum computing were found to lack methodological precision.
