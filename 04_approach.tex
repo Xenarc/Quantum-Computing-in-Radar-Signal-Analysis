@@ -1,87 +1,283 @@
 \section{Artefact Development Approach}~\label{sec:approach}
 
+\todo{intro para}
+
+\subsubsection{GNU Radio block diagram}
+
+Each radar was simulated in GNU radio according to the specifications outlined in the research methodology.
+Figure \ref{fig:FMCW} shows the \ac{FMCW} radar model.
+% 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/FMCW.png}
+    \caption{\ac{FMCW} radar model}
+    \label{fig:FMCW}
+\end{figure}
+% 
+Figure \ref{fig:pulsed_CW} shows the un-modulated pulsed radar model.
+% 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/pulsed.png}
+    \caption{Pulsed \ac{CW} radar model}
+    \label{fig:pulsed_CW}
+\end{figure}
+% 
+The in-built 'Signal Source' block was used for the \ac{CW} radar model.
+
+Figure \ref{fig:test_bed} outlines the block diagram used for experimentation.
+% 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/test_bed.png}
+    \caption{Test and experimentation block diagram}
+    \label{fig:test_bed}
+\end{figure}
+Testing and experiment runs were conducted with multiple radar signals being summed together, with an added noise source.
+A spectrum view and time-domain view were used for debugging.
+The quantum encoding block \lstinline{quantum_encode_sink} was created that takes a \lstinline{np.complex64} data type, and outputs a \lstinline{np.float32}.
+Throttles were added to ensure all signals were synchronised with the sample rate.
+\lstinline{quantum_encode_sink} was parameterised with number of qubits and shots (or number of measurements to take per sample).
+Figure \ref{fig:quantum_encode_sink_parameters} details the parameters used for these experiments
+% 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/quantum_encode_sink_parameters.png}
+    \caption{\lstinline{quantum_encode_sink} parameters}
+    \label{fig:quantum_encode_sink_parameters}
+\end{figure}
+
+
 % ---------------- EXPERIMENT 1 ---------------- %
 \subsection{Experiment 1}
 \todojc{We need some paragraph describing what is the aim of the subsections and what we are going to find in them.}
 \todojc{Also this chapter is to include some details of the "development artefact", which are the details of your development environment, some description of your program design, some code decisions, etc.}
 
+\textbf{Artefact}
+
+The encoding was implemented in a single class which inherits from a GNU basic block.
+It uses several libraries: logging, math, sys, Counter, matplotlib.pyplot, numpy, pywt, gnuradio, and qiskit.
+In the initialisation method, it sets up logging, selects the encoding method, and configures various parameters such as the number of qubits and shots.
+The class overrides the general\_work method, which is called by GNU Radio to process input and produce output.
+The general\_work method retrieves the input buffer, initializes quantum and classical registers, performs the encoding based on the selected method, measures the quantum circuit, runs simulations, and retrieves the measurement results.
+It has three selectable encoding options: 'basis', 'amplitude', and 'angle'.
+
+To save the data, two file sinks were added, which act as the final output of the experimentation system. One sink saves the measured quantum data, while the other captures the raw input data
+
+There is also an auxiliary block that completes final post-processing operations when the simulation is exited.
+Specifically, it loads data from the two saved binary files (quantum.bin and raw.bin) and store them in arrays using numpy.fromfile.
+It then combines them and saves it to a CSV file named data.csv.
+The data are then plotted against the sample index using matplotlib.pyplot.plot, and displayed in a chart.
+
+\textbf{Method}
+
 The incident signal prior to sampling is a continuous complex-valued function
 $x : \mathbb{R} \rightarrow \mathbb{C}, t \mapsto x(t)$,
 where $x(t)$ represents the complex amplitude of the signal at any given time, $t \in \mathbb{R} > 0$.
 
-After being sampled, the signal is discrete.
+The continuous signal is quantised,
 $x : \mathbb{N} \rightarrow \mathbb{C}, t \mapsto x[t]$,
-where $x[n] = x(n T_s)$, the $n^{th}$ sample of the signal, $n$ is an integer representing the sample index, and $T_s$ is the sampling period (i.e., $T_s = 1/f_s$).
+where $x[n] = x(n T_s)$, the $n^{th}$ sample of the signal, $n$ is an integer representing the sample index, and $T_s$ is the sampling period (i.e., $T_s = 1/f_s$).\footnote{$f_s$ is the sampling frequency of $300MHz$}
 
 Let $\mathbf{x}$ be the buffer of samples $x_n=x[n]$.
 
-The goal of this encoding is to prepare the sample buffer for quantum processing.
-Several methods will be implemented and evaluated.
+The goal of encoding is to prepare the sample buffer for quantum processing.
+Basis encoding, amplitude encoding, and angle encoding will be tested.
 
 \textbf{Basis encoding}
 
-\textbf{Amplitude encoding}
-
-\todo{Still revising the particulars here... (also a WIP as I'm missing some encoding methods)}
-\todojc{This looks like "amplitude encoding"}
-\todojc{Note that "basis encoding" is to encode a value as a series of qubit states (good for a single value represented as its bits, e.g. initialising q0=|0>, q1=|1>, q2=|1> encodes number 6), or multiple values as groups of qubits, we can also use superposition to encode multiple values}The simplest of all non-trivial quantum encoding methods, basis encoding, maps a binary string $x \in {\{0,1\}}^n$ as coefficients of basis states.
+The simplest of all non-trivial quantum encoding methods, basis encoding, maps a binary string $x \in {\{0,1\}}^n$ as coefficients of basis states.\footnote{In this paper,the convention of the computational basis is adopted, where the basis states are represented by the standard computational states $\ket{0}$ and $\ket{1}$.}
 
 Let $\vert b_n \rangle$ be the $n^{th}$ orthonormal basis for a $N$-dimensional quantum system.
 Then any state of the system can be written as a linear combination of the basis states:
 \begin{equation}
     \displaystyle{
-        \phi: \mathbb{R}^n \rightarrow | \mathbf{x} \rangle =
-        \sum_{i=0}^{N}
+        \mathbb{R}^N \rightarrow | \mathbf{x} \rangle =
+        \sum_{i=0}^{N-1}
             c_i | b_i \rangle
     }
 \end{equation}
-Where $c_i$ are complex coefficients of the basis states which satisfy the normalisation condition
+Where $c_i$ are complex coefficients of the basis states which satisfy the normalisation condition:
 \begin{equation}
-    \displaystyle{\sum_{i=1}^n |c_i|^2 = 1}
+\label{eqn:normalisation_constraint}
+    \displaystyle{\sum_{i=0}^{N-1} |c_i|^2 = \left\| \left|\psi\right\rangle \right\| = 1}
+\end{equation}
+% 
+For basis encoding, the coefficients are further restricted such that $c_i \in \{0, k\}$, where $k \in \mathbb{R}^+$.
+% 
+The first step in this encoding is to define the mapping to a binary vector, $\textbf{b}$. If $\beta_i \in \{0, 1\}$ represents the $i^{th}$ bit of the transformed buffer, define $\textbf{b}$ as:
+\begin{equation}
+    \displaystyle{\mathbf{b} = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{2^{N}-1} \end{bmatrix}}
+\end{equation}
+% 
+% Delta Encoding
+% 
+The transformation ($\textbf{x} \mapsto \textbf{b}$) will be a form of delta-encoding, wherein each element $d_i \in \mathbb{R}$ in array $\mathbf{D} = [d_0, d_1, \ldots, d_{2^N-1}]$ is defined by
+
+\begin{equation}
+    d_i = \lVert x[i] - x[i-1] \rVert
+\end{equation}
+% 
+and first element defined by $d_0 = \lVert x[0] \rVert$.
+% 
+% Binary Encoding
+% 
+Given the delta array $\textbf{D}$, is real-valued and the desired transform is a binary array $\textbf{b}$, the next step proceeds to map each real element to a binary value of 1 for positive $d_i$, or 0 otherwise:
+% 
+\begin{equation}
+    \beta_i = \begin{cases}
+        1 & \text{if } d_i > 0 \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+% 
+% Normalisation
+% 
+$\textbf{x} \mapsto \textbf{b}$, however, $\textbf{b}$ must satisfy the normalisation constraint (eqn. \ref{eqn:normalisation_constraint}).
+This is done by dividing each element by the Euclidean norm, $\left\| \mathbf{b} \right\|$, yielding the normalised state vector $\left|\textbf{x}\right\rangle$.
+% 
+\begin{equation}
+\displaystyle{
+\left|\textbf{x}\right\rangle =
+\frac{1}{\left\| \mathbf{b} \right\|}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{2^N-1} \end{bmatrix}
+}
+\end{equation}
+% 
+Finally, the basis-encoded signal buffer is used to initialise the quantum circuit.
+The implementation of which is delegated to Qiskit, using the \texttt{QuantumCircuit.initialize} method.
+
+\textbf{Example Basis encoding}
+
+%%%%%%%% example
+
+% 
+Given a signal buffer of four complex samples:
+% 
+\begin{equation}
+\label{eqn:example_x_samples}
+\mathbf{x} = \begin{bmatrix} 0.8 & 0.5 - 0.5j & 0.8 + 0.3j & 0.3 - 0.1j \end{bmatrix}^T
+\end{equation}
+% 
+The magnitudes would be
+% 
+\begin{equation}
+\mathbf{\lVert \textbf{x} \rVert} = \begin{bmatrix} 0.8 & 0.707 & 0.854 & 0.316 \end{bmatrix}^T
+\end{equation}
+% 
+The delta array would be
+% 
+\begin{equation}
+\mathbf{D} = \begin{bmatrix} 0.8 & -0.093 & 0.147 & -0.538 \end{bmatrix}^T
+\end{equation}
+% 
+then, after binary decimation
+% 
+\begin{equation}
+\mathbf{b} = \begin{bmatrix} 1 & 0 & 1 & 0 \end{bmatrix}^T
+\end{equation}
+% 
+then normalising
+% 
+\begin{equation}
+\ket{\mathbf{x}} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 0 & 1 & 0 \end{bmatrix}^T
+\end{equation}
+The state would then be used to initialise a quantum circuit using Qiskit, 
+\texttt{circuit.initialize(np.array(list(0.707, 0, 0.707, 0)), 2)}.
+% 
+The circuit would be
+\[
+\Qcircuit {
+   & \lstick{\ket{0}} & {/} \qw & \gate{\phi(\textbf{x})} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
+   \gategroup{1}{4}{1}{4}{.7em}{--}
+}
+\]
+% 
+where $\phi$ is the Qiskit state encoding. The measurement of this example would look like:
+% 
+\begin{equation}
+    \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger = \begin{bmatrix}  \frac{1}{\sqrt{2}} & 0 &  \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
 \end{equation}
 
-\todojc{All those examples would be improved if they could be related to your problem of signal processing, e.g. you could include a small fragment of your generated radar signal (even if it is 4 values) and say that this is the case}For example, encoding $\mathbf{x} = (1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})$
+\textbf{Amplitude encoding}
 
-The normalisation condition must be be upheld.
-One way to ensure this is to divide each element of the vector by the Euclidean norm.
+Amplitude encoding, similar to basis encoding, seeks to encode $\textbf{x}$ into coefficients of basis states.
+However, the constraint of $c_i \in \{0, k\}$ is substituted by $c_i \in \mathbb{R}$, and therefore the binary delta transformation is extraneous.
+As always, the normalisation constraint (eqn. \ref{eqn:normalisation_constraint}) must be upheld.
+% 
+The encoding is then simply a normalisation of the buffer:
+% 
 \begin{equation}
-    \displaystyle{\mathbf{x} = \frac{1}{\sqrt{6}}(1, -1+i\sqrt{3}, 1, 1+i\sqrt{3})}
+\displaystyle{
+\ket{\mathbf{x}} =
+\frac{1}{\left\| \mathbf{x} \right\|}
+\begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{2^N-1} \end{bmatrix}
+}
 \end{equation}
-Encoding this into a 2-qubit system implies multiplying each element by the basis states: $|00\rangle, |01\rangle, |10\rangle, |11\rangle$.
-\todojc{And since each basis state's amplitude defines a value therefore this is called "amplitude encoding"}Therefore, 
+
+\textbf{Example amplitude encoding}
+
+Using the same sample $\textbf{x}$ as in eqn. \ref{eqn:example_x_samples}, the amplitude-encoded state vector would be
+% 
 \begin{equation}
-    \displaystyle{
-        | \mathbf{x} \rangle =
-        \frac{1}{\sqrt{6}}
-        (
-            |00\rangle +
-            (-1 + i\sqrt{3}) |01\rangle +
-            |10\rangle +
-            (1 + i\sqrt{3}) |11\rangle
-        )
-    }
+\mathbf{\ket{\textbf{x}}} = \frac{\textbf{x}}{\lVert \textbf{x} \rVert} =
+\begin{bmatrix} 0.570 \\ 0.356 -0.356j \\ 0.570 +0.213j \\ 0.213 -0.071j \end{bmatrix}
 \end{equation}
-\todojc{What would the circuit look like?}
-\todojc{What would its measurement look like?}
+%
+The circuit would identical to that of the basis encoding, but with the differently-encoded $\ket{\textbf{x}}$:
+
+\[
+\Qcircuit {
+   & \lstick{\ket{0}} & {/} \qw & \gate{\phi(\textbf{x})} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
+   \gategroup{1}{4}{1}{4}{.7em}{--}
+}
+\]
+% 
+The measurement would be:
+% 
+\begin{equation}
+\bra{\textbf{x}} = \ket{\textbf{x}}^\dagger =  \begin{bmatrix} 0.8 \\ 0.707 \\ 0.854 \\ 0.316 \end{bmatrix}
+\end{equation}
 
 \textbf{Angle encoding}
 
-\todojc{BTW, in Qiskit "initialize" instruction and "StatePreparation" class (to create a gate) can assist in amplitude encoding}Quantum amplitude encoding represents classical information as amplitudes of quantum states.
-For $n$ qubits, encoding a classical vector $x \in \mathbb{C}^{n}$ into a quantum state $\vert x \rangle$ is described by:
+Angle encoding is a method which transforms the basis state $\ket{0}^{\otimes N}$ by rotating each qubit by two orthogonal angles, $\theta$ and $\phi$.
 
-$|x\rangle = \frac{1}{\sqrt{N}} \sum{_n^N}  x_n \vert y \rangle$
+The two angles are computed by taking a single-level discrete wavelet transform ($\psi(\textbf{x}) \mapsto ([a_0, a_1, \dots], [d_0, d_1, \dots])$) of the input sample buffer, $\textbf{x}$.
+$\theta_i$ is calculated from the $i^{th}$ approximation coefficient ($a_i$) and $\phi_i$ from the $i^{th}$ detail coefficient ($d_i$).
 
+Each $a_i$ and $d_i$ are frequency-amplitudes, so to ensure a meaningful rotation, they must be normalised $\textbf{a}, \textbf{d}: \mathbb{R}^{2^N-1} \mapsto [0, \pi]^{2^N-1}$.
+Since the number of qubits, $N$, is less than the length of the approximate and detail coefficient vectors, the $N$ most-recent coefficients are encoded into $\theta_0, \dots, \theta_N$ and $\phi_0, \dots, \phi_N$.
 
-% The operation of encoding is one which maps to a Hilbert space, $\mathcal{H}$.
-We can define a map $\phi: \mathbb{R}^n \rightarrow \mathcal{H}$ that takes a vector of length $n$ (i.e., the length of the \todojc{What is a "buffer"?}\textbf{buffer}) and maps it to a vector in the Hilbert space, $\mathcal{H}$.
-% The goal of any quantum encoder is to satisfy:
-One common choice for $\phi$ is to use the Fourier transform to map the buffer into a frequency representation, and then use the resulting frequency coefficients as the coordinates in $\mathcal{H}$. \todojc{I think we have some mix up here, the following seem to be rotations, so perhaps rotation encoding? You may need to clarify it, as long as the amplitudes of possible states (e.g. |00>, |01>, |10>, |00>) of the entire circuit represent the intended values - here frequencies - then this indeed is an amplitude encoding}This can be expressed mathematically as:
+The rotation operation can be described using the formalism of quantum gates and unitary operators.
+% 
+The quantum gate that performs this rotation is called a general single-qubit rotation gate or a $R$ gate, which may be represented by a $2\times2$ unitary matrix:
+% 
 \begin{equation}
-\phi(x) = \sum_{k=0}^{n-1} x_k e^{i2\pi k t / n}
+R(\theta, \phi) = 
+\begin{bmatrix}
+\cos(\frac{\theta}{2}) & -e^{i\phi}\sin(\frac{\theta}{2}) \\
+e^{i\phi}\sin(\frac{\theta}{2}) & e^{i\phi}\cos(\frac{\theta}{2})
+\end{bmatrix}
 \end{equation}
-This represents the summation of the product of each sample $x_k$ with a complex exponential term $e^{i2\pi k t / n}$, where $t$ ranges from 0 to $n-1$ and $k$ ranges from 0 to $n-1$.
-
-\todojc{What would the circuit look like}
+% 
+$\theta$ being the angle of rotation about the X-Y plane, and $\phi$ the angle of rotation about the Z-axis.
+% 
+The gate is be applied to each qubit $\ket{x_i}$, with the resulting state after the rotation being obtained by:
+% 
+\begin{equation}
+\ket{x_i^\prime} = R(\theta, \phi) \ket{x_i}
+\end{equation}
+% 
+The resultant circuit schematic is thus:
+\[
+\Qcircuit {
+   & & & \mbox{} & & \\
+   & \lstick{\ket{0}} & {/} \qw & \gate{R(\phi_i,\theta_i)} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
+   & & & \dstick{\psi(\textbf{x})} \cwx[-1] &
+   \gategroup{2}{4}{3}{4}{.7em}{--}
+}
+\]
 
 
 
@@ -92,19 +288,11 @@ This represents the summation of the product of each sample $x_k$ with a complex
 % Is is empirical trial and post hoc evaluation that measure this. 
 
 % The method consists of creating a GNU-Radio block that permits the input of complex-valued samples into a buffer. The processing of samples is then done in Python and Qiskit within that block, and finally, outputted to a buffer where it is recorded.
------------------------
 
-
-
-
-
-
-
-% It may also be suggested that a frequency-domain input space be explored, in which case, the same experimental methodology should be applied, substituting IQ for a time varying frequency input. The reason for proposing a frequency-domain input signal is due to the general bandwidth limitation of practical IQ measurements as well as the more representative nature of frequency plots for radar signals.
 
 \subsection{Experiments 2 & 3}
 
-The stages in the of development the artefact are:
+The stages in the of development the subsequent two artefacts are:
 \begin{quote}
     \textit{
         \begin{enumerate}
@@ -118,4 +306,6 @@ The stages in the of development the artefact are:
     }
 \end{quote}
 
-Instead of descretising signals into definite PDW's, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once. Further processing such as pulse detection and de-interleaving may be able to be conducted at once. This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.
+Instead of quantising signals into definite \ac{PDW}'s, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once.
+Further processing such as pulse detection and de-interleaving may be able to be conducted at once.
+This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.
