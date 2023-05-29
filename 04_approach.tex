@@ -1,11 +1,17 @@
 \section{Artefact Development Approach}~\label{sec:approach}
 
-\todo{intro para}
+This section aims to describe the solution for each experiment: encoding, pulse detection, and frequency estimation.
+First however, a description of the GNU radio functional block architecture: both the simulation layout, as well as how the quantum implementation is integrated.
+A mathematical description of each method is also provided alongside a worked examples.
 
 \subsubsection{GNU Radio block diagram}
 
+Before the quantum solutions can be trialed, the simulation must be setup, and for this the test radars must be modelled in GNU radio.
 Each radar was simulated in GNU radio according to the specifications outlined in the research methodology.
-Figure \ref{fig:FMCW} shows the \ac{FMCW} radar model.
+The most simple model being the \ac{CW} radar, which is a sinusoidal single signal source, and because of its triviality, no diagram is shown.
+Similar to the \ac{CW} radar, the \ac{FMCW} radar is continuous, however, it has a modulation (\ac{FM}).
+Figure \ref{fig:FMCW} shows the \ac{FMCW} radar model built in GNU radio.
+It consists of a saw-tooth-shaped source which modulates the frequency of a sinusoidal source. A multiplier is added to set the amplitude of the output signal.
 % 
 \begin{figure}[ht]
     \centering
@@ -14,7 +20,8 @@ Figure \ref{fig:FMCW} shows the \ac{FMCW} radar model.
     \label{fig:FMCW}
 \end{figure}
 % 
-Figure \ref{fig:pulsed_CW} shows the un-modulated pulsed radar model.
+Finally, the pulsed \ac{CW} radar is one which produces regularly-spaced, non-coherent, un-modulated, sinusoidal pulses.
+Figure \ref{fig:pulsed_CW} shows the radar modelled in GNU radio. It is a sinusoidal source multiplied by a vector souce which consists of a string of binary coefficients that, when multiplied with the other signal, produce regularly spaced puslses corrposponding to the input parametrers.
 % 
 \begin{figure}[ht]
     \centering
@@ -23,22 +30,45 @@ Figure \ref{fig:pulsed_CW} shows the un-modulated pulsed radar model.
     \label{fig:pulsed_CW}
 \end{figure}
 % 
-The in-built 'Signal Source' block was used for the \ac{CW} radar model.
 
-Figure \ref{fig:test_bed} outlines the block diagram used for experimentation.
+These models are then combined into a larger hierarchical block diagram (Figure \ref{fig:simulation})that creates a simulated radar environment.
+The bottom left of the diagram consists of a number of radars - the specific types and parameters of which are detailed in Table \ref{tab:exp_definition}.
+A noise source is also added to simulate environmental noise given some \ac{SNR}.
+All these sources are then summed and filtered using a \ac{LPF} \ac{FIR} filter to cut higher frequencies which may skew any downstream frequency transforms.
+Two additional components - the Frequency Sink and Time Sink - were used to debug the scenario, providing frequency-domain and time-domain plots respectively.
+Finally, several Throttle blocks were added to ensure the number of samples per section does not exceed the defined sample rate.
+The need for these arise due to there being no rate limited sinks that govern the velocity of samples through the system. Without them, the debugging displays incorrectly sample the signals and the file sinks become de-synchronised with each other.
 % 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{Figures/test_bed.png}
-    \caption{Test and experimentation block diagram}
-    \label{fig:test_bed}
+    \includegraphics[width=1\textwidth]{Figures/simulation.png}
+    \caption{Scenario simulation GNU radio block diagram}
+    \label{fig:simulation}
 \end{figure}
-Testing and experiment runs were conducted with multiple radar signals being summed together, with an added noise source.
-A spectrum view and time-domain view were used for debugging.
-The quantum encoding block \lstinline{quantum_encode_sink} was created that takes a \lstinline{np.complex64} data type, and outputs a \lstinline{np.float32}.
-Throttles were added to ensure all signals were synchronised with the sample rate.
-\lstinline{quantum_encode_sink} was parameterised with number of qubits and shots (or number of measurements to take per sample).
-Figure \ref{fig:quantum_encode_sink_parameters} details the parameters used for these experiments
+
+
+% ---------------- EXPERIMENT 1 ---------------- %
+\subsection{Experiment 1}
+
+The first experiment aims to encode a signal buffer - provisioned by the GNU radio simulation - into qubits.
+Several methods are implemented: basis, encoding, and encodings.
+
+Figure \ref{fig:encoding} outlines the block diagram used for simulation.
+The signal comes from Figure \ref{fig:simulation} where it is generated, and subsequently passed directly into a custom GNU radio block - \lstinline{quantum_encode_sink}
+The quantum encoding block contains the code for experiment 1.
+It's purpose is to injest \lstinline{np.complex64} samples, encode them into a quantum circuit, decode them, and output the measurements as a \lstinline{np.float32}.
+Throttles were again added to ensure all signals were synchronised with the sample rate.
+\lstinline{quantum_encode_sink} was parameterised with number of qubits and shots (or number of measurements to take per sample) as seen in Figure \ref{fig:quantum_encode_sink_parameters}.
+The second path originating from the simulator section is the Complex to Mag block. This simply evaluates the magnitude of each complex sample and passes it through to the time sink and file sink.
+The time sink is used to visualise the measurements of the quantum encoding versus the raw samples, while the two file sinks save that data to two raw binary files (quantum.bin and raw.bin).
+Finally, the Python snippet was written such that after the simulation is finished, it reads the two output files, transforms them into a more manageable CSV file, and displays a readout of the entire experiment in a line chart.
+% 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\textwidth]{Figures/encoding.png}
+    \caption{Test and experimentation block diagram}
+    \label{fig:encoding}
+\end{figure}
 % 
 \begin{figure}[ht]
     \centering
@@ -47,29 +77,20 @@ Figure \ref{fig:quantum_encode_sink_parameters} details the parameters used for 
     \label{fig:quantum_encode_sink_parameters}
 \end{figure}
 
-
-% ---------------- EXPERIMENT 1 ---------------- %
-\subsection{Experiment 1}
-\todojc{We need some paragraph describing what is the aim of the subsections and what we are going to find in them.}
-\todojc{Also this chapter is to include some details of the "development artefact", which are the details of your development environment, some description of your program design, some code decisions, etc.}
-
 \textbf{Artefact}
 
-The encoding was implemented in a single class which inherits from a GNU basic block.
-It uses several libraries: logging, math, sys, Counter, matplotlib.pyplot, numpy, pywt, gnuradio, and qiskit.
+The encoding was implemented in a single Python class of type GNU \lstinline{basic\_block}.
+It uses several libraries - such as: \lstinline{logging, math, sys, Counter, matplotlib.pyplot, numpy, pywt, gnuradio}, and \lstinline{qiskit} - to achieve the encoding.
 In the initialisation method, it sets up logging, selects the encoding method, and configures various parameters such as the number of qubits and shots.
-The class overrides the general\_work method, which is called by GNU Radio to process input and produce output.
+The class implements the general\_work method, that is called by GNU Radio to process input and produce output.
 The general\_work method retrieves the input buffer, initializes quantum and classical registers, performs the encoding based on the selected method, measures the quantum circuit, runs simulations, and retrieves the measurement results.
 It has three selectable encoding options: 'basis', 'amplitude', and 'angle'.
 
-To save the data, two file sinks were added, which act as the final output of the experimentation system. One sink saves the measured quantum data, while the other captures the raw input data
+According to the research methodology \ref{sec:design} in Table \ref{tab:exp_operation}, the evaluation of each encoding method is through: Measurement, circuit size, expressibility, sampling capacity, bandwidth, and computational efficiency.
+Measurement, circuit size, and sampling capacity can be extracted from within the GNU radio, or the quantum encoding block via Qiskit, while the other criteria are analytically derived.
+The evaluation is fully described in the evaluation \ref{sec:evaluation}.
 
-There is also an auxiliary block that completes final post-processing operations when the simulation is exited.
-Specifically, it loads data from the two saved binary files (quantum.bin and raw.bin) and store them in arrays using numpy.fromfile.
-It then combines them and saves it to a CSV file named data.csv.
-The data are then plotted against the sample index using matplotlib.pyplot.plot, and displayed in a chart.
-
-\textbf{Method}
+\textbf{Methods}
 
 The incident signal prior to sampling is a continuous complex-valued function
 $x : \mathbb{R} \rightarrow \mathbb{C}, t \mapsto x(t)$,
@@ -81,8 +102,7 @@ where $x[n] = x(n T_s)$, the $n^{th}$ sample of the signal, $n$ is an integer re
 
 Let $\mathbf{x}$ be the buffer of samples $x_n=x[n]$.
 
-The goal of encoding is to prepare the sample buffer for quantum processing.
-Basis encoding, amplitude encoding, and angle encoding will be tested.
+The goal of encoding is to prepare the sample buffer for quantum processing
 
 \textbf{Basis encoding}
 
@@ -188,16 +208,15 @@ The state would then be used to initialise a quantum circuit using Qiskit,
 The circuit would be
 \[
 \Qcircuit {
-   & \lstick{\ket{0}} & {/} \qw & \gate{\phi(\textbf{x})} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
-   \gategroup{1}{4}{1}{4}{.7em}{--}
+   \gate{\phi(\textbf{x})} & \qw & \meter & \cw
 }
 \]
-% 
-where $\phi$ is the Qiskit state encoding. The measurement of this example would look like:
-% 
-\begin{equation}
-    \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger = \begin{bmatrix}  \frac{1}{\sqrt{2}} & 0 &  \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
-\end{equation}
+% % 
+% where $\phi$ is the Qiskit state encoding. The measurement of this example would look like:
+% % 
+% \begin{equation}
+%     \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger = \begin{bmatrix}  \frac{1}{\sqrt{2}} & 0 &  \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
+% \end{equation}
 
 \textbf{Amplitude encoding}
 
@@ -228,16 +247,15 @@ The circuit would identical to that of the basis encoding, but with the differen
 
 \[
 \Qcircuit {
-   & \lstick{\ket{0}} & {/} \qw & \gate{\phi(\textbf{x})} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
-   \gategroup{1}{4}{1}{4}{.7em}{--}
+  \gate{\phi(\textbf{x})} & \qw & \meter & \cw \\
 }
 \]
-% 
-The measurement would be:
-% 
-\begin{equation}
-\bra{\textbf{x}} = \ket{\textbf{x}}^\dagger =  \begin{bmatrix} 0.8 \\ 0.707 \\ 0.854 \\ 0.316 \end{bmatrix}
-\end{equation}
+% % 
+% The measurement would be:
+% % 
+% \begin{equation}
+% \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger =  \begin{bmatrix} 0.8 & 0.707 & 0.854 & 0.316 \end{bmatrix}
+% \end{equation}
 
 \textbf{Angle encoding}
 
@@ -273,13 +291,96 @@ The resultant circuit schematic is thus:
 \[
 \Qcircuit {
    & & & \mbox{} & & \\
-   & \lstick{\ket{0}} & {/} \qw & \gate{R(\phi_i,\theta_i)} & \qw & \lstick{\ket{\textbf{x}}} & {/} \qw & \meter & \cw \\
+   & \lstick{\ket{0}} & {/} \qw & \gate{R(\phi_i,\theta_i)} & \qw & \gate{R^{-1}} & {/} \qw & \meter & \cw \\
    & & & \dstick{\psi(\textbf{x})} \cwx[-1] &
    \gategroup{2}{4}{3}{4}{.7em}{--}
 }
 \]
+\textit{Where $R^-1$ is a rotation which decodes tbe $R$ encoding so that the original wavelet coefficients may be extracted}
 
+\textbf{Example Angle encoding}
 
+Again, using the same sample buffer as in eqn. \ref{eqn:example_x_samples}, the encoding of angles proceeds as follows:
+
+Discrete wavelet transform:
+% 
+\begin{equation}
+    \psi(\textbf{x})
+    \mapsto
+    \begin{cases}
+        \textbf{a} =
+            \begin{bmatrix}0.759 & 0.589 \end{bmatrix} \\
+        \textbf{d} =
+            \begin{bmatrix}0.047 & 0.271\end{bmatrix}
+    \end{cases}
+\end{equation}
+% 
+$\textbf{a}$ and $\textbf{d}$ normalised yields:
+\begin{equation}
+    \textbf{a} =
+        \pi\begin{bmatrix}0.790 & 0.613\end{bmatrix}
+\end{equation}
+\begin{equation}
+    \textbf{d} =
+        \pi\begin{bmatrix}0.171 & 0.985\end{bmatrix}
+\end{equation}
+%
+The rotations matrices for $\textbf{a}$ and $\textbf{d}$ respectively are:
+% A
+\begin{equation}
+R_{\textbf{a}}(2.481, 1.926) = 
+\begin{bmatrix}
+\cos(\frac{2.481}{2}) & -e^{i1.926}\sin(\frac{2.481}{2}) \\
+e^{i1.926}\sin(\frac{2.481}{2}) & e^{i1.926}\cos(\frac{2.481}{2})
+\end{bmatrix}
+\end{equation}
+% D
+\begin{equation}
+R_{\textbf{d}}(0.536, 3.10) = 
+\begin{bmatrix}
+\cos(\frac{0.536}{2}) & -e^{i3.10}\sin(\frac{0.536}{2}) \\
+e^{i3.10}\sin(\frac{0.536}{2}) & e^{i3.10}\cos(\frac{0.536}{2})
+\end{bmatrix}
+\end{equation}
+
+Then, taking applying these coefficients as rotations acting on each qubit, the encoding circuit unitary, $\textbf{R}$ is:
+\begin{equation}
+    \begin{bmatrix}
+    -0.202+0.26j &  0.748-0.082j & -0.174-0.149j & 0.032+0.522 \\
+    0.75 +0.058j &  0.21 +0.253j & -0.066+0.519j & -0.183+0.137 \\
+    0.183+0.137j & -0.066-0.519j &  0.21 -0.253j & -0.75 +0.058 \\
+    0.032-0.522j &  0.174-0.149j & -0.748-0.082j & -0.202-0.26 
+    \end{bmatrix}
+\end{equation}
+% 
+The rotation gate then acts on $\ket{0}^{\bigotimes 2}$, producing the encoded state vector:
+\begin{equation}
+    \ket{\textbf{x}}
+    =
+    \textbf{R} \cdot
+    \begin{bmatrix}
+        1 \\ 0 \\ 0 \\ 0
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        -0.202+0.26j \\
+        0.75 +0.058j \\
+        0.183+0.137j \\
+        0.032-0.522j
+    \end{bmatrix}
+\end{equation}
+% % 
+% and measured
+% \begin{equation}
+%     \bra{\textbf{x}} =
+%     \ket{\textbf{x}}^\dagger =
+%     \begin{bmatrix}
+%         XXX &
+%         XXX &
+%         XXX &
+%         XXX
+%     \end{bmatrix}
+% \end{equation}
 
 % --------------
 %%% Qualitative stuff / post hoc evals
@@ -289,10 +390,10 @@ The resultant circuit schematic is thus:
 
 % The method consists of creating a GNU-Radio block that permits the input of complex-valued samples into a buffer. The processing of samples is then done in Python and Qiskit within that block, and finally, outputted to a buffer where it is recorded.
 
+\subsection{Experiments 2 and 3}
 
-\subsection{Experiments 2 & 3}
-
-The stages in the of development the subsequent two artefacts are:
+As per the research plan in \ref{sec:research_plan}, the planned process for continuing this research is to develop and test the artefacts for experiments 2 and 3 in trimester 2 of 2023.
+The tentative approach for the development of these artefacts is as follows, however, the full description and explanation will be left until the next phase of the research project.
 \begin{quote}
     \textit{
         \begin{enumerate}
@@ -302,10 +403,15 @@ The stages in the of development the subsequent two artefacts are:
             \item Amplify the probability of measuring the correct state (i.e., use quantum interference).
             \item Measure one or more qubits.
         \end{enumerate}
-        - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
+        % - Quantum computing for finance: Overview and prospects: Román Orús, Samuel Mugeld, Enrique Lizaso \todo{Add this to citations}
     }
 \end{quote}
 
 Instead of quantising signals into definite \ac{PDW}'s, the Quantum system might be able to generate a superposition of all possibilities of potential signal parameters at once.
 Further processing such as pulse detection and de-interleaving may be able to be conducted at once.
 This approach would investigate whether quantum methods can be used to place observed radar modes into a super-positioned and continuous state.
+
+In this section, the experimental test-bed artefact was presented, describing the constituent parts of the simulation, and the first of the three experiments was described. 
+The experimental methods of basis, amplitude, and angle encoding have been developed for an application to \ac{ESM} signal processing.
+Examples have been shown of each approach, and their subsequent evaluation and validation methods.
+Finally the description of these artefacts demonstrates a major portion of the achievement of objectives 1-3, as well as a schematic plan of 4-7 to be undertaken in trimester 2.
