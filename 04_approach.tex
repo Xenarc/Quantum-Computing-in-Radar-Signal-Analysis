@@ -154,11 +154,11 @@ Given the delta array $\textbf{D}$, is real-valued and the desired transform is 
 % Normalisation
 % 
 $\textbf{x} \mapsto \textbf{b}$, however, $\textbf{b}$ must satisfy the normalisation constraint (eqn. \ref{eqn:normalisation_constraint}).
-This is done by dividing each element by the Euclidean norm, $\left\| \mathbf{b} \right\|$, yielding the normalised state vector $\left|\textbf{x}\right\rangle$.
+This is done by dividing each element by the Euclidean norm, $\left\| \mathbf{b} \right\|$, yielding the normalised state vector $\ket{\psi (\textbf{x})}$.
 % 
 \begin{equation}
 \displaystyle{
-\left|\textbf{x}\right\rangle =
+\ket{\psi (\textbf{x})} =
 \frac{1}{\left\| \mathbf{b} \right\|}
 \begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{2^N-1} \end{bmatrix}
 }
@@ -200,7 +200,7 @@ then, after binary decimation
 then normalising
 % 
 \begin{equation}
-\ket{\mathbf{x}} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 0 & 1 & 0 \end{bmatrix}^T
+\ket{\psi (\textbf{x})} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 0 & 1 & 0 \end{bmatrix}^T
 \end{equation}
 The state would then be used to initialise a quantum circuit using Qiskit, 
 \texttt{circuit.initialize(np.array(list(0.707, 0, 0.707, 0)), 2)}.
@@ -208,14 +208,16 @@ The state would then be used to initialise a quantum circuit using Qiskit,
 The circuit would be
 \[
 \Qcircuit {
-   \gate{\phi(\textbf{x})} & \qw & \meter & \cw
+   \gate{\psi(\textbf{x})} & \qw & \gate{D} & \qw & \meter & \cw
 }
 \]
+Where $D$ is a unitary which decodes the basis states encoded by $R$, for subsequent quantitative evaluation.
+
 % % 
 % where $\phi$ is the Qiskit state encoding. The measurement of this example would look like:
 % % 
 % \begin{equation}
-%     \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger = \begin{bmatrix}  \frac{1}{\sqrt{2}} & 0 &  \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
+%     \bra{\textbf{x}} = \ket{\psi (\textbf{x})}^\dagger = \begin{bmatrix}  \frac{1}{\sqrt{2}} & 0 &  \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
 % \end{equation}
 
 \textbf{Amplitude encoding}
@@ -228,7 +230,7 @@ The encoding is then simply a normalisation of the buffer:
 % 
 \begin{equation}
 \displaystyle{
-\ket{\mathbf{x}} =
+\ket{\psi (\textbf{x})} =
 \frac{1}{\left\| \mathbf{x} \right\|}
 \begin{bmatrix} x_0 \\ x_1 \\ \vdots \\ x_{2^N-1} \end{bmatrix}
 }
@@ -239,22 +241,22 @@ The encoding is then simply a normalisation of the buffer:
 Using the same sample $\textbf{x}$ as in eqn. \ref{eqn:example_x_samples}, the amplitude-encoded state vector would be
 % 
 \begin{equation}
-\mathbf{\ket{\textbf{x}}} = \frac{\textbf{x}}{\lVert \textbf{x} \rVert} =
+\mathbf{\ket{\psi (\textbf{x})}} = \frac{\textbf{x}}{\lVert \textbf{x} \rVert} =
 \begin{bmatrix} 0.570 \\ 0.356 -0.356j \\ 0.570 +0.213j \\ 0.213 -0.071j \end{bmatrix}
 \end{equation}
 %
-The circuit would identical to that of the basis encoding, but with the differently-encoded $\ket{\textbf{x}}$:
+The circuit would identical to that of the basis encoding, but with the differently-encoded $\ket{\psi (\textbf{x})}$:
 
 \[
 \Qcircuit {
-  \gate{\phi(\textbf{x})} & \qw & \meter & \cw \\
+  \gate{\psi(\textbf{x})} & \qw & \meter & \cw \\
 }
 \]
 % % 
 % The measurement would be:
 % % 
 % \begin{equation}
-% \bra{\textbf{x}} = \ket{\textbf{x}}^\dagger =  \begin{bmatrix} 0.8 & 0.707 & 0.854 & 0.316 \end{bmatrix}
+% \bra{\textbf{x}} = \ket{\psi (\textbf{x})}^\dagger =  \begin{bmatrix} 0.8 & 0.707 & 0.854 & 0.316 \end{bmatrix}
 % \end{equation}
 
 \textbf{Angle encoding}
@@ -291,12 +293,12 @@ The resultant circuit schematic is thus:
 \[
 \Qcircuit {
    & & & \mbox{} & & \\
-   & \lstick{\ket{0}} & {/} \qw & \gate{R(\phi_i,\theta_i)} & \qw & \gate{R^{-1}} & {/} \qw & \meter & \cw \\
+   & \lstick{\ket{0}} & {/} \qw & \gate{R(\phi_i,\theta_i)} & \qw & \gate{D} & {/} \qw & \meter & \cw \\
    & & & \dstick{\psi(\textbf{x})} \cwx[-1] &
    \gategroup{2}{4}{3}{4}{.7em}{--}
 }
 \]
-\textit{Where $R^-1$ is a rotation which decodes tbe $R$ encoding so that the original wavelet coefficients may be extracted}
+Where $D$ is a unitary which decodes the $R$ encoding by roation of the signal, for subsequent quantitative evaluation.
 
 \textbf{Example Angle encoding}
 
@@ -355,7 +357,7 @@ Then, taking applying these coefficients as rotations acting on each qubit, the 
 % 
 The rotation gate then acts on $\ket{0}^{\bigotimes 2}$, producing the encoded state vector:
 \begin{equation}
-    \ket{\textbf{x}}
+    \ket{\psi (\textbf{x})}
     =
     \textbf{R} \cdot
     \begin{bmatrix}
@@ -373,7 +375,7 @@ The rotation gate then acts on $\ket{0}^{\bigotimes 2}$, producing the encoded s
 % and measured
 % \begin{equation}
 %     \bra{\textbf{x}} =
-%     \ket{\textbf{x}}^\dagger =
+%     \ket{\psi (\textbf{x})}^\dagger =
 %     \begin{bmatrix}
 %         XXX &
 %         XXX &
